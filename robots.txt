@@ -1,0 +1,15 @@
+# Vladora — https://portfolio-vladora.kesug.com
+# Se il dominio cambia, vanno aggiornati anche sitemap.xml e i tag
+# <link rel="canonical"> nel <head> delle quattro pagine pubbliche.
+
+User-agent: *
+Allow: /
+
+# Documentazione interna: costruita per noi, non per chi cerca su Google.
+Disallow: /Vladora-StyleGuide.dc.html
+
+# File di lavorazione, non fanno parte del sito.
+Disallow: /uploads/
+Disallow: /refs/
+
+Sitemap: https://portfolio-vladora.kesug.com/sitemap.xml

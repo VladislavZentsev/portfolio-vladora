@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://portfolio-vladora.kesug.com/Vladora-Portfolio.dc.html">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vladora — Lavori</title>
+<meta name="description" content="I lavori di Vladora: un progetto dimostrativo per un ristorante di sushi a Savona. La griglia si popola quando arriva il primo cliente." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;family=Outfit:wght@300..600&amp;display=swap" />
+<style>
+:root{
+  --bg:#ffffff; --bg-alt:#f4f4f5; --bg-sunk:#ebebed; --surface:#ffffff;
+  --fg:#0a0a0a; --fg-2:#6b6b70; --fg-3:#74747a; --fg-inv:#fafafa;
+  --line:rgba(10,10,10,.10); --line-strong:rgba(10,10,10,.22);
+  --accent:#0B6B5E; --accent-hover:#08544a; --accent-soft:rgba(11,107,94,.10);
+  --grad-hero:radial-gradient(110% 78% at 50% -12%,var(--accent-soft) 0%,transparent 62%),linear-gradient(180deg,var(--bg) 0%,var(--bg-alt) 52%,var(--bg) 100%);
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
+  --sp-7:48px; --sp-8:64px; --sp-9:96px; --sp-10:128px; --sp-11:192px;
+  --r-1:2px; --r-2:8px; --r-3:14px; --r-4:24px; --r-pill:999px;
+  --sh-1:0 1px 2px rgba(10,10,10,.05);
+  --sh-2:0 2px 10px rgba(10,10,10,.05);
+  --sh-3:0 12px 40px rgba(10,10,10,.08);
+  --dur-1:160ms; --dur-2:320ms; --dur-3:640ms;
+  --ease:cubic-bezier(.22,.61,.36,1); --ease-out:cubic-bezier(.16,1,.3,1);
+  --sans:"Geist","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --display:"Outfit","Geist",sans-serif;
+  --mock:#f4f4f5;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);overflow-x:hidden;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+a:hover{color:var(--accent-hover)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+h1,h2,h3,p,figure,ul,li{margin:0;padding:0}
+li{list-style:none}
+/* reveal: una sola transizione, quattro forme d'entrata. Lo stagger e' un
+   ritardo calcolato dall'indice (--rv-i) dentro un [data-reveal-group]. */
+[data-reveal]{opacity:0;transform:translateY(10px);transition:opacity var(--dur-3) var(--ease-out),transform var(--dur-3) var(--ease-out);transition-delay:calc(var(--rv-i,0) * var(--dur-1) * .45)}
+[data-reveal][data-rv="rise"]{transform:translateY(var(--sp-5))}
+[data-reveal][data-rv="scale"]{transform:scale(.965) translateY(var(--sp-2))}
+[data-reveal][data-rv="left"]{transform:translateX(calc(var(--sp-5) * -1))}
+[data-reveal][data-rv="right"]{transform:translateX(var(--sp-5))}
+[data-reveal="in"],[data-reveal="in"][data-rv]{opacity:1;transform:none}
+/* transizione di pagina: solo opacita', cosi' l'header sticky non si rompe */
+/* niente fill 'both': con 'both' lo stato 0% (opacity:0) resta applicato
+   finche' un frame di animazione non parte, e in ogni contesto che non anima
+   (tab in background, render di stampa, alcune webview) la pagina restava
+   completamente bianca. Senza fill l'opacita' di partenza e' 1. */
+[data-page]{animation:pageIn var(--dur-3) var(--ease-out)}
+[data-page="out"]{animation:none;opacity:0;transition:opacity var(--dur-2) var(--ease)}
+@keyframes pageIn{from{opacity:0}to{opacity:1}}
+/* ============================================================
+   Navigazione: barra, selettore lingua, pannello mobile.
+   Sotto gli 860px i link della barra spariscono e passano nel
+   pannello laterale: prima andavano a capo su una riga propria
+   e la barra diventava alta il doppio.
+   ============================================================ */
+[data-nav-row]{max-width:1240px;margin:0 auto;padding:var(--sp-3) var(--sp-5);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4)}
+.nav-mark{font-family:var(--display);font-weight:500;font-size:21px;letter-spacing:-.03em;color:var(--fg);text-decoration:none;flex:none}
+.nav-desktop{display:flex;align-items:center;gap:var(--sp-5)}
+.nav-desktop a{display:inline-flex;align-items:center;min-height:26px;padding:4px 0;font-size:14.5px;color:var(--fg-2);text-decoration:none;transition:color var(--dur-1) var(--ease)}
+.nav-desktop a:hover{color:var(--fg)}
+.nav-desktop a[aria-current="page"]{color:var(--fg)}
+.nav-tools{display:flex;align-items:center;gap:var(--sp-2);flex:none}
+
+/* --- bandiere: niente emoji, due SVG disegnate a mano.
+   L'angolo arrotondato lo fa il border-radius sull'elemento svg,
+   cosi' non servono clipPath con id duplicati sulla stessa pagina. --- */
+.flag{display:block;width:20px;height:14px;border-radius:3px;overflow:hidden;flex:none;box-shadow:0 0 0 1px rgba(10,10,10,.12) inset}
+
+/* --- selettore lingua --- */
+.lang{position:relative;flex:none}
+.lang-btn{display:flex;align-items:center;gap:var(--sp-2);height:38px;padding:0 11px;background:transparent;border:1px solid var(--line);border-radius:var(--r-pill);color:var(--fg-2);cursor:pointer;transition:border-color var(--dur-1) var(--ease),color var(--dur-1) var(--ease),background var(--dur-1) var(--ease)}
+.lang-btn:hover{border-color:var(--line-strong);color:var(--fg)}
+.lang-btn[aria-expanded="true"]{border-color:var(--line-strong);color:var(--fg);background:var(--bg-alt)}
+.lang-code{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em}
+.lang-caret{transition:transform var(--dur-2) var(--ease-out)}
+.lang-btn[aria-expanded="true"] .lang-caret{transform:rotate(180deg)}
+/* nel bottone si vede solo la bandiera della lingua attiva */
+.lang-btn .flag{display:none}
+html[lang="it"] .lang-btn .flag-it{display:block}
+html[lang="en"] .lang-btn .flag-en{display:block}
+.lang-menu{position:absolute;top:calc(100% + 10px);right:0;min-width:190px;padding:var(--sp-2);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);box-shadow:var(--sh-3);display:flex;flex-direction:column;gap:2px;z-index:2;transform-origin:top right;opacity:0;transform:translateY(-8px) scale(.96);pointer-events:none;visibility:hidden;transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out),visibility 0s linear var(--dur-2)}
+.lang[data-open="true"] .lang-menu{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition-delay:0s}
+.lang-opt{display:flex;align-items:center;gap:var(--sp-3);width:100%;min-height:44px;padding:0 11px;background:transparent;border:none;border-radius:var(--r-2);font-size:15px;color:var(--fg-2);text-align:left;cursor:pointer;transition:background var(--dur-1) var(--ease),color var(--dur-1) var(--ease)}
+.lang-opt:hover{background:var(--bg-alt);color:var(--fg)}
+.lang-opt[aria-checked="true"]{color:var(--fg);font-weight:500}
+.lang-check{margin-left:auto;color:var(--accent);opacity:0;transition:opacity var(--dur-1) var(--ease)}
+.lang-opt[aria-checked="true"] .lang-check{opacity:1}
+
+/* --- bottone del pannello --- */
+.burger{display:none;width:38px;height:38px;place-items:center;background:transparent;border:1px solid var(--line);border-radius:var(--r-pill);color:var(--fg-2);cursor:pointer;transition:border-color var(--dur-1) var(--ease),color var(--dur-1) var(--ease)}
+.burger:hover{border-color:var(--line-strong);color:var(--fg)}
+.burger-bars{position:relative;display:block;width:16px;height:11px}
+.burger-bars i{position:absolute;left:0;right:0;height:1.4px;background:currentColor;border-radius:2px;transition:transform var(--dur-2) var(--ease-out),opacity var(--dur-1) var(--ease)}
+.burger-bars i:nth-child(1){top:0}
+.burger-bars i:nth-child(2){top:4.8px}
+.burger-bars i:nth-child(3){top:9.6px}
+html[data-drawer-open] .burger-bars i:nth-child(1){transform:translateY(4.8px) rotate(45deg)}
+html[data-drawer-open] .burger-bars i:nth-child(2){opacity:0;transform:scaleX(.4)}
+html[data-drawer-open] .burger-bars i:nth-child(3){transform:translateY(-4.8px) rotate(-45deg)}
+
+/* --- pannello laterale --- */
+.scrim{position:fixed;inset:0;z-index:50;background:rgba(10,10,10,.38);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity var(--dur-2) var(--ease)}
+html[data-drawer-open] .scrim-nav{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:51;width:min(340px,86vw);display:flex;flex-direction:column;background:var(--bg);border-left:1px solid var(--line);box-shadow:var(--sh-3);transform:translateX(101%);transition:transform var(--dur-2) var(--ease-out);overscroll-behavior:contain}
+html[data-drawer-open] .drawer{transform:none}
+html[data-drawer-open]{overflow:hidden}
+.drawer-head{flex:none;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);padding:var(--sp-3) var(--sp-5);padding-top:max(var(--sp-3),env(safe-area-inset-top));min-height:62px;border-bottom:1px solid var(--line)}
+.drawer-mark{font-family:var(--display);font-weight:500;font-size:19px;letter-spacing:-.03em;color:var(--fg)}
+.drawer-x{width:38px;height:38px;display:grid;place-items:center;background:transparent;border:1px solid var(--line);border-radius:var(--r-pill);color:var(--fg-2);cursor:pointer;transition:border-color var(--dur-1) var(--ease),color var(--dur-1) var(--ease)}
+.drawer-x:hover{border-color:var(--line-strong);color:var(--fg)}
+.drawer-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:var(--sp-4) var(--sp-4) var(--sp-6);display:flex;flex-direction:column;gap:2px}
+.drawer-eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);padding:var(--sp-4) 11px var(--sp-2)}
+/* entrata scaglionata: il ritardo e' l'indice della voce (--dl-i) */
+.drawer-link{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);min-height:52px;padding:0 11px;border-radius:var(--r-2);font-size:19px;letter-spacing:-.015em;color:var(--fg);text-decoration:none;opacity:0;transform:translateX(14px);transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out),background var(--dur-1) var(--ease),color var(--dur-1) var(--ease);transition-delay:calc(60ms + var(--dl-i,0) * 45ms)}
+html[data-drawer-open] .drawer-link{opacity:1;transform:none}
+.drawer-link:hover{background:var(--bg-alt);color:var(--fg)}
+.drawer-link[aria-current="page"]{color:var(--accent)}
+.drawer-link svg{opacity:.3;transition:opacity var(--dur-1) var(--ease),transform var(--dur-2) var(--ease-out)}
+.drawer-link:hover svg{opacity:.75;transform:translateX(3px)}
+.drawer-foot{flex:none;padding:var(--sp-5) var(--sp-5) max(var(--sp-5),env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;flex-direction:column;gap:var(--sp-3)}
+.drawer-cta{display:flex;align-items:center;justify-content:center;gap:var(--sp-2);min-height:48px;padding:0 var(--sp-5);background:var(--fg);color:var(--fg-inv);border:1px solid var(--fg);border-radius:var(--r-pill);font-size:15.5px;font-weight:450;text-decoration:none;transition:opacity var(--dur-1) var(--ease)}
+.drawer-cta:hover{opacity:.88;color:var(--fg-inv)}
+.drawer-meta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--fg-3);text-align:center}
+
+@media (max-width:860px){
+  .nav-desktop{display:none}
+  .burger{display:grid}
+}
+@media (min-width:861px){
+  .scrim-nav,.drawer{display:none}
+}
+/* ============================================================
+   Modale: un solo guscio, tre usi (anteprima progetto, richiesta
+   di preventivo, dettaglio tariffa). Scrim + pannello, niente
+   libreria: apertura in opacita' e scala, chiusura piu' rapida.
+   ============================================================ */
+.mdl{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:var(--sp-5);pointer-events:none}
+.mdl-scrim{position:absolute;inset:0;background:rgba(10,10,10,.46);backdrop-filter:blur(3px);opacity:0;transition:opacity var(--dur-2) var(--ease)}
+.mdl-panel{position:relative;width:100%;max-height:calc(100dvh - var(--sp-7));display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-4);box-shadow:var(--sh-3);overflow:hidden;opacity:0;transform:translateY(14px) scale(.985);transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out)}
+.mdl[data-open="true"]{pointer-events:auto}
+.mdl[data-open="true"] .mdl-scrim{opacity:1}
+.mdl[data-open="true"] .mdl-panel{opacity:1;transform:none}
+/* uscita piu' corta dell'entrata: la chiusura deve sembrare immediata */
+.mdl:not([data-open="true"]) .mdl-panel{transition-duration:var(--dur-1)}
+.mdl-x{position:absolute;top:var(--sp-4);right:var(--sp-4);z-index:3;width:38px;height:38px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);color:var(--fg-2);cursor:pointer;transition:border-color var(--dur-1) var(--ease),color var(--dur-1) var(--ease)}
+.mdl-x:hover{border-color:var(--line-strong);color:var(--fg)}
+.mdl-body{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+html[data-modal-open]{overflow:hidden}
+@media (max-width:600px){
+  .mdl{padding:0;align-items:flex-end}
+  .mdl-panel{max-height:94dvh;border-radius:var(--r-4) var(--r-4) 0 0;border-bottom:none;transform:translateY(22px)}
+}
+
+/* ============================================================
+   Mockup disegnato: cornice browser in HTML, nessuna finta foto
+   stock. Lo stesso componente serve la vetrina, la griglia lavori
+   e l'anteprima in modale, a tre misure.
+   ============================================================ */
+.mock{display:flex;flex-direction:column;height:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-2);overflow:hidden}
+.mock-bar{flex:none;display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--bg-alt);border-bottom:1px solid var(--line)}
+.mock-dot{width:6px;height:6px;border-radius:var(--r-pill);background:var(--line-strong);flex:none}
+.mock-url{margin-left:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:.02em;color:var(--fg-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mock-page{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:clamp(12px,4%,22px)}
+.mock-kick{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.mock-title{font-family:var(--display);font-weight:400;font-size:clamp(15px,1.7vw,22px);line-height:1.04;letter-spacing:-.025em;color:var(--fg)}
+.mock-line{height:5px;border-radius:var(--r-pill);background:var(--bg-sunk)}
+.mock-cta{align-self:flex-start;margin-top:2px;padding:5px 11px;border-radius:var(--r-pill);background:var(--fg);color:var(--fg-inv);font-size:9.5px;letter-spacing:.02em}
+.mock-strip{display:flex;gap:6px;margin-top:2px}
+.mock-tile{flex:1;height:22px;border-radius:4px;background:repeating-linear-gradient(135deg,var(--bg-sunk) 0 7px,var(--bg-alt) 7px 14px)}
+
+/* ============================================================
+   Vetrina: le anteprime galleggiano. Tre misure, righe sfalsate,
+   ogni scheda con ampiezza, durata e ritardo propri, cosi' non
+   salgono e scendono all'unisono.
+   ============================================================ */
+@keyframes galleggia{
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(0,calc(var(--amp,9px) * -1),0)}
+}
+.vetrina{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-5)}
+.vetrina-slot{display:flex;min-width:0}
+/* il galleggio sta su un involucro: cosi' non litiga con il transform
+   dell'hover sulla scheda, che vive un livello piu' sotto */
+.vetrina-float{flex:1;min-width:0;animation:galleggia var(--vd,7s) ease-in-out infinite;animation-delay:var(--vdel,0s);will-change:transform}
+.vc{display:flex;flex-direction:column;gap:var(--sp-3);width:100%;padding:var(--sp-4);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);box-shadow:var(--sh-2);text-align:left;cursor:pointer;color:var(--fg);transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2) var(--ease-out),border-color var(--dur-1) var(--ease)}
+.vc:hover{transform:translateY(-5px);box-shadow:var(--sh-3);border-color:var(--line-strong)}
+.vc:active{transform:translateY(-2px)}
+.vc-shot{height:var(--vh,190px);min-height:0}
+.vc-foot{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3)}
+.vc-name{font-size:15.5px;font-weight:500;letter-spacing:-.015em;overflow-wrap:anywhere}
+.vc-kind{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);white-space:nowrap}
+.vc-badge{align-self:flex-start;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:var(--r-pill);border:1px solid currentColor}
+.vc-badge-live{color:var(--accent)}
+.vc-badge-concept{color:var(--fg-3)}
+@media (min-width:900px){
+  .vetrina{grid-template-columns:repeat(12,1fr);align-items:start}
+  /* posizioni scelte a mano: niente griglia 1-a-1, le schede si
+     incastrano come su un tavolo, non come in una tabella */
+  .vetrina-slot:nth-child(1){grid-column:1 / span 5;margin-top:var(--sp-6)}
+  .vetrina-slot:nth-child(2){grid-column:6 / span 4}
+  .vetrina-slot:nth-child(3){grid-column:10 / span 3;margin-top:var(--sp-8)}
+  .vetrina-slot:nth-child(4){grid-column:2 / span 4;margin-top:var(--sp-5)}
+  .vetrina-slot:nth-child(5){grid-column:6 / span 5;margin-top:calc(var(--sp-6) * -1)}
+}
+@media (max-width:620px){
+  .vetrina{grid-template-columns:1fr;gap:var(--sp-4)}
+  .vetrina-slot{margin-top:0!important}
+}
+@media (prefers-reduced-motion:reduce){
+  .vetrina-float{animation:none!important}
+}
+
+/* --- anteprima progetto in modale --- */
+.pv{display:flex;flex-direction:column;gap:var(--sp-5);padding:var(--sp-6)}
+.pv-shot{height:min(46vh,320px)}
+.pv-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--sp-3) var(--sp-4)}
+.pv-name{font-family:var(--display);font-size:clamp(24px,3.4vw,34px);font-weight:400;letter-spacing:-.03em;line-height:1.02}
+.pv-kind{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--fg-3)}
+.pv-text{font-size:16.5px;line-height:1.6;color:var(--fg-2);max-width:52ch;text-wrap:pretty}
+.pv-tags{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.pv-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--fg-3);border:1px solid var(--line);border-radius:var(--r-pill);padding:5px 10px}
+.pv-actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);padding-top:var(--sp-2)}
+@media (max-width:600px){.pv{padding:var(--sp-5)}.pv-shot{height:200px}}
+
+/* ============================================================
+   Bottoni condivisi: pieno e contorno. Stessa pillola del resto
+   del sito, ma qui servono anche dentro modali e schede prezzo.
+   ============================================================ */
+.btn-solid,.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:var(--sp-2);min-height:48px;padding:0 var(--sp-5);border-radius:var(--r-pill);font-size:15.5px;font-weight:450;letter-spacing:-.005em;text-decoration:none;cursor:pointer;transition:opacity var(--dur-1) var(--ease),background var(--dur-1) var(--ease),border-color var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)}
+.btn-solid{background:var(--fg);color:var(--fg-inv);border:1px solid var(--fg)}
+.btn-solid:hover{opacity:.88;color:var(--fg-inv)}
+.btn-solid:active{transform:scale(.985)}
+.btn-ghost{background:transparent;color:var(--fg);border:1px solid var(--line-strong)}
+.btn-ghost:hover{background:var(--bg-alt);color:var(--fg);border-color:var(--line-strong)}
+.btn-ghost:active{transform:scale(.985)}
+.btn-accent{background:var(--accent);color:#ffffff;border:1px solid var(--accent)}
+.btn-accent:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:#ffffff;opacity:1}
+.btn-wide{width:100%}
+
+/* ============================================================
+   Prezzi: tre fasce affiancate. La corsia centrale e' quella che
+   vendiamo davvero, quindi e' l'unica con il bordo pieno e il
+   bottone in accento; le altre due restano a contorno.
+   ============================================================ */
+.tariffe{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:var(--sp-5);align-items:stretch}
+.tar{position:relative;display:flex;flex-direction:column;gap:var(--sp-4);padding:var(--sp-6) var(--sp-5) var(--sp-5);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);box-shadow:var(--sh-1);transition:box-shadow var(--dur-2) var(--ease),transform var(--dur-2) var(--ease-out)}
+.tar:hover{box-shadow:var(--sh-2);transform:translateY(-2px)}
+.tar-top{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--sh-2)}
+.tar-top:hover{box-shadow:0 0 0 1px var(--accent),var(--sh-3)}
+.tar-flag{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);white-space:nowrap;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#ffffff;background:var(--accent);border-radius:var(--r-pill);padding:5px 12px}
+.tar-nome{font-size:20px;font-weight:500;letter-spacing:-.02em;text-align:center}
+.tar-sotto{font-size:14.5px;line-height:1.5;color:var(--fg-2);text-align:center;text-wrap:pretty;max-width:30ch;margin:0 auto}
+.tar-cifra{display:flex;align-items:baseline;justify-content:center;gap:var(--sp-2);padding-top:var(--sp-2)}
+.tar-da{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg-3)}
+/* cifre tabulari: 200 e 1500 restano incolonnate sulla stessa base */
+.tar-num{font-family:var(--display);font-size:clamp(42px,6vw,56px);font-weight:400;line-height:.94;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.tar-nota{font-size:13.5px;line-height:1.55;color:var(--fg-3);text-align:center;text-wrap:pretty;padding-bottom:var(--sp-2);border-bottom:1px solid var(--line)}
+.tar-lista{display:flex;flex-direction:column;gap:var(--sp-3)}
+.tar-voce{display:flex;gap:var(--sp-3);align-items:flex-start;font-size:14.5px;line-height:1.45;color:var(--fg)}
+.tar-tick{flex:none;margin-top:1px;color:var(--accent)}
+.tar-tempi{margin-top:auto;padding-top:var(--sp-4);display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3);border-top:1px solid var(--line)}
+.tar-tempi-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+.tar-tempi-v{font-size:14.5px;font-weight:500}
+.tar .btn-solid,.tar .btn-ghost{width:100%;margin-top:var(--sp-3)}
+@media (min-width:900px){
+  /* la corsia consigliata sporge di poco: si legge prima, senza
+     spezzare l'allineamento delle altre due */
+  .tar-top{margin-top:calc(var(--sp-4) * -1);margin-bottom:calc(var(--sp-4) * -1);padding-top:var(--sp-7);padding-bottom:var(--sp-6)}
+}
+
+/* ============================================================
+   Modale "Parliamone": a sinistra cosa succede dopo, a destra il
+   modulo. Su telefono diventa una colonna sola, il modulo sotto.
+   ============================================================ */
+.rq{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.rq-sx{padding:var(--sp-7) var(--sp-6);background:var(--bg-alt);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:var(--sp-5)}
+.rq-titolo{font-size:clamp(24px,2.9vw,32px);font-weight:500;letter-spacing:-.025em;line-height:1.1;text-wrap:balance}
+.rq-testo{font-size:15.5px;line-height:1.6;color:var(--fg-2);text-wrap:pretty}
+.rq-passi{display:flex;flex-direction:column;gap:var(--sp-4)}
+.rq-passo{display:flex;gap:var(--sp-3);align-items:flex-start;font-size:15px;line-height:1.5;color:var(--fg)}
+.rq-tick{flex:none;margin-top:2px;color:var(--accent)}
+.rq-coda{font-size:14px;line-height:1.55;color:var(--fg-3);margin-top:auto}
+.rq-dx{padding:var(--sp-7) var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-5)}
+.campo{display:flex;flex-direction:column;gap:var(--sp-2)}
+.campo-et{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)}
+.campo-aiuto{font-size:12.5px;line-height:1.5;color:var(--fg-3)}
+.campo input,.campo textarea{width:100%;min-height:48px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-2);font-size:16px;color:var(--fg);transition:border-color var(--dur-1) var(--ease),box-shadow var(--dur-1) var(--ease)}
+.campo textarea{resize:vertical;line-height:1.5;min-height:104px}
+.campo input:hover,.campo textarea:hover{border-color:var(--line-strong)}
+.campo input:focus,.campo textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.campo-err input,.campo-err textarea{border-color:#B4231C}
+.campo-msg{font-size:12.5px;line-height:1.45;color:#B4231C;display:none}
+.campo-err .campo-msg{display:block}
+.consenso{display:flex;gap:var(--sp-3);align-items:flex-start;font-size:14px;line-height:1.5;color:var(--fg-2);cursor:pointer}
+.consenso input{flex:none;width:18px;height:18px;min-height:0;margin-top:1px;accent-color:var(--accent);cursor:pointer}
+.rq-esito{font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--fg-3)}
+@media (max-width:760px){
+  .rq{grid-template-columns:1fr}
+  .rq-sx{border-right:none;border-bottom:1px solid var(--line);padding:var(--sp-6) var(--sp-5) var(--sp-5)}
+  .rq-dx{padding:var(--sp-5)}
+  .rq-coda{margin-top:0}
+}
+
+/* ============================================================
+   Griglia lavori: stesse schede della vetrina, qui in fila e
+   senza galleggio. Sotto i 620px va a colonna singola.
+   ============================================================ */
+.griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:var(--sp-5);align-items:stretch}
+.griglia > li{display:flex;min-width:0}
+.griglia .vc{height:100%}
+.griglia-nota{font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--fg-3);max-width:70ch}
+@media (max-width:620px){.griglia{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){
+  .drawer-link{opacity:1!important;transform:none!important;transition-delay:0ms!important}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  [data-reveal]{opacity:1!important;transform:none!important;transition:none!important;transition-delay:0ms!important}
+  [data-page],[data-page="out"]{animation:none!important;opacity:1!important;transition:none!important}
+  *{transition-duration:.001ms!important}
+}
+</style>
+</helmet>
+
+<div data-page="">
+  <header style="position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)">
+    <div data-nav-row="">
+      <a href="index.html" class="nav-mark">Vladora</a>
+      <nav class="nav-desktop" aria-label="Principale">
+        <a href="Vladora-Portfolio.dc.html" data-en="Work" aria-current="page">Lavori</a>
+        <a href="index.html#servizi" data-en="Services">Servizi</a>
+        <a href="index.html#prezzi" data-en="Pricing">Prezzi</a>
+        <a href="Vladora-Contatti.dc.html" data-en="Contact">Contatti</a>
+      </nav>
+      <div class="nav-tools">
+        <div class="lang" data-lang="" data-open="false">
+          <button type="button" class="lang-btn" data-lang-btn="" aria-haspopup="true" aria-expanded="false" aria-label="Lingua: italiano. Cambia lingua">
+            <svg class="flag flag-it" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="6.67" height="14" fill="#008C45"></rect><rect x="6.67" width="6.66" height="14" fill="#F4F5F0"></rect><rect x="13.33" width="6.67" height="14" fill="#CD212A"></rect></svg>
+            <svg class="flag flag-en" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="20" height="14" fill="#012169"></rect><path d="M0 0 20 14M20 0 0 14" stroke="#FFFFFF" stroke-width="2.9"></path><path d="M0 0 20 14M20 0 0 14" stroke="#C8102E" stroke-width="1.4"></path><path d="M10 0V14M0 7H20" stroke="#FFFFFF" stroke-width="4.6"></path><path d="M10 0V14M0 7H20" stroke="#C8102E" stroke-width="2.6"></path></svg>
+            <span class="lang-code" data-en="EN">IT</span>
+            <svg class="lang-caret" width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </button>
+          <div class="lang-menu" data-lang-menu="" role="menu" aria-label="Lingua">
+            <button type="button" class="lang-opt" role="menuitemradio" aria-checked="true" data-lang-opt="it" tabindex="-1">
+              <svg class="flag" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="6.67" height="14" fill="#008C45"></rect><rect x="6.67" width="6.66" height="14" fill="#F4F5F0"></rect><rect x="13.33" width="6.67" height="14" fill="#CD212A"></rect></svg>
+              <span>Italiano</span>
+              <svg class="lang-check" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.4l3 3 6-6.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+            <button type="button" class="lang-opt" role="menuitemradio" aria-checked="false" data-lang-opt="en" tabindex="-1">
+              <svg class="flag" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="20" height="14" fill="#012169"></rect><path d="M0 0 20 14M20 0 0 14" stroke="#FFFFFF" stroke-width="2.9"></path><path d="M0 0 20 14M20 0 0 14" stroke="#C8102E" stroke-width="1.4"></path><path d="M10 0V14M0 7H20" stroke="#FFFFFF" stroke-width="4.6"></path><path d="M10 0V14M0 7H20" stroke="#C8102E" stroke-width="2.6"></path></svg>
+              <span>English</span>
+              <svg class="lang-check" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.4l3 3 6-6.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+          </div>
+        </div>
+        <button type="button" class="burger" data-drawer-btn="" aria-expanded="false" aria-controls="menu-laterale" aria-label="Apri il menu">
+          <span class="burger-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="scrim scrim-nav" data-drawer-scrim="" aria-hidden="true"></div>
+  <aside class="drawer" id="menu-laterale" data-drawer="" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="drawer-mark">Vladora</span>
+      <button type="button" class="drawer-x" data-drawer-close="" aria-label="Chiudi il menu" tabindex="-1">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+      </button>
+    </div>
+    <nav class="drawer-body" aria-label="Menu">
+      <p class="drawer-eyebrow" data-en="Pages">Pagine</p>
+      <a class="drawer-link" href="index.html" tabindex="-1"><span data-en="Home">Home</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="drawer-link" href="Vladora-Portfolio.dc.html" aria-current="page" tabindex="-1"><span data-en="Work">Lavori</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="drawer-link" href="index.html#servizi" tabindex="-1"><span data-en="Services">Servizi</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="drawer-link" href="index.html#prezzi" tabindex="-1"><span data-en="Pricing">Prezzi</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="drawer-link" href="Vladora-Contatti.dc.html" tabindex="-1"><span data-en="Contact">Contatti</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+    </nav>
+    <div class="drawer-foot">
+      <a class="drawer-cta" href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Write to us on WhatsApp" tabindex="-1">Scrivici su WhatsApp</a>
+      <p class="drawer-meta">SAVONA · VADO LIGURE</p>
+    </div>
+  </aside>
+
+  <main>
+    <section style="padding:var(--sp-9) var(--sp-5) var(--sp-7);background:var(--grad-hero)">
+      <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-7);align-items:end">
+        <div>
+          <p data-en="Work" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-5)">Lavori</p>
+          <h1 data-en="One site online. Six studies. No empty boxes." style="font-family:var(--display);font-size:clamp(34px,5.6vw,68px);font-weight:500;letter-spacing:-.035em;line-height:1.02;max-width:16ch;text-wrap:balance">Un sito online. Sei studi. Nessuna casella vuota.</h1>
+        </div>
+        <p data-en="We started in 2026. One of these sites is live for a paying customer. The others are studies we designed for the trades we work with, and every card says which is which." style="font-size:17.5px;line-height:1.6;color:var(--fg-2);max-width:42ch;justify-self:end;text-wrap:pretty">Abbiamo iniziato nel 2026. Uno di questi siti è online per un cliente che paga. Gli altri sono studi disegnati per i mestieri con cui lavoriamo, e ogni scheda dice qual è quale.</p>
+      </div>
+    </section>
+
+    <section style="padding:0 var(--sp-5) var(--sp-9)">
+      <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--sp-6)">
+
+        <a href="Vladora-CaseStudy.dc.html" data-reveal="" data-rv="scale" style="grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-6);text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:var(--r-3);background:var(--surface);padding:var(--sp-6);transition:box-shadow var(--dur-2) var(--ease),transform var(--dur-2) var(--ease)" style-hover="box-shadow:var(--sh-3);transform:translateY(-3px);color:var(--fg)">
+          <div style="border-radius:var(--r-2);border:1px solid var(--line);background:var(--bg);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4);justify-content:center;min-height:210px">
+            <span style="font-family:var(--display);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2)">chinese-restaurant</span>
+            <p style="font-family:var(--display);font-size:clamp(20px,2.6vw,30px);font-weight:400;letter-spacing:-.025em;line-height:1.04">Sushi, tavolo<br />e menu. Basta.</p>
+            <span style="font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--fg-3)">chinese-restaurant.kesug.com</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--sp-4);justify-content:center">
+            <p data-en="Demonstration project" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:var(--r-pill);padding:5px 11px;align-self:start">Progetto dimostrativo</p>
+            <h2 style="font-size:clamp(24px,3vw,32px);font-weight:500;letter-spacing:-.025em">chinese-restaurant</h2>
+            <p data-en="Sushi restaurant · Savona" style="font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--fg-3)">Ristorante di sushi · Savona</p>
+            <p data-en="From the Google listing to a confirmed table in three taps: menu, booking and directions on a single page." style="font-size:17px;line-height:1.6;color:var(--fg-2);max-width:38ch;text-wrap:pretty">Dalla scheda Google al tavolo confermato in tre tap: menu, prenotazione e indicazioni in una pagina sola.</p>
+            <p data-en="Read the case study →" style="font-size:15px;color:var(--accent)">Leggi il case study →</p>
+          </div>
+        </a>
+
+        <div data-reveal="" data-rv="rise" style="grid-column:1/-1;display:flex;flex-direction:column;gap:var(--sp-5);border-top:1px solid var(--line);padding-top:var(--sp-7)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-5);flex-wrap:wrap">
+            <h2 data-en="Everything we have built, including the studies" style="font-size:clamp(22px,2.6vw,28px);font-weight:500;letter-spacing:-.02em;max-width:22ch;line-height:1.15">Tutto quello che abbiamo costruito, studi compresi</h2>
+            <p data-en="Tap a card to open it." style="font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--fg-3)">Tocca una scheda per aprirla.</p>
+          </div>
+          <ul class="griglia" data-griglia="" data-reveal-group=""></ul>
+          <p class="griglia-nota" data-en="One of these is online for a paying customer and is marked so. The others are studies we designed for the trades we work with: same care, same build, no client behind them yet. When a real one arrives it takes a study&#8217;s place, and the study goes." style="margin-top:var(--sp-2)">Uno di questi è online per un cliente che paga, e lo dice. Gli altri sono studi che abbiamo disegnato per i mestieri con cui lavoriamo: stessa cura, stessa costruzione, ma dietro non c&#8217;è ancora nessuno. Quando ne arriva uno vero prende il posto di uno studio, e lo studio sparisce.</p>
+        </div>
+
+        <div data-reveal="" data-rv="rise" style="grid-column:1/-1;display:flex;flex-direction:column;gap:var(--sp-4)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-4);flex-wrap:wrap">
+            <h2 data-en="Live preview" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);font-weight:400">Anteprima live</h2>
+            <a href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px" style-hover="color:var(--accent-hover);border-color:var(--accent-hover)">chinese-restaurant.kesug.com &#8599;</a>
+          </div>
+          <div style="border:1px solid var(--line);border-radius:var(--r-2);overflow:hidden;background:var(--surface)">
+            <div data-embed="" style="position:relative;height:clamp(320px,60vh,560px)">
+              <iframe data-embed-frame="" data-src="https://chinese-restaurant.kesug.com/" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Anteprima live del sito chinese-restaurant" style="display:block;width:100%;height:100%;border:0;background:var(--bg-alt)"></iframe>
+              <div data-embed-cover="" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:var(--sp-4);align-items:center;justify-content:center;text-align:center;padding:var(--sp-6);background:var(--bg-alt);color:var(--fg-2)">
+                <p data-embed-msg="" data-en="Live preview of the real site." style="font-size:15px;line-height:1.6;max-width:40ch;text-wrap:pretty">Anteprima live del sito vero.</p>
+                <button type="button" data-embed-load="" data-en="Load the preview" style="font-size:14.5px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;transition:opacity var(--dur-1) var(--ease)" style-hover="opacity:.88">Carica l'anteprima</button>
+                <a data-embed-open="" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open in a new tab &#8599;" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:2px" style-hover="color:var(--fg)">Apri in una scheda nuova &#8599;</a>
+              </div>
+              <div data-embed-bar="" style="position:absolute;left:0;right:0;bottom:0;opacity:0;transition:opacity var(--dur-2) var(--ease);display:flex;gap:var(--sp-3);align-items:center;justify-content:space-between;flex-wrap:wrap;padding:var(--sp-3) var(--sp-4);background:var(--surface);border-top:1px solid var(--line)">
+                <span data-en="Frame still blank? The host is blocking the preview." style="font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--fg-3)">Riquadro ancora bianco? L'hosting sta bloccando l'anteprima.</span>
+                <a href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open the site &#8599;" style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px" style-hover="color:var(--accent-hover);border-color:var(--accent-hover)">Apri il sito &#8599;</a>
+              </div>
+            </div>
+          </div>
+          <p data-en="The real site, loaded live. If the browser blocks the frame, open it in a new tab." style="font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--fg-3)">Il sito vero, caricato dal vivo. Se il browser blocca il riquadro, aprilo in una scheda nuova.</p>
+        </div>
+
+        <div data-reveal="" data-rv="left" style="grid-column:1/-1;border-top:1px solid var(--line);padding-top:var(--sp-7);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--sp-6);align-items:start">
+          <div>
+            <h2 data-en="The next card carries your name" style="font-size:clamp(22px,2.6vw,28px);font-weight:500;letter-spacing:-.02em;max-width:20ch;line-height:1.15">La prossima scheda porta il tuo nome</h2>
+          </div>
+          <p data-en="Every study up there is a site we would ship tomorrow: it is missing a name, an address and your photos. The first three real sites cost less, and the price stays low for them." style="font-size:16.5px;line-height:1.6;color:var(--fg-2);max-width:44ch;text-wrap:pretty">Ogni studio qui sopra è un sito che consegneremmo domani: gli mancano un nome, un indirizzo e le tue foto. I primi tre siti veri costano meno, e per loro il prezzo resta basso.</p>
+          <a href="Vladora-Contatti.dc.html" data-en="Be the first" style="font-size:15px;font-weight:450;color:var(--fg-inv);background:var(--fg);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;justify-self:start;transition:opacity var(--dur-1) var(--ease)" style-hover="opacity:.88;color:var(--fg-inv)">Essere il primo</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="mdl" data-modal="anteprima" data-open="false" role="dialog" aria-modal="true" aria-label="Anteprima del progetto" aria-hidden="true">
+    <div class="mdl-scrim" data-modal-close=""></div>
+    <div class="mdl-panel" style="max-width:720px">
+      <button type="button" class="mdl-x" data-modal-close="" aria-label="Chiudi l&#8217;anteprima">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+      </button>
+      <div class="mdl-body"><div class="pv" data-pv=""></div></div>
+    </div>
+  </div>
+
+  <footer style="background:var(--bg-alt);padding:var(--sp-8) var(--sp-5) var(--sp-6);border-top:1px solid var(--line)">
+    <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:var(--sp-6)">
+      <div style="display:flex;flex-wrap:wrap;gap:var(--sp-6);justify-content:space-between;align-items:flex-end">
+        <p style="font-family:var(--display);font-size:clamp(44px,10vw,120px);font-weight:500;letter-spacing:-.045em;line-height:.8">Vladora</p>
+        <nav aria-label="Pagine" style="display:flex;flex-direction:column;gap:var(--sp-2);text-align:right">
+          <a href="index.html" data-en="Home" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Home</a>
+          <a href="Vladora-CaseStudy.dc.html" data-en="Case study" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Case study</a>
+          <a href="Vladora-Contatti.dc.html" data-en="Contact" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Contatti</a>
+        </nav>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);justify-content:space-between;padding-top:var(--sp-5);border-top:1px solid var(--line)">
+        <p style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--fg-3)">SAVONA · VADO LIGURE · 2026</p>
+        <a href="https://wa.me/393270029126" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-decoration:none">+39 327 002 9126</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    // Il runtime puo' rimontare la logica (streaming, hot reload): senza
+    // rimozione i listener si accumulano e piu' handler competono sullo
+    // stesso click. Ogni addEventListener globale registra qui il suo undo.
+    this._cleanup = [];
+    const root = document.documentElement;
+    root.lang = 'it';
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets = document.querySelectorAll('[data-reveal]');
+    // stagger: l'indice dentro un gruppo diventa il ritardo, calcolato in CSS
+    document.querySelectorAll('[data-reveal-group]').forEach(group => {
+      group.querySelectorAll('[data-reveal]').forEach((el, i) => el.style.setProperty('--rv-i', String(i)));
+    });
+    if (reduce || !('IntersectionObserver' in window)) {
+      targets.forEach(el => el.setAttribute('data-reveal', 'in'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.setAttribute('data-reveal', 'in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+      targets.forEach(el => io.observe(el));
+    }
+
+    const geoReveal = () => {
+      targets.forEach(el => {
+        if (el.getAttribute('data-reveal') === 'in') return;
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.94) el.setAttribute('data-reveal', 'in');
+      });
+    };
+    let geoRaf = null;
+    const onGeoScroll = () => { if (geoRaf) return; geoRaf = requestAnimationFrame(() => { geoRaf = null; geoReveal(); }); };
+    window.addEventListener('scroll', onGeoScroll, { passive: true });
+    window.addEventListener('resize', onGeoScroll);
+    this._cleanup.push(() => {
+      window.removeEventListener('scroll', onGeoScroll);
+      window.removeEventListener('resize', onGeoScroll);
+    });
+    window.addEventListener('load', () => setTimeout(geoReveal, 200), { once: true });
+    setTimeout(geoReveal, 600);
+    setTimeout(() => targets.forEach(el => el.setAttribute('data-reveal', 'in')), 4000);
+
+    // Guardia sull'animazione d'ingresso. Il fotogramma 0% di pageIn e'
+    // opacity:0: finche' l'animazione e' in fase attiva quel valore vale, e se
+    // non avanza mai (tab in background al primo paint, anteprima non
+    // compositata, motore di rendering che non anima) la pagina resta bianca.
+    // Se dopo 1,5s l'animazione non e' partita, la si annulla: l'opacita'
+    // torna a 1 e il contenuto si vede comunque.
+    const pageEl = document.querySelector('[data-page]');
+    if (pageEl && pageEl.getAnimations) {
+      const tGuard = setTimeout(() => {
+        pageEl.getAnimations().forEach(anim => {
+          if (anim.animationName === 'pageIn' && !anim.currentTime) anim.cancel();
+        });
+      }, 1500);
+      this._cleanup.push(() => clearTimeout(tGuard));
+    }
+
+    // ---- arrivo su un'ancora da un'altra pagina (es. index.html#servizi).
+    // Il browser prova a saltare alla sezione mentre il documento e' ancora in
+    // costruzione: il target non e' al suo posto definitivo e lo scroll finisce
+    // a zero, cioe' il link sembra non aver fatto niente. Qui si ripete il
+    // salto quando il layout si e' fermato. scroll-behavior torna 'auto' per il
+    // tempo del salto, altrimenti lo smooth parte da molto lontano.
+    const jumpToHash = () => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      target.scrollIntoView({ block: 'start' });
+      root.style.scrollBehavior = prev;
+    };
+    if (location.hash) {
+      requestAnimationFrame(() => requestAnimationFrame(jumpToHash));
+      const t1 = setTimeout(jumpToHash, 250);
+      const t2 = setTimeout(jumpToHash, 800);
+      this._cleanup.push(() => { clearTimeout(t1); clearTimeout(t2); });
+    }
+
+    // ---- transizione di pagina: fade-out prima di una navigazione interna
+    // Il fade parte solo per un link a un ALTRO documento senza frammento.
+    // Un href che contiene '#' (anche cross-page, es. index.html#servizi) passa
+    // nativo: lo scroll all'ancora resta al browser e il link funziona anche
+    // dove window.location e' bloccato (anteprima in iframe / sandbox), dove
+    // prima il preventDefault mangiava il click e non succedeva nulla.
+    // Il listener sta sul root del componente, non su document, cosi' due
+    // artboard montate insieme non si intercettano i click a vicenda.
+    const page = document.querySelector('[data-page]');
+    if (page && !reduce) {
+      const outMs = parseFloat(getComputedStyle(root).getPropertyValue('--dur-2')) || 320;
+      const onNavClick = (e) => {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const a = e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+        const href = a.getAttribute('href');
+        if (!href || href.charAt(0) === '#' || /^[a-z]+:/i.test(href)) return;
+        if (href.indexOf('#') !== -1) return;
+        e.preventDefault();
+        page.setAttribute('data-page', 'out');
+        setTimeout(() => { window.location.assign(href); }, outMs);
+        // rete di sicurezza: se la navigazione non parte, la pagina riappare
+        // invece di restare a opacita' zero (sembrava una pagina rotta).
+        setTimeout(() => { page.setAttribute('data-page', ''); }, outMs + 1400);
+      };
+      page.addEventListener('click', onNavClick);
+      this._cleanup.push(() => page.removeEventListener('click', onNavClick));
+    }
+
+
+    // ---- anteprima live: caricamento su richiesta + uscita di sicurezza.
+    // chinese-restaurant sta su InfinityFree, che risponde a ogni prima richiesta con una
+    // sfida JS: scrive un cookie e ricarica. Dentro un iframe cross-origin quel
+    // cookie e' di terza parte e i browser lo bloccano di default, quindi la
+    // sfida non si chiude mai e il riquadro resta bianco. Da fuori non c'e'
+    // nessun segnale: la pagina della sfida emette un 'load' regolare e non
+    // ricarica, e il documento e' cross-origin quindi non si puo' leggere.
+    // Percio' niente rilevamento a indovinare: il frame parte solo su richiesta
+    // e resta sempre visibile una via d'uscita dichiarata.
+    // La correzione vera sta sull'altro host, non qui: vedi il report.
+    document.querySelectorAll('[data-embed]').forEach(box => {
+      const frame = box.querySelector('[data-embed-frame]');
+      const cover = box.querySelector('[data-embed-cover]');
+      const btn = box.querySelector('[data-embed-load]');
+      const bar = box.querySelector('[data-embed-bar]');
+      if (!frame || !cover || !btn) return;
+      let timer = null;
+      const load = () => {
+        cover.style.display = 'none';
+        frame.src = frame.dataset.src;
+        clearTimeout(timer);
+        // il riquadro bianco non si distingue da un sito lento: dopo 6s si
+        // mostra comunque la scorciatoia, senza togliere il frame.
+        timer = setTimeout(() => { if (bar) bar.style.opacity = '1'; }, 6000);
+      };
+      btn.addEventListener('click', load);
+      this._cleanup.push(() => clearTimeout(timer));
+    });
+
+    // ================================================================
+    // ATTENZIONE: questo elenco vive in due copie, una in index.html e una
+    // in Vladora-Portfolio.dc.html. Le pagine .dc sono autonome e non
+    // condividono moduli: se modifichi qui, riporta la stessa modifica
+    // nell'altro file, altrimenti home e pagina Lavori si contraddicono.
+    // I progetti stanno tutti qui. Per pubblicarne uno vero: aggiungi
+    // un oggetto a questo array (o sostituisci uno studio), metti
+    // stato:'online' e l'indirizzo in url. Se hai uno screenshot vero,
+    // valorizza img e il mockup disegnato lascia il posto alla foto.
+    // Le due lingue viaggiano in coppia in ogni campo di testo.
+    // ================================================================
+    const PROGETTI = [
+      {
+        id: 'chinese-restaurant',
+        nome: 'chinese-restaurant',
+        tipo: { it: 'Ristorante di sushi · Savona', en: 'Sushi restaurant · Savona' },
+        riga: { it: 'Dalla scheda Google al tavolo confermato in tre tap: menu, prenotazione e indicazioni in una pagina.', en: 'From the Google listing to a confirmed table in three taps: menu, booking and directions on one page.' },
+        tag: { it: ['menu', 'prenotazioni', 'una pagina'], en: ['menu', 'booking', 'one page'] },
+        stato: 'online',
+        url: 'https://chinese-restaurant.kesug.com',
+        caso: 'Vladora-CaseStudy.dc.html',
+        img: null,
+        mock: { url: 'chinese-restaurant.kesug.com', kick: { it: 'Savona', en: 'Savona' }, titolo: { it: 'Prenota in due tap.', en: 'Book in two taps.' }, cta: { it: 'Prenota', en: 'Book' } },
+        home: 1
+      },
+      {
+        id: 'barbershop',
+        nome: { it: 'Barbershop', en: 'Barbershop' },
+        tipo: { it: 'Prenotazioni · studio', en: 'Booking · study' },
+        riga: { it: 'Scegli il taglio e l’ora, la conferma arriva su WhatsApp. Nessuna app da scaricare, nessun account da fare.', en: 'Pick the cut and the time, the confirmation lands on WhatsApp. No app to download, no account to create.' },
+        tag: { it: ['prenotazioni', 'listino', 'whatsapp'], en: ['booking', 'price list', 'whatsapp'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'ilnomedeltuobarbershop.it', kick: { it: 'Su appuntamento', en: 'By appointment' }, titolo: { it: 'Scegli l’ora. Basta.', en: 'Pick a time. That’s it.' }, cta: { it: 'Prenota', en: 'Book' } },
+        home: 2
+      },
+      {
+        id: 'bar-caffetteria',
+        nome: { it: 'Bar e caffetteria', en: 'Bar and coffee shop' },
+        tipo: { it: 'Sito vetrina · studio', en: 'One-page site · study' },
+        riga: { it: 'Orari, colazioni e aperitivo su tre schermate. Chi cerca sa in dieci secondi se siete aperti e dove siete.', en: 'Opening hours, breakfast and aperitivo across three screens. Anyone looking knows in ten seconds if you are open and where you are.' },
+        tag: { it: ['orari', 'aperitivo', 'mappa'], en: ['hours', 'aperitivo', 'map'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'ilnomedeltuobar.it', kick: { it: 'Dalle 6:30', en: 'From 6:30' }, titolo: { it: 'Aperti presto, chiusi tardi.', en: 'Open early, closed late.' }, cta: { it: 'Dove siamo', en: 'Find us' } },
+        home: 3
+      },
+      {
+        id: 'pizzeria-asporto',
+        nome: { it: 'Pizzeria d’asporto', en: 'Takeaway pizzeria' },
+        tipo: { it: 'Ordini · studio', en: 'Orders · study' },
+        riga: { it: 'L’ordine si compone dal telefono e arriva in cassa come messaggio, così nessuno resta in attesa mentre voi impastate.', en: 'The order is put together on the phone and reaches the till as a message, so nobody waits on hold while you are making dough.' },
+        tag: { it: ['asporto', 'listino', 'whatsapp'], en: ['takeaway', 'price list', 'whatsapp'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'lanostrapizzeria.it', kick: { it: 'Asporto', en: 'Takeaway' }, titolo: { it: 'Ordina senza telefonare.', en: 'Order without calling.' }, cta: { it: 'Ordina', en: 'Order' } },
+        home: 4
+      },
+      {
+        id: 'trattoria',
+        nome: { it: 'Trattoria', en: 'Trattoria' },
+        tipo: { it: 'Sito vetrina · studio', en: 'One-page site · study' },
+        riga: { it: 'Il menu del giorno si cambia dal telefono in trenta secondi, senza passare da noi e senza pagare nessuno.', en: 'The daily menu changes from your phone in thirty seconds, without going through us and without paying anyone.' },
+        tag: { it: ['menu del giorno', 'orari', 'mappa'], en: ['daily menu', 'hours', 'map'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'lanostratrattoria.it', kick: { it: 'Cucina ligure', en: 'Ligurian kitchen' }, titolo: { it: 'Il menu di oggi.', en: 'Today’s menu.' }, cta: { it: 'Vedi il menu', en: 'See the menu' } },
+        home: 5
+      },
+      {
+        id: 'pasticceria',
+        nome: { it: 'Pasticceria', en: 'Pastry shop' },
+        tipo: { it: 'Sito vetrina · studio', en: 'One-page site · study' },
+        riga: { it: 'Le torte su ordinazione, con le foto delle vostre. Il modulo chiede la data, le persone e il gusto, e finisce lì.', en: 'Cakes to order, shown with photos of yours. The form asks for the date, the headcount and the flavour, and stops there.' },
+        tag: { it: ['catalogo', 'ordinazioni', 'foto'], en: ['catalogue', 'orders', 'photos'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'lanostrapasticceria.it', kick: { it: 'Su ordinazione', en: 'Made to order' }, titolo: { it: 'La torta, come la vuoi.', en: 'The cake, your way.' }, cta: { it: 'Chiedi il prezzo', en: 'Ask the price' } }
+      },
+      {
+        id: 'enoteca',
+        nome: { it: 'Enoteca', en: 'Wine shop' },
+        tipo: { it: 'Negozio online · studio', en: 'Online shop · study' },
+        riga: { it: 'Catalogo e carrello per una cantina piccola: poche etichette, spiegate come le spieghereste al banco.', en: 'Catalogue and cart for a small cellar: a few labels, explained the way you would explain them at the counter.' },
+        tag: { it: ['catalogo', 'carrello', 'pagamenti'], en: ['catalogue', 'cart', 'payments'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'lanostraenoteca.it', kick: { it: 'Cantina', en: 'Cellar' }, titolo: { it: 'Poche etichette, spiegate.', en: 'A few labels, explained.' }, cta: { it: 'Il catalogo', en: 'The catalogue' } }
+      }
+    ];
+
+    const esc = (v) => String(v == null ? '' : v).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    // ogni testo esce con la coppia IT/EN addosso: il selettore di lingua
+    // raccoglie [data-en] dopo il render e da li' in poi lo gestisce da solo
+    const duo = (pair) => 'data-en="' + esc(pair.en) + '">' + esc(pair.it);
+    const nomeOf = (p) => (typeof p.nome === 'string' ? { it: p.nome, en: p.nome } : p.nome);
+
+    const mockHTML = (p) => {
+      if (p.img) return '<img class="mock" src="' + esc(p.img) + '" alt="" width="640" height="400" loading="lazy" style="object-fit:cover">';
+      return '<div class="mock" aria-hidden="true">'
+        + '<div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">' + esc(p.mock.url) + '</span></div>'
+        + '<div class="mock-page">'
+        + '<span class="mock-kick" ' + duo(p.mock.kick) + '</span>'
+        + '<span class="mock-title" ' + duo(p.mock.titolo) + '</span>'
+        + '<span class="mock-line" style="width:78%"></span><span class="mock-line" style="width:54%"></span>'
+        + '<span class="mock-cta" ' + duo(p.mock.cta) + '</span>'
+        + '<span class="mock-strip"><i class="mock-tile"></i><i class="mock-tile"></i><i class="mock-tile"></i></span>'
+        + '</div></div>';
+    };
+
+    const badgeHTML = (p) => p.stato === 'online'
+      ? '<span class="vc-badge vc-badge-live" data-en="Online">Online</span>'
+      : '<span class="vc-badge vc-badge-concept" data-en="Study">Studio</span>';
+
+    const cardHTML = (p, h) => {
+      const n = nomeOf(p);
+      return '<button type="button" class="vc" data-progetto="' + esc(p.id) + '" style="--vh:' + h + 'px">'
+        + badgeHTML(p)
+        + '<span class="vc-shot" style="display:block;height:' + h + 'px">' + mockHTML(p) + '</span>'
+        + '<span class="vc-foot"><span class="vc-name" ' + duo(n) + '</span>'
+        + '<span class="vc-kind" ' + duo(p.tipo) + '</span></span>'
+        + '</button>';
+    };
+
+    // ---- vetrina galleggiante (home). Ampiezza, durata e ritardo diversi
+    // per ogni scheda: se fossero uguali salirebbero e scenderebbero insieme
+    // e sembrerebbe un unico blocco che respira.
+    const vetrina = document.querySelector('[data-vetrina]');
+    if (vetrina) {
+      const ritmo = [
+        { h: 210, amp: 10, d: 7.4, del: 0 },
+        { h: 175, amp: 7,  d: 6.2, del: -1.9 },
+        { h: 140, amp: 12, d: 8.1, del: -3.4 },
+        { h: 175, amp: 8,  d: 6.8, del: -0.8 },
+        { h: 200, amp: 11, d: 7.9, del: -2.6 }
+      ];
+      const inVetrina = PROGETTI.filter(p => p.home).sort((a, b) => a.home - b.home).slice(0, 5);
+      vetrina.innerHTML = inVetrina.map((p, i) => {
+        const r = ritmo[i % ritmo.length];
+        return '<div class="vetrina-slot"><div class="vetrina-float" style="--amp:' + r.amp + 'px;--vd:' + r.d + 's;--vdel:' + r.del + 's">'
+          + cardHTML(p, r.h) + '</div></div>';
+      }).join('');
+    }
+
+    // ---- griglia completa (pagina Lavori)
+    const griglia = document.querySelector('[data-griglia]');
+    if (griglia) griglia.innerHTML = PROGETTI.map(p => '<li>' + cardHTML(p, 180) + '</li>').join('');
+
+    // ================================================================
+    // Modali. Un solo controller per tutte: apre, chiude, trattiene il
+    // fuoco e lo restituisce al bottone che l'ha aperta.
+    // ================================================================
+    const modali = new Map();
+    document.querySelectorAll('[data-modal]').forEach(m => {
+      const nome = m.dataset.modal;
+      let torna = null;
+      const fuoco = () => Array.from(m.querySelectorAll('a[href],button,input,select,textarea')).filter(el => !el.disabled && el.offsetParent !== null);
+      const set = (open) => {
+        m.dataset.open = String(open);
+        m.setAttribute('aria-hidden', String(!open));
+        if (open) {
+          torna = document.activeElement;
+          root.setAttribute('data-modal-open', '');
+          const f = fuoco();
+          if (f.length) f[0].focus();
+        } else {
+          root.removeAttribute('data-modal-open');
+          if (torna && torna !== document.body) torna.focus();
+          torna = null;
+        }
+      };
+      set(false);
+      m.querySelectorAll('[data-modal-close]').forEach(el => el.addEventListener('click', () => set(false)));
+      const onKey = (e) => {
+        if (m.dataset.open !== 'true') return;
+        if (e.key === 'Escape') { set(false); return; }
+        if (e.key !== 'Tab') return;
+        const f = fuoco();
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      };
+      document.addEventListener('keydown', onKey);
+      this._cleanup.push(() => { document.removeEventListener('keydown', onKey); root.removeAttribute('data-modal-open'); });
+      modali.set(nome, { set, el: m });
+    });
+    const apri = (nome) => { const m = modali.get(nome); if (m) m.set(true); };
+
+    // ---- anteprima di un progetto
+    const pv = document.querySelector('[data-pv]');
+    if (pv) {
+      const mostra = (p) => {
+        const n = nomeOf(p), en = root.lang === 'en';
+        const tags = (en ? p.tag.en : p.tag.it).map(t => '<li class="pv-tag">' + esc(t) + '</li>').join('');
+        const azioni = [];
+        if (p.url) azioni.push('<a class="btn-solid" href="' + esc(p.url) + '" target="_blank" rel="noopener" data-en="Open the live site &#8599;">Apri il sito vero &#8599;</a>');
+        if (p.caso) azioni.push('<a class="btn-ghost" href="' + esc(p.caso) + '" data-en="Read the case study">Leggi il case study</a>');
+        if (!p.url) azioni.push('<a class="btn-solid" href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Want one like this? Write to us">Ne vuoi uno cosi’? Scrivici</a>');
+        pv.innerHTML = '<div class="pv-shot" style="display:block">' + mockHTML(p) + '</div>'
+          + '<div class="pv-head"><h2 class="pv-name" id="pv-nome" ' + duo(n) + '</h2>'
+          + '<p class="pv-kind" ' + duo(p.tipo) + '</p></div>'
+          + '<p class="pv-text" ' + duo(p.riga) + '</p>'
+          + (p.stato === 'concept'
+            ? '<p class="pv-kind" data-en="This one is a study of ours: we designed it to show how we would handle this trade.">Questo è uno studio nostro: l’abbiamo disegnato per mostrare come affronteremmo questo mestiere.</p>'
+            : '')
+          + '<ul class="pv-tags">' + tags + '</ul>'
+          + '<div class="pv-actions">' + azioni.join('') + '</div>';
+        // i testi appena creati entrano nella lingua corrente
+        pv.querySelectorAll('[data-en]').forEach(el => {
+          if (el.children.length) return;
+          if (!el.dataset.it) el.dataset.it = el.textContent;
+          if (en) el.textContent = el.dataset.en;
+        });
+        apri('anteprima');
+      };
+      // delega: le schede nascono dal render, quindi l'ascolto sta sul document
+      const onCard = (e) => {
+        const b = e.target.closest ? e.target.closest('[data-progetto]') : null;
+        if (!b) return;
+        const p = PROGETTI.find(x => x.id === b.dataset.progetto);
+        if (p) mostra(p);
+      };
+      document.addEventListener('click', onCard);
+      this._cleanup.push(() => document.removeEventListener('click', onCard));
+    }
+
+    // ---- IT / EN. Il testo vive in coppia sull'elemento (data-en + data-it),
+    // il selettore scambia solo textContent: nessuna seconda copia del DOM.
+    const pairs = Array.from(document.querySelectorAll('[data-en]')).filter(el => el.children.length === 0);
+    pairs.forEach(el => { if (!el.dataset.it) el.dataset.it = el.textContent; });
+    // i placeholder non sono textContent: viaggiano su data-en-ph a parte
+    const placeholders = Array.from(document.querySelectorAll('[data-en-ph]'));
+    placeholders.forEach(el => { if (!el.dataset.itPh) el.dataset.itPh = el.getAttribute('placeholder') || ''; });
+    const langRoot = document.querySelector('[data-lang]');
+    const langBtn = document.querySelector('[data-lang-btn]');
+    const langOpts = Array.from(document.querySelectorAll('[data-lang-opt]'));
+    const applyLang = (lang) => {
+      pairs.forEach(el => { el.textContent = lang === 'en' ? el.dataset.en : el.dataset.it; });
+      placeholders.forEach(el => el.setAttribute('placeholder', lang === 'en' ? el.dataset.enPh : el.dataset.itPh));
+      root.lang = lang;
+      langOpts.forEach(o => o.setAttribute('aria-checked', String(o.dataset.langOpt === lang)));
+      if (langBtn) langBtn.setAttribute('aria-label', lang === 'en' ? 'Language: English. Change language' : 'Lingua: italiano. Cambia lingua');
+      try { localStorage.setItem('vladora-lang', lang); } catch (e) {}
+    };
+    let savedLang = null;
+    try { savedLang = localStorage.getItem('vladora-lang'); } catch (e) {}
+    applyLang(savedLang === 'en' ? 'en' : 'it');
+
+    if (langRoot && langBtn) {
+      const setLangOpen = (open) => {
+        langRoot.dataset.open = String(open);
+        langBtn.setAttribute('aria-expanded', String(open));
+        langOpts.forEach(o => { o.tabIndex = open ? 0 : -1; });
+        if (open) { const c = langOpts.find(o => o.getAttribute('aria-checked') === 'true'); if (c) c.focus(); }
+      };
+      setLangOpen(false);
+      langBtn.addEventListener('click', (e) => { e.stopPropagation(); setLangOpen(langRoot.dataset.open !== 'true'); });
+      langOpts.forEach(o => o.addEventListener('click', () => { applyLang(o.dataset.langOpt); setLangOpen(false); langBtn.focus(); }));
+      const onLangDoc = (e) => { if (langRoot.dataset.open === 'true' && !langRoot.contains(e.target)) setLangOpen(false); };
+      const onLangKey = (e) => {
+        if (langRoot.dataset.open !== 'true') return;
+        if (e.key === 'Escape') { setLangOpen(false); langBtn.focus(); return; }
+        if (e.key !== 'Tab') return;
+        // il menu e' corto: due voci, si gira su se stesso
+        const i = langOpts.indexOf(document.activeElement);
+        if (i === -1) return;
+        e.preventDefault();
+        langOpts[(i + (e.shiftKey ? -1 : 1) + langOpts.length) % langOpts.length].focus();
+      };
+      document.addEventListener('click', onLangDoc);
+      document.addEventListener('keydown', onLangKey);
+      this._cleanup.push(() => {
+        document.removeEventListener('click', onLangDoc);
+        document.removeEventListener('keydown', onLangKey);
+      });
+    }
+
+    // ---- pannello di navigazione (sotto 860px). Fuori dallo schermo e'
+    // inerte: tabindex -1 su tutto, cosi' il Tab non ci finisce dentro.
+    const drawer = document.querySelector('[data-drawer]');
+    const drawerBtn = document.querySelector('[data-drawer-btn]');
+    if (drawer && drawerBtn) {
+      const scrim = document.querySelector('[data-drawer-scrim]');
+      const items = Array.from(drawer.querySelectorAll('a[href],button'));
+      drawer.querySelectorAll('.drawer-link').forEach((el, i) => el.style.setProperty('--dl-i', String(i)));
+      let lastFocus = null;
+      const isOpen = () => root.hasAttribute('data-drawer-open');
+      const setDrawer = (open, restore) => {
+        if (open) root.setAttribute('data-drawer-open', ''); else root.removeAttribute('data-drawer-open');
+        drawer.setAttribute('aria-hidden', String(!open));
+        drawerBtn.setAttribute('aria-expanded', String(open));
+        drawerBtn.setAttribute('aria-label', open
+          ? (root.lang === 'en' ? 'Close the menu' : 'Chiudi il menu')
+          : (root.lang === 'en' ? 'Open the menu' : 'Apri il menu'));
+        items.forEach(el => { el.tabIndex = open ? 0 : -1; });
+        if (open) { lastFocus = document.activeElement; if (items[0]) items[0].focus(); }
+        else if (restore) { const back = (lastFocus && lastFocus !== document.body) ? lastFocus : drawerBtn; if (back) back.focus(); lastFocus = null; }
+      };
+      setDrawer(false, false);
+      drawerBtn.addEventListener('click', () => setDrawer(!isOpen(), true));
+      if (scrim) scrim.addEventListener('click', () => setDrawer(false, true));
+      drawer.querySelectorAll('[data-drawer-close]').forEach(el => el.addEventListener('click', () => setDrawer(false, true)));
+      // un link chiude il pannello: la navigazione resta al browser
+      drawer.querySelectorAll('a[href]').forEach(el => el.addEventListener('click', () => setDrawer(false, false)));
+      const onDrawerKey = (e) => {
+        if (!isOpen()) return;
+        if (e.key === 'Escape') { setDrawer(false, true); return; }
+        if (e.key !== 'Tab') return;
+        const f = items.filter(el => el.offsetParent !== null);
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      };
+      document.addEventListener('keydown', onDrawerKey);
+      // il pannello esiste solo sotto 860px: allargando la finestra si chiude,
+      // altrimenti restava overflow:hidden su una pagina senza pannello visibile
+      const mqNav = window.matchMedia('(min-width:861px)');
+      const onMqNav = (e) => { if (e.matches && isOpen()) setDrawer(false, false); };
+      if (mqNav.addEventListener) mqNav.addEventListener('change', onMqNav); else mqNav.addListener(onMqNav);
+      this._cleanup.push(() => {
+        document.removeEventListener('keydown', onDrawerKey);
+        if (mqNav.removeEventListener) mqNav.removeEventListener('change', onMqNav); else mqNav.removeListener(onMqNav);
+        root.removeAttribute('data-drawer-open');
+      });
+    }
+  }
+  componentWillUnmount() {
+    (this._cleanup || []).forEach(off => { try { off(); } catch (e) {} });
+    this._cleanup = [];
+  }
+  renderVals() { return {}; }
+}
+
+</script>
+</body>
+</html>

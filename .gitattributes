@@ -1,0 +1,5 @@
+# I sorgenti restano LF nel repo, qualunque sia la piattaforma di lavoro.
+* text=auto eol=lf
+*.webp binary
+*.jpeg binary
+*.png binary

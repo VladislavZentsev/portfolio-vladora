@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://portfolio-vladora.kesug.com/">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vladora — Siti per locali, bar e barbershop a Savona</title>
+<meta name="description" content="Studio di web design a Savona. Siti veloci per ristoranti, bar e barbershop. Da 200 €, consegna in due settimane." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;family=Outfit:wght@300..600&amp;display=swap" />
+<style>
+:root{
+  --bg:#ffffff; --bg-alt:#f4f4f5; --bg-sunk:#ebebed; --surface:#ffffff;
+  --fg:#0a0a0a; --fg-2:#6b6b70; --fg-3:#74747a; --fg-inv:#fafafa;
+  --line:rgba(10,10,10,.10); --line-strong:rgba(10,10,10,.22);
+  --accent:#0B6B5E; --accent-hover:#08544a; --accent-soft:rgba(11,107,94,.10);
+  --grad-hero:radial-gradient(110% 78% at 50% -12%,var(--accent-soft) 0%,transparent 62%),linear-gradient(180deg,var(--bg) 0%,var(--bg-alt) 52%,var(--bg) 100%);
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
+  --sp-7:48px; --sp-8:64px; --sp-9:96px; --sp-10:128px; --sp-11:192px;
+  --r-1:2px; --r-2:8px; --r-3:14px; --r-4:24px; --r-pill:999px;
+  --sh-1:0 1px 2px rgba(10,10,10,.05);
+  --sh-2:0 2px 10px rgba(10,10,10,.05);
+  --sh-3:0 12px 40px rgba(10,10,10,.08);
+  --dur-1:160ms; --dur-2:320ms; --dur-3:640ms;
+  --ease:cubic-bezier(.22,.61,.36,1); --ease-out:cubic-bezier(.16,1,.3,1);
+  --sans:"Geist","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --display:"Outfit","Geist",sans-serif;
+  --mock:#f4f4f5;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-weight:400;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--accent-hover)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4,p,figure,ul,li,form,fieldset{margin:0;padding:0}
+li{list-style:none}
+input,textarea,select,button{font:inherit;color:inherit}
+/* reveal: una sola transizione, quattro forme d'entrata. Lo stagger e' un
+   ritardo calcolato dall'indice (--rv-i) dentro un [data-reveal-group]. */
+[data-reveal]{opacity:0;transform:translateY(10px);transition:opacity var(--dur-3) var(--ease-out),transform var(--dur-3) var(--ease-out);transition-delay:calc(var(--rv-i,0) * var(--dur-1) * .45)}
+[data-reveal][data-rv="rise"]{transform:translateY(var(--sp-5))}
+[data-reveal][data-rv="scale"]{transform:scale(.965) translateY(var(--sp-2))}
+[data-reveal][data-rv="left"]{transform:translateX(calc(var(--sp-5) * -1))}
+[data-reveal][data-rv="right"]{transform:translateX(var(--sp-5))}
+[data-reveal="in"],[data-reveal="in"][data-rv]{opacity:1;transform:none}
+/* transizione di pagina: solo opacita', cosi' l'header sticky non si rompe */
+/* niente fill 'both': con 'both' lo stato 0% (opacity:0) resta applicato
+   finche' un frame di animazione non parte, e in ogni contesto che non anima
+   (tab in background, render di stampa, alcune webview) la pagina restava
+   completamente bianca. Senza fill l'opacita' di partenza e' 1. */
+[data-page]{animation:pageIn var(--dur-3) var(--ease-out)}
+[data-page="out"]{animation:none;opacity:0;transition:opacity var(--dur-2) var(--ease)}
+@keyframes pageIn{from{opacity:0}to{opacity:1}}
+@keyframes blink90{0%,49%{opacity:1}50%,100%{opacity:0}}
+/* ============================================================
+   Navigazione: barra, selettore lingua, pannello mobile.
+   Sotto gli 860px i link della barra spariscono e passano nel
+   pannello laterale: prima andavano a capo su una riga propria
+   e la barra diventava alta il doppio.
+   ============================================================ */
+[data-nav-row]{max-width:1240px;margin:0 auto;padding:var(--sp-3) var(--sp-5);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4)}
+.nav-mark{font-family:var(--display);font-weight:500;font-size:21px;letter-spacing:-.03em;color:var(--fg);text-decoration:none;flex:none}
+.nav-desktop{display:flex;align-items:center;gap:var(--sp-5)}
+.nav-desktop a{display:inline-flex;align-items:center;min-height:26px;padding:4px 0;font-size:14.5px;color:var(--fg-2);text-decoration:none;transition:color var(--dur-1) var(--ease)}
+.nav-desktop a:hover{color:var(--fg)}
+.nav-desktop a[aria-current="page"]{color:var(--fg)}
+.nav-tools{display:flex;align-items:center;gap:var(--sp-2);flex:none}
+
+/* --- bandiere: niente emoji, due SVG disegnate a mano.
+   L'angolo arrotondato lo fa il border-radius sull'elemento svg,
+   cosi' non servono clipPath con id duplicati sulla stessa pagina. --- */
+.flag{display:block;width:20px;height:14px;border-radius:3px;overflow:hidden;flex:none;box-shadow:0 0 0 1px rgba(10,10,10,.12) inset}
+
+/* --- selettore lingua --- */
+.lang{position:relative;flex:none}
+.lang-btn{display:flex;align-items:center;gap:var(--sp-2);height:38px;padding:0 11px;background:transparent;border:1px solid var(--line);border-radius:var(--r-pill);color:var(--fg-2);cursor:pointer;transition:border-color var(--dur-1) var(--ease),color var(--dur-1) var(--ease),background var(--dur-1) var(--ease)}
+.lang-btn:hover{border-color:var(--line-strong);color:var(--fg)}
+.lang-btn[aria-expanded="true"]{border-color:var(--line-strong);color:var(--fg);background:var(--bg-alt)}
+.lang-code{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em}
+.lang-caret{transition:transform var(--dur-2) var(--ease-out)}
+.lang-btn[aria-expanded="true"] .lang-caret{transform:rotate(180deg)}
+/* nel bottone si vede solo la bandiera della lingua attiva */
+.lang-btn .flag{display:none}
+html[lang="it"] .lang-btn .flag-it{display:block}
+html[lang="en"] .lang-btn .flag-en{display:block}
+.lang-menu{position:absolute;top:calc(100% + 10px);right:0;min-width:190px;padding:var(--sp-2);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);box-shadow:var(--sh-3);display:flex;flex-direction:column;gap:2px;z-index:2;transform-origin:top right;opacity:0;transform:translateY(-8px) scale(.96);pointer-events:none;visibility:hidden;transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out),visibility 0s linear var(--dur-2)}
+.lang[data-open="true"] .lang-menu{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition-delay:0s}
+.lang-opt{display:flex;align-items:center;gap:var(--sp-3);width:100%;min-height:44px;padding:0 11px;background:transparent;border:none;border-radius:var(--r-2);font-size:15px;color:var(--fg-2);text-align:left;cursor:pointer;transition:background var(--dur-1) var(--ease),color var(--dur-1) var(--ease)}
+.lang-opt:hover{background:var(--bg-alt);color:var(--fg)}
+.lang-opt[aria-checked="true"]{color:var(--fg);font-weight:500}
+.lang-check{margin-left:auto;color:var(--accent);opacity:0;transition:opacity var(--dur-1) var(--ease)}
+.lang-opt[aria-checked="true"] .lang-check{opacity:1}
+
+/* --- bottone del pannello --- */
+.burger{display:none;width:38px;height:38px;place-items:center;background:transparent;border:1px solid var(--line);border-radius:var(--r-pill);color:var(--fg-2);cursor:pointer;transition:border-color var(--dur-1) var(--ease),color var(--dur-1) var(--ease)}
+.burger:hover{border-color:var(--line-strong);color:var(--fg)}
+.burger-bars{position:relative;display:block;width:16px;height:11px}
+.burger-bars i{position:absolute;left:0;right:0;height:1.4px;background:currentColor;border-radius:2px;transition:transform var(--dur-2) var(--ease-out),opacity var(--dur-1) var(--ease)}
+.burger-bars i:nth-child(1){top:0}
+.burger-bars i:nth-child(2){top:4.8px}
+.burger-bars i:nth-child(3){top:9.6px}
+html[data-drawer-open] .burger-bars i:nth-child(1){transform:translateY(4.8px) rotate(45deg)}
+html[data-drawer-open] .burger-bars i:nth-child(2){opacity:0;transform:scaleX(.4)}
+html[data-drawer-open] .burger-bars i:nth-child(3){transform:translateY(-4.8px) rotate(-45deg)}
+
+/* --- pannello laterale --- */
+.scrim{position:fixed;inset:0;z-index:50;background:rgba(10,10,10,.38);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity var(--dur-2) var(--ease)}
+html[data-drawer-open] .scrim-nav{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:51;width:min(340px,86vw);display:flex;flex-direction:column;background:var(--bg);border-left:1px solid var(--line);box-shadow:var(--sh-3);transform:translateX(101%);transition:transform var(--dur-2) var(--ease-out);overscroll-behavior:contain}
+html[data-drawer-open] .drawer{transform:none}
+html[data-drawer-open]{overflow:hidden}
+.drawer-head{flex:none;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);padding:var(--sp-3) var(--sp-5);padding-top:max(var(--sp-3),env(safe-area-inset-top));min-height:62px;border-bottom:1px solid var(--line)}
+.drawer-mark{font-family:var(--display);font-weight:500;font-size:19px;letter-spacing:-.03em;color:var(--fg)}
+.drawer-x{width:38px;height:38px;display:grid;place-items:center;background:transparent;border:1px solid var(--line);border-radius:var(--r-pill);color:var(--fg-2);cursor:pointer;transition:border-color var(--dur-1) var(--ease),color var(--dur-1) var(--ease)}
+.drawer-x:hover{border-color:var(--line-strong);color:var(--fg)}
+.drawer-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:var(--sp-4) var(--sp-4) var(--sp-6);display:flex;flex-direction:column;gap:2px}
+.drawer-eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);padding:var(--sp-4) 11px var(--sp-2)}
+/* entrata scaglionata: il ritardo e' l'indice della voce (--dl-i) */
+.drawer-link{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);min-height:52px;padding:0 11px;border-radius:var(--r-2);font-size:19px;letter-spacing:-.015em;color:var(--fg);text-decoration:none;opacity:0;transform:translateX(14px);transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out),background var(--dur-1) var(--ease),color var(--dur-1) var(--ease);transition-delay:calc(60ms + var(--dl-i,0) * 45ms)}
+html[data-drawer-open] .drawer-link{opacity:1;transform:none}
+.drawer-link:hover{background:var(--bg-alt);color:var(--fg)}
+.drawer-link[aria-current="page"]{color:var(--accent)}
+.drawer-link svg{opacity:.3;transition:opacity var(--dur-1) var(--ease),transform var(--dur-2) var(--ease-out)}
+.drawer-link:hover svg{opacity:.75;transform:translateX(3px)}
+.drawer-foot{flex:none;padding:var(--sp-5) var(--sp-5) max(var(--sp-5),env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;flex-direction:column;gap:var(--sp-3)}
+.drawer-cta{display:flex;align-items:center;justify-content:center;gap:var(--sp-2);min-height:48px;padding:0 var(--sp-5);background:var(--fg);color:var(--fg-inv);border:1px solid var(--fg);border-radius:var(--r-pill);font-size:15.5px;font-weight:450;text-decoration:none;transition:opacity var(--dur-1) var(--ease)}
+.drawer-cta:hover{opacity:.88;color:var(--fg-inv)}
+.drawer-meta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--fg-3);text-align:center}
+
+@media (max-width:860px){
+  .nav-desktop{display:none}
+  .burger{display:grid}
+}
+@media (min-width:861px){
+  .scrim-nav,.drawer{display:none}
+}
+/* ============================================================
+   Modale: un solo guscio, tre usi (anteprima progetto, richiesta
+   di preventivo, dettaglio tariffa). Scrim + pannello, niente
+   libreria: apertura in opacita' e scala, chiusura piu' rapida.
+   ============================================================ */
+.mdl{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:var(--sp-5);pointer-events:none}
+.mdl-scrim{position:absolute;inset:0;background:rgba(10,10,10,.46);backdrop-filter:blur(3px);opacity:0;transition:opacity var(--dur-2) var(--ease)}
+.mdl-panel{position:relative;width:100%;max-height:calc(100dvh - var(--sp-7));display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-4);box-shadow:var(--sh-3);overflow:hidden;opacity:0;transform:translateY(14px) scale(.985);transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out)}
+.mdl[data-open="true"]{pointer-events:auto}
+.mdl[data-open="true"] .mdl-scrim{opacity:1}
+.mdl[data-open="true"] .mdl-panel{opacity:1;transform:none}
+/* uscita piu' corta dell'entrata: la chiusura deve sembrare immediata */
+.mdl:not([data-open="true"]) .mdl-panel{transition-duration:var(--dur-1)}
+.mdl-x{position:absolute;top:var(--sp-4);right:var(--sp-4);z-index:3;width:38px;height:38px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);color:var(--fg-2);cursor:pointer;transition:border-color var(--dur-1) var(--ease),color var(--dur-1) var(--ease)}
+.mdl-x:hover{border-color:var(--line-strong);color:var(--fg)}
+.mdl-body{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+html[data-modal-open]{overflow:hidden}
+@media (max-width:600px){
+  .mdl{padding:0;align-items:flex-end}
+  .mdl-panel{max-height:94dvh;border-radius:var(--r-4) var(--r-4) 0 0;border-bottom:none;transform:translateY(22px)}
+}
+
+/* ============================================================
+   Mockup disegnato: cornice browser in HTML, nessuna finta foto
+   stock. Lo stesso componente serve la vetrina, la griglia lavori
+   e l'anteprima in modale, a tre misure.
+   ============================================================ */
+.mock{display:flex;flex-direction:column;height:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-2);overflow:hidden}
+.mock-bar{flex:none;display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--bg-alt);border-bottom:1px solid var(--line)}
+.mock-dot{width:6px;height:6px;border-radius:var(--r-pill);background:var(--line-strong);flex:none}
+.mock-url{margin-left:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:.02em;color:var(--fg-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mock-page{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:clamp(12px,4%,22px)}
+.mock-kick{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.mock-title{font-family:var(--display);font-weight:400;font-size:clamp(15px,1.7vw,22px);line-height:1.04;letter-spacing:-.025em;color:var(--fg)}
+.mock-line{height:5px;border-radius:var(--r-pill);background:var(--bg-sunk)}
+.mock-cta{align-self:flex-start;margin-top:2px;padding:5px 11px;border-radius:var(--r-pill);background:var(--fg);color:var(--fg-inv);font-size:9.5px;letter-spacing:.02em}
+.mock-strip{display:flex;gap:6px;margin-top:2px}
+.mock-tile{flex:1;height:22px;border-radius:4px;background:repeating-linear-gradient(135deg,var(--bg-sunk) 0 7px,var(--bg-alt) 7px 14px)}
+
+/* ============================================================
+   Vetrina: le anteprime galleggiano. Tre misure, righe sfalsate,
+   ogni scheda con ampiezza, durata e ritardo propri, cosi' non
+   salgono e scendono all'unisono.
+   ============================================================ */
+@keyframes galleggia{
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(0,calc(var(--amp,9px) * -1),0)}
+}
+.vetrina{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-5)}
+.vetrina-slot{display:flex;min-width:0}
+/* il galleggio sta su un involucro: cosi' non litiga con il transform
+   dell'hover sulla scheda, che vive un livello piu' sotto */
+.vetrina-float{flex:1;min-width:0;animation:galleggia var(--vd,7s) ease-in-out infinite;animation-delay:var(--vdel,0s);will-change:transform}
+.vc{display:flex;flex-direction:column;gap:var(--sp-3);width:100%;padding:var(--sp-4);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);box-shadow:var(--sh-2);text-align:left;cursor:pointer;color:var(--fg);transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2) var(--ease-out),border-color var(--dur-1) var(--ease)}
+.vc:hover{transform:translateY(-5px);box-shadow:var(--sh-3);border-color:var(--line-strong)}
+.vc:active{transform:translateY(-2px)}
+.vc-shot{height:var(--vh,190px);min-height:0}
+.vc-foot{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3)}
+.vc-name{font-size:15.5px;font-weight:500;letter-spacing:-.015em;overflow-wrap:anywhere}
+.vc-kind{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);white-space:nowrap}
+.vc-badge{align-self:flex-start;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:var(--r-pill);border:1px solid currentColor}
+.vc-badge-live{color:var(--accent)}
+.vc-badge-concept{color:var(--fg-3)}
+@media (min-width:900px){
+  .vetrina{grid-template-columns:repeat(12,1fr);align-items:start}
+  /* posizioni scelte a mano: niente griglia 1-a-1, le schede si
+     incastrano come su un tavolo, non come in una tabella */
+  .vetrina-slot:nth-child(1){grid-column:1 / span 5;margin-top:var(--sp-6)}
+  .vetrina-slot:nth-child(2){grid-column:6 / span 4}
+  .vetrina-slot:nth-child(3){grid-column:10 / span 3;margin-top:var(--sp-8)}
+  .vetrina-slot:nth-child(4){grid-column:2 / span 4;margin-top:var(--sp-5)}
+  .vetrina-slot:nth-child(5){grid-column:6 / span 5;margin-top:calc(var(--sp-6) * -1)}
+}
+@media (max-width:620px){
+  .vetrina{grid-template-columns:1fr;gap:var(--sp-4)}
+  .vetrina-slot{margin-top:0!important}
+}
+@media (prefers-reduced-motion:reduce){
+  .vetrina-float{animation:none!important}
+}
+
+/* --- anteprima progetto in modale --- */
+.pv{display:flex;flex-direction:column;gap:var(--sp-5);padding:var(--sp-6)}
+.pv-shot{height:min(46vh,320px)}
+.pv-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--sp-3) var(--sp-4)}
+.pv-name{font-family:var(--display);font-size:clamp(24px,3.4vw,34px);font-weight:400;letter-spacing:-.03em;line-height:1.02}
+.pv-kind{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--fg-3)}
+.pv-text{font-size:16.5px;line-height:1.6;color:var(--fg-2);max-width:52ch;text-wrap:pretty}
+.pv-tags{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.pv-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--fg-3);border:1px solid var(--line);border-radius:var(--r-pill);padding:5px 10px}
+.pv-actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);padding-top:var(--sp-2)}
+@media (max-width:600px){.pv{padding:var(--sp-5)}.pv-shot{height:200px}}
+
+/* ============================================================
+   Bottoni condivisi: pieno e contorno. Stessa pillola del resto
+   del sito, ma qui servono anche dentro modali e schede prezzo.
+   ============================================================ */
+.btn-solid,.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:var(--sp-2);min-height:48px;padding:0 var(--sp-5);border-radius:var(--r-pill);font-size:15.5px;font-weight:450;letter-spacing:-.005em;text-decoration:none;cursor:pointer;transition:opacity var(--dur-1) var(--ease),background var(--dur-1) var(--ease),border-color var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)}
+.btn-solid{background:var(--fg);color:var(--fg-inv);border:1px solid var(--fg)}
+.btn-solid:hover{opacity:.88;color:var(--fg-inv)}
+.btn-solid:active{transform:scale(.985)}
+.btn-ghost{background:transparent;color:var(--fg);border:1px solid var(--line-strong)}
+.btn-ghost:hover{background:var(--bg-alt);color:var(--fg);border-color:var(--line-strong)}
+.btn-ghost:active{transform:scale(.985)}
+.btn-accent{background:var(--accent);color:#ffffff;border:1px solid var(--accent)}
+.btn-accent:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:#ffffff;opacity:1}
+.btn-wide{width:100%}
+
+/* ============================================================
+   Prezzi: tre fasce affiancate. La corsia centrale e' quella che
+   vendiamo davvero, quindi e' l'unica con il bordo pieno e il
+   bottone in accento; le altre due restano a contorno.
+   ============================================================ */
+.tariffe{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:var(--sp-5);align-items:stretch}
+.tar{position:relative;display:flex;flex-direction:column;gap:var(--sp-4);padding:var(--sp-6) var(--sp-5) var(--sp-5);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);box-shadow:var(--sh-1);transition:box-shadow var(--dur-2) var(--ease),transform var(--dur-2) var(--ease-out)}
+.tar:hover{box-shadow:var(--sh-2);transform:translateY(-2px)}
+.tar-top{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--sh-2)}
+.tar-top:hover{box-shadow:0 0 0 1px var(--accent),var(--sh-3)}
+.tar-flag{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);white-space:nowrap;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#ffffff;background:var(--accent);border-radius:var(--r-pill);padding:5px 12px}
+.tar-nome{font-size:20px;font-weight:500;letter-spacing:-.02em;text-align:center}
+.tar-sotto{font-size:14.5px;line-height:1.5;color:var(--fg-2);text-align:center;text-wrap:pretty;max-width:30ch;margin:0 auto}
+.tar-cifra{display:flex;align-items:baseline;justify-content:center;gap:var(--sp-2);padding-top:var(--sp-2)}
+.tar-da{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg-3)}
+/* cifre tabulari: 200 e 1500 restano incolonnate sulla stessa base */
+.tar-num{font-family:var(--display);font-size:clamp(42px,6vw,56px);font-weight:400;line-height:.94;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.tar-nota{font-size:13.5px;line-height:1.55;color:var(--fg-3);text-align:center;text-wrap:pretty;padding-bottom:var(--sp-2);border-bottom:1px solid var(--line)}
+.tar-lista{display:flex;flex-direction:column;gap:var(--sp-3)}
+.tar-voce{display:flex;gap:var(--sp-3);align-items:flex-start;font-size:14.5px;line-height:1.45;color:var(--fg)}
+.tar-tick{flex:none;margin-top:1px;color:var(--accent)}
+.tar-tempi{margin-top:auto;padding-top:var(--sp-4);display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3);border-top:1px solid var(--line)}
+.tar-tempi-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+.tar-tempi-v{font-size:14.5px;font-weight:500}
+.tar .btn-solid,.tar .btn-ghost{width:100%;margin-top:var(--sp-3)}
+@media (min-width:900px){
+  /* la corsia consigliata sporge di poco: si legge prima, senza
+     spezzare l'allineamento delle altre due */
+  .tar-top{margin-top:calc(var(--sp-4) * -1);margin-bottom:calc(var(--sp-4) * -1);padding-top:var(--sp-7);padding-bottom:var(--sp-6)}
+}
+
+/* ============================================================
+   Modale "Parliamone": a sinistra cosa succede dopo, a destra il
+   modulo. Su telefono diventa una colonna sola, il modulo sotto.
+   ============================================================ */
+.rq{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.rq-sx{padding:var(--sp-7) var(--sp-6);background:var(--bg-alt);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:var(--sp-5)}
+.rq-titolo{font-size:clamp(24px,2.9vw,32px);font-weight:500;letter-spacing:-.025em;line-height:1.1;text-wrap:balance}
+.rq-testo{font-size:15.5px;line-height:1.6;color:var(--fg-2);text-wrap:pretty}
+.rq-passi{display:flex;flex-direction:column;gap:var(--sp-4)}
+.rq-passo{display:flex;gap:var(--sp-3);align-items:flex-start;font-size:15px;line-height:1.5;color:var(--fg)}
+.rq-tick{flex:none;margin-top:2px;color:var(--accent)}
+.rq-coda{font-size:14px;line-height:1.55;color:var(--fg-3);margin-top:auto}
+.rq-dx{padding:var(--sp-7) var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-5)}
+.campo{display:flex;flex-direction:column;gap:var(--sp-2)}
+.campo-et{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)}
+.campo-aiuto{font-size:12.5px;line-height:1.5;color:var(--fg-3)}
+.campo input,.campo textarea{width:100%;min-height:48px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-2);font-size:16px;color:var(--fg);transition:border-color var(--dur-1) var(--ease),box-shadow var(--dur-1) var(--ease)}
+.campo textarea{resize:vertical;line-height:1.5;min-height:104px}
+.campo input:hover,.campo textarea:hover{border-color:var(--line-strong)}
+.campo input:focus,.campo textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.campo-err input,.campo-err textarea{border-color:#B4231C}
+.campo-msg{font-size:12.5px;line-height:1.45;color:#B4231C;display:none}
+.campo-err .campo-msg{display:block}
+.consenso{display:flex;gap:var(--sp-3);align-items:flex-start;font-size:14px;line-height:1.5;color:var(--fg-2);cursor:pointer}
+.consenso input{flex:none;width:18px;height:18px;min-height:0;margin-top:1px;accent-color:var(--accent);cursor:pointer}
+.rq-esito{font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--fg-3)}
+@media (max-width:760px){
+  .rq{grid-template-columns:1fr}
+  .rq-sx{border-right:none;border-bottom:1px solid var(--line);padding:var(--sp-6) var(--sp-5) var(--sp-5)}
+  .rq-dx{padding:var(--sp-5)}
+  .rq-coda{margin-top:0}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .drawer-link{opacity:1!important;transform:none!important;transition-delay:0ms!important}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  [data-reveal]{opacity:1!important;transform:none!important;transition:none!important;transition-delay:0ms!important}
+  [data-page],[data-page="out"]{animation:none!important;opacity:1!important;transition:none!important}
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://portfolio-vladora.kesug.com/#studio","name":"Vladora","description":"Studio di web design per attività locali: ristoranti, bar, barbershop.","url":"https://portfolio-vladora.kesug.com","email":"emailforworkvladora@gmail.com","telephone":"+393270029126","priceRange":"€€","areaServed":{"@type":"Place","name":"Savona e provincia"},"address":{"@type":"PostalAddress","addressLocality":"Savona","addressRegion":"SV","addressCountry":"IT"},"founder":[{"@type":"Person","name":"Zentsev Vladyslav"},{"@type":"Person","name":"Holovashchenko Heorhii"}],"sameAs":["https://instagram.com/vlad.ora"]}
+</script>
+</helmet>
+
+<div data-page="" style="position:relative">
+
+  <a href="#contenuto" style="position:absolute;left:-9999px;top:0;background:var(--fg);color:var(--fg-inv);padding:10px 16px;border-radius:var(--r-2);z-index:100" style-focus="left:var(--sp-4);top:var(--sp-4)">Vai al contenuto</a>
+
+  <header style="position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)">
+    <div data-nav-row="">
+      <a href="index.html" class="nav-mark">Vladora</a>
+      <nav class="nav-desktop" aria-label="Principale">
+        <a href="Vladora-Portfolio.dc.html" data-en="Work">Lavori</a>
+        <a href="#servizi" data-en="Services">Servizi</a>
+        <a href="#prezzi" data-en="Pricing">Prezzi</a>
+        <a href="Vladora-Contatti.dc.html" data-en="Contact">Contatti</a>
+      </nav>
+      <div class="nav-tools">
+        <div class="lang" data-lang="" data-open="false">
+          <button type="button" class="lang-btn" data-lang-btn="" aria-haspopup="true" aria-expanded="false" aria-label="Lingua: italiano. Cambia lingua">
+            <svg class="flag flag-it" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="6.67" height="14" fill="#008C45"></rect><rect x="6.67" width="6.66" height="14" fill="#F4F5F0"></rect><rect x="13.33" width="6.67" height="14" fill="#CD212A"></rect></svg>
+            <svg class="flag flag-en" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="20" height="14" fill="#012169"></rect><path d="M0 0 20 14M20 0 0 14" stroke="#FFFFFF" stroke-width="2.9"></path><path d="M0 0 20 14M20 0 0 14" stroke="#C8102E" stroke-width="1.4"></path><path d="M10 0V14M0 7H20" stroke="#FFFFFF" stroke-width="4.6"></path><path d="M10 0V14M0 7H20" stroke="#C8102E" stroke-width="2.6"></path></svg>
+            <span class="lang-code" data-en="EN">IT</span>
+            <svg class="lang-caret" width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </button>
+          <div class="lang-menu" data-lang-menu="" role="menu" aria-label="Lingua">
+            <button type="button" class="lang-opt" role="menuitemradio" aria-checked="true" data-lang-opt="it" tabindex="-1">
+              <svg class="flag" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="6.67" height="14" fill="#008C45"></rect><rect x="6.67" width="6.66" height="14" fill="#F4F5F0"></rect><rect x="13.33" width="6.67" height="14" fill="#CD212A"></rect></svg>
+              <span>Italiano</span>
+              <svg class="lang-check" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.4l3 3 6-6.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+            <button type="button" class="lang-opt" role="menuitemradio" aria-checked="false" data-lang-opt="en" tabindex="-1">
+              <svg class="flag" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="20" height="14" fill="#012169"></rect><path d="M0 0 20 14M20 0 0 14" stroke="#FFFFFF" stroke-width="2.9"></path><path d="M0 0 20 14M20 0 0 14" stroke="#C8102E" stroke-width="1.4"></path><path d="M10 0V14M0 7H20" stroke="#FFFFFF" stroke-width="4.6"></path><path d="M10 0V14M0 7H20" stroke="#C8102E" stroke-width="2.6"></path></svg>
+              <span>English</span>
+              <svg class="lang-check" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.4l3 3 6-6.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+          </div>
+        </div>
+        <button type="button" class="burger" data-drawer-btn="" aria-expanded="false" aria-controls="menu-laterale" aria-label="Apri il menu">
+          <span class="burger-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="scrim scrim-nav" data-drawer-scrim="" aria-hidden="true"></div>
+  <aside class="drawer" id="menu-laterale" data-drawer="" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="drawer-mark">Vladora</span>
+      <button type="button" class="drawer-x" data-drawer-close="" aria-label="Chiudi il menu" tabindex="-1">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+      </button>
+    </div>
+    <nav class="drawer-body" aria-label="Menu">
+      <p class="drawer-eyebrow" data-en="Pages">Pagine</p>
+      <a class="drawer-link" href="index.html" aria-current="page" tabindex="-1"><span data-en="Home">Home</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="drawer-link" href="Vladora-Portfolio.dc.html" tabindex="-1"><span data-en="Work">Lavori</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="drawer-link" href="#servizi" tabindex="-1"><span data-en="Services">Servizi</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="drawer-link" href="#prezzi" tabindex="-1"><span data-en="Pricing">Prezzi</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="drawer-link" href="Vladora-Contatti.dc.html" tabindex="-1"><span data-en="Contact">Contatti</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+    </nav>
+    <div class="drawer-foot">
+      <a class="drawer-cta" href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Write to us on WhatsApp" tabindex="-1">Scrivici su WhatsApp</a>
+      <p class="drawer-meta">SAVONA · VADO LIGURE</p>
+    </div>
+  </aside>
+
+  <main id="contenuto">
+
+    <section style="position:relative;overflow:hidden;padding:var(--sp-8) var(--sp-5) var(--sp-9);background:var(--grad-hero)">
+      <div style="max-width:1240px;margin:0 auto;position:relative">
+
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-4);flex-wrap:wrap">
+          <p data-en="Web design studio · Savona, Italy" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)">Studio di web design · Savona</p>
+          <p style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);display:flex;align-items:center;gap:var(--sp-2)"><span style="width:6px;height:6px;border-radius:var(--r-pill);background:var(--accent);display:inline-block"></span><span data-en="Available for 2 projects">Disponibili per 2 progetti</span></p>
+        </div>
+
+        <div style="position:relative;margin-top:var(--sp-6);display:grid;place-items:end center;min-height:min(42vw,420px)">
+          <div data-wordmark-wrap="" aria-hidden="true" style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:center;pointer-events:none">
+            <span data-wordmark="" style="font-family:var(--display);font-weight:500;font-size:min(21vw,290px);line-height:.78;letter-spacing:-.04em;color:var(--fg);opacity:.13;white-space:nowrap;transition:opacity var(--dur-2) var(--ease);pointer-events:auto;cursor:pointer;user-select:none">Vladora</span>
+          </div>
+          <figure data-reveal="" data-rv="scale" style="position:relative;z-index:2;width:min(480px,86vw);margin-top:var(--sp-9);border-radius:var(--r-4);background:var(--surface);box-shadow:var(--sh-3);border:1px solid var(--line);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4)">
+            <p data-en="Demonstration project" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:var(--r-pill);padding:5px 11px;align-self:start">Progetto dimostrativo</p>
+            <p style="font-family:var(--display);font-size:clamp(26px,4.4vw,44px);font-weight:400;line-height:1.02;letter-spacing:-.03em;color:var(--fg)">chinese-restaurant</p>
+            <p data-en="A sushi restaurant in Savona: menu, booking and directions on one page. It is online, open it." style="font-size:16px;line-height:1.55;color:var(--fg-2);max-width:34ch;text-wrap:pretty">Un ristorante di sushi a Savona: menu, prenotazione e indicazioni in una pagina. &#200; online, aprilo.</p>
+            <a href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" style="align-self:start;font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--accent);background:transparent;border:1px solid var(--accent);border-radius:var(--r-pill);padding:10px 18px;text-decoration:none;margin-top:var(--sp-2);transition:background var(--dur-1) var(--ease)" style-hover="background:var(--accent-soft);color:var(--accent)">chinese-restaurant.kesug.com &#8599;</a>
+          </figure>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-6);align-items:end;margin-top:var(--sp-7)">
+          <div style="display:flex;flex-direction:column;gap:var(--sp-4);max-width:20ch">
+            <h1 data-en="Two guys from Savona. Real sites, real prices." style="font-family:var(--display);font-size:clamp(34px,5.4vw,64px);font-weight:500;line-height:1.02;letter-spacing:-.035em;text-wrap:balance">Due ragazzi di Savona. Siti veri, prezzi veri.</h1>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--sp-5);max-width:44ch;justify-self:end;width:100%">
+            <p data-en="We build sites for restaurants, bars and barbershops around Savona. Two weeks, you know the price up front, and it opens straight away on a phone." style="font-size:18px;line-height:1.55;color:var(--fg-2);text-wrap:pretty">Facciamo siti per ristoranti, bar e barbershop di Savona. Due settimane, il prezzo lo sai prima, e dal telefono si apre subito.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3)">
+              <a href="Vladora-Portfolio.dc.html" data-en="See the work" style="font-size:15px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:opacity var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)" style-hover="opacity:.88;color:var(--fg-inv)" style-active="transform:scale(.98)">Vedi i lavori</a>
+              <a href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Let's talk" style="font-size:15px;font-weight:450;color:var(--fg);background:transparent;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:background var(--dur-1) var(--ease)" style-hover="background:var(--bg-alt);color:var(--fg)">Parliamone</a>
+            </div>
+            <p data-perf="" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3)">Misurazione del caricamento in corso…</p>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;margin-top:var(--sp-6)">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:var(--sp-2)">
+            <button type="button" data-hold-btn="" aria-label="Scorri alla sezione successiva. Tieni premuto per le firme." style="width:58px;height:58px;border-radius:var(--r-pill);background:var(--fg);color:var(--fg-inv);border:none;display:grid;place-items:center;cursor:pointer;transition:transform var(--dur-1) var(--ease);position:relative" style-hover="transform:scale(1.06)" style-active="transform:scale(.96)">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v13M5 11l5 5 5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+            <p data-en="Hold" style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)">Tieni premuto</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="prima-dopo" style="background:var(--bg-alt);padding:var(--sp-9) var(--sp-5);border-top:1px solid var(--line)">
+      <div style="max-width:1100px;margin:0 auto">
+        <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--sp-5);align-items:end;margin-bottom:var(--sp-7)">
+          <div>
+            <p data-en="Before / after" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Prima / dopo</p>
+            <h2 data-en="The same place, before and after one afternoon of work." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:24ch;text-wrap:balance">Lo stesso locale, prima e dopo un pomeriggio di lavoro.</h2>
+          </div>
+          <p data-en="Drag the divider. On the left what a customer finds today on Google: a phone number and two photos. On the right the site we would ship." style="font-size:16.5px;line-height:1.6;color:var(--fg-2);max-width:42ch;justify-self:end">Trascina il divisore. A sinistra quello che un cliente trova oggi su Google: un numero di telefono e due foto. A destra il sito che consegneremmo.</p>
+        </div>
+
+        <div data-ba-root="" style="position:relative;border-radius:var(--r-3);overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh-2);background:var(--surface);touch-action:pan-y;user-select:none">
+          <!-- width:100% e' necessario: con la sola aspect-ratio e min-height:300px
+               il box prendeva la larghezza dal rapporto (300 x 16/9 = 533px) invece
+               che dal contenitore, e su telefono meta' del confronto restava tagliata. -->
+          <div style="position:relative;width:100%;aspect-ratio:16/9;min-height:300px">
+
+            <div style="position:absolute;inset:0;background:#ffffff;color:#000000;font-family:'Times New Roman',Times,serif;padding:clamp(12px,2.2vw,28px);overflow:hidden">
+              <div style="text-align:center;border-bottom:2px solid #000080;padding-bottom:8px">
+                <p style="font-size:clamp(16px,2.6vw,30px);color:#000080;font-weight:bold">Bar Trattoria — Benvenuti!</p>
+                <p style="font-size:clamp(9px,1.2vw,13px);color:#333333">aperto tutti i giorni tranne il lunedì</p>
+              </div>
+              <div style="display:flex;gap:clamp(8px,1.4vw,18px);margin-top:12px">
+                <div style="width:34%;border:1px solid #808080;background:#f0f0f0;padding:8px">
+                  <p style="font-size:clamp(9px,1.2vw,13px);color:#0000ee;text-decoration:underline">Home</p>
+                  <p style="font-size:clamp(9px,1.2vw,13px);color:#0000ee;text-decoration:underline">Il menu</p>
+                  <p style="font-size:clamp(9px,1.2vw,13px);color:#0000ee;text-decoration:underline">Dove siamo</p>
+                  <p style="font-size:clamp(9px,1.2vw,13px);color:#0000ee;text-decoration:underline">Contatti</p>
+                </div>
+                <div style="flex:1">
+                  <div style="height:clamp(52px,9vw,116px);background:repeating-linear-gradient(45deg,#c8c8c8 0 6px,#dcdcdc 6px 12px);border:1px solid #808080;display:grid;place-items:center">
+                    <p style="font-size:clamp(8px,1.1vw,12px);color:#555555">foto_locale_2014.jpg</p>
+                  </div>
+                  <p style="font-size:clamp(9px,1.25vw,14px);margin-top:8px;line-height:1.35">Telefono: 019 000000 — chiamare dopo le 15. Per prenotazioni citofonare. Aggiornato il 12/03/2016.</p>
+                </div>
+              </div>
+              <p style="position:absolute;bottom:clamp(8px,1.4vw,18px);left:clamp(12px,2.2vw,28px);font-size:clamp(8px,1.05vw,12px);color:#666666">visitatori: 000412 · questo sito è ottimizzato per Internet Explorer</p>
+            </div>
+
+            <div data-ba-after="" style="position:absolute;inset:0;background:var(--surface);clip-path:inset(0 0 0 50%);display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:clamp(10px,1.8vw,22px) clamp(14px,2.4vw,32px);border-bottom:1px solid var(--line)">
+                <span style="font-family:var(--display);font-size:clamp(11px,1.5vw,17px);letter-spacing:.16em;text-transform:uppercase">chinese-restaurant</span>
+                <span style="display:flex;gap:clamp(8px,1.2vw,16px);align-items:center">
+                  <span style="font-size:clamp(9px,1.1vw,13px);color:var(--fg-2)">Menu</span>
+                  <span style="font-size:clamp(9px,1.1vw,13px);color:var(--fg-2)">Dove siamo</span>
+                  <span style="font-size:clamp(9px,1.1vw,13px);color:var(--fg-inv);background:var(--fg);border-radius:var(--r-pill);padding:5px 12px">Prenota</span>
+                </span>
+              </div>
+              <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,28px);padding:clamp(14px,2.6vw,36px);align-items:center">
+                <div style="display:flex;flex-direction:column;gap:clamp(8px,1.4vw,18px)">
+                  <p style="font-family:var(--display);font-size:clamp(18px,3.4vw,44px);font-weight:400;line-height:1.02;letter-spacing:-.03em">Prenota<br />in due tap.</p>
+                  <p style="font-size:clamp(9px,1.15vw,14px);color:var(--fg-2);line-height:1.5;max-width:26ch">Menu sempre aggiornato, tavolo confermato su WhatsApp.</p>
+                </div>
+                <div style="height:100%;min-height:clamp(70px,12vw,180px);border-radius:var(--r-2);background:repeating-linear-gradient(135deg,var(--bg-sunk) 0 10px,var(--bg-alt) 10px 20px);border:1px solid var(--line)"></div>
+              </div>
+            </div>
+
+            <div data-ba-handle="" style="position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--fg);transform:translateX(-1px);z-index:5;cursor:ew-resize">
+              <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:var(--r-pill);background:var(--fg);color:var(--fg-inv);display:grid;place-items:center;box-shadow:var(--sh-2)">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M8 6 4 10l4 4M12 6l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </span>
+            </div>
+          </div>
+          <input type="range" min="0" max="100" value="50" data-ba-input="" aria-label="Confronta prima e dopo" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;z-index:6" />
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:var(--sp-3)">
+          <p data-en="Today — Google listing only" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)">Oggi — solo scheda Google</p>
+          <p data-en="With Vladora" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">Con Vladora</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="chi-siamo" style="background:var(--bg);padding:var(--sp-9) var(--sp-5)">
+      <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-8);align-items:start">
+        <div data-reveal="" style="display:flex;flex-direction:column;gap:var(--sp-5)">
+          <p data-en="Who we are" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)">Chi siamo</p>
+          <h2 data-en="Eighteen, from Savona, and we don't hide it." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:22ch;text-wrap:balance">Diciotto anni, di Savona, e non lo nascondiamo.</h2>
+          <p data-en="There are two of us and nobody else touches your site. We build it, hand it over and show you how to update it. After that it is yours, with no monthly fee to renew." style="font-size:17.5px;line-height:1.6;color:var(--fg-2);max-width:46ch;text-wrap:pretty">Siamo in due e sul tuo sito non lavora nessun altro. Lo costruiamo, te lo consegniamo e ti facciamo vedere come aggiornarlo. Da lì in poi è tuo, senza canoni da rinnovare.</p>
+        </div>
+        <div data-reveal="" style="display:flex;flex-direction:column;gap:var(--sp-4);margin-top:var(--sp-7)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-4);padding-bottom:var(--sp-3);border-bottom:1px solid var(--line)">
+            <p style="font-size:17px;font-weight:450">Zentsev Vladyslav</p>
+            <p style="font-family:var(--mono);font-size:11.5px;color:var(--fg-3);letter-spacing:.06em">SAVONA</p>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-4);padding-bottom:var(--sp-3);border-bottom:1px solid var(--line)">
+            <p style="font-size:17px;font-weight:450">Holovashchenko Heorhii</p>
+            <p style="font-family:var(--mono);font-size:11.5px;color:var(--fg-3);letter-spacing:.06em">VADO LIGURE</p>
+          </div>
+          <p data-en="We want to build our own business making websites. This is where it starts." style="font-family:var(--mono);font-size:12.5px;line-height:1.65;color:var(--fg-3);margin-top:var(--sp-2);max-width:34ch">Vogliamo costruire la nostra attività facendo siti. Si comincia da qui.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="lavori" style="background:var(--bg-alt);padding:var(--sp-9) var(--sp-5);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+      <div style="max-width:1100px;margin:0 auto">
+        <div data-reveal="" style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-5);flex-wrap:wrap;margin-bottom:var(--sp-7)">
+          <div>
+            <p data-en="Selected work" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Lavori in evidenza</p>
+            <h2 data-en="One site online. The rest are studies of ours." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:22ch">Un sito online. Il resto sono studi nostri.</h2>
+          </div>
+          <a href="Vladora-Portfolio.dc.html" data-en="All work" style="font-size:14.5px;color:var(--fg);border-bottom:1px solid var(--line-strong);text-decoration:none;padding-bottom:3px" style-hover="color:var(--accent);border-color:var(--accent)">Tutti i lavori</a>
+        </div>
+
+        <div data-reveal="" data-rv="rise" style="margin-bottom:var(--sp-8)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-4);flex-wrap:wrap;margin-bottom:var(--sp-6)">
+            <h3 data-en="Open one" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)">Aprine uno</h3>
+            <p data-en="One is online for a real customer. The others are studies, and they say so." style="font-family:var(--mono);font-size:11.5px;line-height:1.6;color:var(--fg-3);max-width:44ch">Uno è online per un cliente vero. Gli altri sono studi nostri, e lo dicono.</p>
+          </div>
+          <div class="vetrina" data-vetrina=""></div>
+        </div>
+
+        <a href="Vladora-CaseStudy.dc.html" data-reveal="" data-rv="scale" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-7);align-items:center;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);padding:var(--sp-6);transition:box-shadow var(--dur-2) var(--ease),transform var(--dur-2) var(--ease)" style-hover="box-shadow:var(--sh-3);transform:translateY(-3px);color:var(--fg)">
+          <div style="border-radius:var(--r-2);border:1px solid var(--line);background:var(--bg);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4);justify-content:center;min-height:190px">
+            <span style="font-family:var(--display);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2)">chinese-restaurant</span>
+            <p style="font-family:var(--display);font-size:clamp(20px,2.4vw,28px);font-weight:400;letter-spacing:-.025em;line-height:1.04">Sushi, tavolo<br />e menu. Basta.</p>
+            <span style="font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--fg-3)">chinese-restaurant.kesug.com</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
+            <p data-en="Demonstration project" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:var(--r-pill);padding:5px 11px;align-self:start">Progetto dimostrativo</p>
+            <h3 style="font-size:26px;font-weight:500;letter-spacing:-.02em">chinese-restaurant</h3>
+            <p data-en="Sushi restaurant · Savona" style="font-size:14.5px;color:var(--fg-3);font-family:var(--mono);letter-spacing:.04em">Ristorante di sushi · Savona</p>
+            <p data-en="Menu, table booking and directions on one page: three taps from Google to a confirmed table." style="font-size:17px;line-height:1.6;color:var(--fg-2);max-width:38ch;text-wrap:pretty">Menu, prenotazione e indicazioni in una pagina: da Google al tavolo confermato in tre tap.</p>
+            <p data-en="Read the case study →" style="font-size:15px;color:var(--accent);margin-top:var(--sp-2)">Leggi il case study →</p>
+          </div>
+        </a>
+
+        <div data-reveal="" data-rv="rise" style="margin-top:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-4);flex-wrap:wrap">
+            <h3 data-en="Live preview" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)">Anteprima live</h3>
+            <a href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px" style-hover="color:var(--accent-hover);border-color:var(--accent-hover)">chinese-restaurant.kesug.com &#8599;</a>
+          </div>
+          <div style="border:1px solid var(--line);border-radius:var(--r-2);overflow:hidden;background:var(--surface)">
+            <div data-embed="" style="position:relative;height:clamp(320px,60vh,560px)">
+              <iframe data-embed-frame="" data-src="https://chinese-restaurant.kesug.com/" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Anteprima live del sito chinese-restaurant" style="display:block;width:100%;height:100%;border:0;background:var(--bg-alt)"></iframe>
+              <div data-embed-cover="" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:var(--sp-4);align-items:center;justify-content:center;text-align:center;padding:var(--sp-6);background:var(--bg-alt);color:var(--fg-2)">
+                <p data-embed-msg="" data-en="Live preview of the real site." style="font-size:15px;line-height:1.6;max-width:40ch;text-wrap:pretty">Anteprima live del sito vero.</p>
+                <button type="button" data-embed-load="" data-en="Load the preview" style="font-size:14.5px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;transition:opacity var(--dur-1) var(--ease)" style-hover="opacity:.88">Carica l'anteprima</button>
+                <a data-embed-open="" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open in a new tab &#8599;" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:2px" style-hover="color:var(--fg)">Apri in una scheda nuova &#8599;</a>
+              </div>
+              <div data-embed-bar="" style="position:absolute;left:0;right:0;bottom:0;opacity:0;transition:opacity var(--dur-2) var(--ease);display:flex;gap:var(--sp-3);align-items:center;justify-content:space-between;flex-wrap:wrap;padding:var(--sp-3) var(--sp-4);background:var(--surface);border-top:1px solid var(--line)">
+                <span data-en="Frame still blank? The host is blocking the preview." style="font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--fg-3)">Riquadro ancora bianco? L'hosting sta bloccando l'anteprima.</span>
+                <a href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open the site &#8599;" style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px" style-hover="color:var(--accent-hover);border-color:var(--accent-hover)">Apri il sito &#8599;</a>
+              </div>
+            </div>
+          </div>
+          <p data-en="The real site, loaded live. If the browser blocks the frame, open it in a new tab." style="font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--fg-3)">Il sito vero, caricato dal vivo. Se il browser blocca il riquadro, aprilo in una scheda nuova.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="servizi" style="background:var(--bg);padding:var(--sp-9) var(--sp-5)">
+      <div style="max-width:1100px;margin:0 auto">
+        <div data-reveal="" style="max-width:34ch;margin-bottom:var(--sp-7)">
+          <p data-en="Services" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Servizi</p>
+          <h2 data-en="Four kinds of site. We tell you which one is enough." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1">Quattro tipi di sito. Quale ti basta te lo diciamo noi.</h2>
+        </div>
+        <ul data-reveal-group="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-3);overflow:hidden">
+          <li data-reveal="" data-rv="rise" style="background:var(--bg);padding:var(--sp-6) var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-4);min-height:210px">
+            <span style="color:var(--fg-2)"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="3.5" y="5.5" width="21" height="17" rx="2" stroke="currentColor" stroke-width="1.3"></rect><path d="M3.5 10.5h21" stroke="currentColor" stroke-width="1.3"></path><path d="M7 15h8M7 18.5h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg></span>
+            <h3 data-en="One-page site" style="font-size:18px;font-weight:500;letter-spacing:-.01em;margin-top:auto">Sito vetrina</h3>
+            <p data-en="A single page with your hours, your address and your phone number." style="font-size:15px;line-height:1.55;color:var(--fg-2)">Una pagina sola con orari, indirizzo e numero di telefono.</p>
+          </li>
+          <li data-reveal="" data-rv="rise" style="background:var(--bg);padding:var(--sp-6) var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-4);min-height:210px">
+            <span style="color:var(--fg-2)"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"></rect><rect x="15.5" y="4.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"></rect><rect x="3.5" y="16.5" width="9" height="7" rx="1.5" stroke="currentColor" stroke-width="1.3"></rect><rect x="15.5" y="16.5" width="9" height="7" rx="1.5" stroke="currentColor" stroke-width="1.3"></rect></svg></span>
+            <h3 data-en="Portfolio site" style="font-size:18px;font-weight:500;letter-spacing:-.01em;margin-top:auto">Sito portfolio</h3>
+            <p data-en="More pages and a gallery, for when you have a lot to show." style="font-size:15px;line-height:1.55;color:var(--fg-2)">Più pagine e una galleria, per chi ha molto da mostrare.</p>
+          </li>
+          <li data-reveal="" data-rv="rise" style="background:var(--bg);padding:var(--sp-6) var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-4);min-height:210px">
+            <span style="color:var(--fg-2)"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="3.5" y="6.5" width="21" height="18" rx="2" stroke="currentColor" stroke-width="1.3"></rect><path d="M3.5 12h21M9 3.5v5M19 3.5v5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path><circle cx="14" cy="18" r="2" fill="currentColor"></circle></svg></span>
+            <h3 data-en="Restaurant with booking" style="font-size:18px;font-weight:500;letter-spacing:-.01em;margin-top:auto">Sito con prenotazioni</h3>
+            <p data-en="Digital menu and tables booked straight into WhatsApp." style="font-size:15px;line-height:1.55;color:var(--fg-2)">Menu digitale e tavoli prenotati direttamente su WhatsApp.</p>
+          </li>
+          <li data-reveal="" data-rv="rise" style="background:var(--bg);padding:var(--sp-6) var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-4);min-height:210px">
+            <span style="color:var(--fg-2)"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M5.5 8.5h17l-1.6 15h-13.8L5.5 8.5Z" stroke="currentColor" stroke-width="1.3"></path><path d="M10 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg></span>
+            <h3 data-en="Online shop" style="font-size:18px;font-weight:500;letter-spacing:-.01em;margin-top:auto">Negozio online</h3>
+            <p data-en="Catalogue, cart and payments, for when you start selling online." style="font-size:15px;line-height:1.55;color:var(--fg-2)">Catalogo, carrello e pagamenti, per quando si inizia a vendere online.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="prezzi" style="background:var(--bg-alt);padding:var(--sp-9) var(--sp-5);border-top:1px solid var(--line)">
+      <div style="max-width:1100px;margin:0 auto">
+        <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--sp-5);align-items:end;margin-bottom:var(--sp-8)">
+          <div>
+            <p data-en="Pricing" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Prezzi</p>
+            <h2 data-en="Three tiers. We give you the price on the first call." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:20ch;text-wrap:balance">Tre fasce. Il prezzo te lo diciamo alla prima chiamata.</h2>
+          </div>
+          <p data-en="Quotes are free and we send them in writing. You pay when you have seen the mockup and said yes." style="font-size:16.5px;line-height:1.6;color:var(--fg-2);max-width:40ch;justify-self:end;text-wrap:pretty">Il preventivo è gratis e te lo mandiamo scritto. Paghi quando hai visto il mockup e hai detto sì.</p>
+        </div>
+
+        <div class="tariffe" data-reveal-group="">
+
+          <article class="tar" data-reveal="" data-rv="rise">
+            <h3 class="tar-nome" data-en="One-page site">Sito vetrina</h3>
+            <p class="tar-sotto" data-en="Everything a customer needs to find you, on a single page." style="min-height:44px">Tutto quello che serve a un cliente per trovarti, in una pagina sola.</p>
+            <p class="tar-cifra"><span class="tar-da" data-en="from">da</span><span class="tar-num">200 €</span></p>
+            <p class="tar-nota" data-en="Base price for one page. More pages and a gallery start at 350 €. You pay after you approve the mockup.">Prezzo base per una pagina. Più pagine e una galleria partono da 350 €. Paghi dopo aver approvato il mockup.</p>
+            <ul class="tar-lista">
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="A call to go through the place and what it needs">Una chiamata per capire il locale e cosa gli serve</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Texts written with you, not filled in from a template">Testi scritti con te, non riempiti da un modello</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Hours, map and a WhatsApp button that works from the phone">Orari, mappa e pulsante WhatsApp che funziona dal telefono</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Linked to your Google listing so the two agree">Collegato alla tua scheda Google, così le due si parlano</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Half an hour with us to learn how to update it yourself">Mezz&#8217;ora con noi per imparare ad aggiornarlo da solo</span></li>
+            </ul>
+            <p class="tar-tempi"><span class="tar-tempi-k" data-en="Delivery">Consegna</span><span class="tar-tempi-v" data-en="1 week">1 settimana</span></p>
+            <button type="button" class="btn-ghost" data-apri-richiesta="Sito vetrina" data-en="Talk it through">Parliamone</button>
+          </article>
+
+          <article class="tar tar-top" data-reveal="" data-rv="rise">
+            <span class="tar-flag" data-en="Most asked for">Il più richiesto</span>
+            <h3 class="tar-nome" data-en="Site with bookings">Sito con prenotazioni</h3>
+            <p class="tar-sotto" data-en="For places that take tables or appointments: menu, booking, gallery." style="min-height:44px">Per chi prende tavoli o appuntamenti: menu, prenotazione, galleria.</p>
+            <p class="tar-cifra"><span class="tar-da" data-en="from">da</span><span class="tar-num">600 €</span></p>
+            <p class="tar-nota" data-en="The final number depends on how many pages and how many dishes or services there are to load. We tell you before we start.">Il numero finale dipende da quante pagine e quanti piatti o servizi ci sono da caricare. Te lo diciamo prima di iniziare.</p>
+            <ul class="tar-lista">
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Everything in the one-page site">Tutto quello del sito vetrina</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Digital menu or price list you change yourself, from the phone">Menu o listino digitale che cambi tu, dal telefono</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Bookings that land in your WhatsApp, no software to learn">Prenotazioni che arrivano nel tuo WhatsApp, nessun gestionale da imparare</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Up to five pages and a photo gallery">Fino a cinque pagine e una galleria fotografica</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Set up so Google can read it: titles, descriptions, structured data">Impostato perché Google lo legga: titoli, descrizioni, dati strutturati</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="A month after delivery when you can call us and we fix things">Un mese dopo la consegna in cui ci chiami e sistemiamo</span></li>
+            </ul>
+            <p class="tar-tempi"><span class="tar-tempi-k" data-en="Delivery">Consegna</span><span class="tar-tempi-v" data-en="2 weeks">2 settimane</span></p>
+            <button type="button" class="btn-solid btn-accent" data-apri-richiesta="Sito con prenotazioni" data-en="Talk it through">Parliamone</button>
+          </article>
+
+          <article class="tar" data-reveal="" data-rv="rise">
+            <h3 class="tar-nome" data-en="Online shop">Negozio online</h3>
+            <p class="tar-sotto" data-en="For when you want to sell online and ship what you sell." style="min-height:44px">Per chi vuole vendere online e spedire quello che vende.</p>
+            <p class="tar-cifra"><span class="tar-da" data-en="from">da</span><span class="tar-num">1500 €</span></p>
+            <p class="tar-nota" data-en="Starting price for a catalogue of up to fifty products. Above that we count it together.">Prezzo di partenza per un catalogo fino a cinquanta prodotti. Oltre, si conta insieme.</p>
+            <ul class="tar-lista">
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Everything in the site with bookings">Tutto quello del sito con prenotazioni</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Product catalogue with sizes, variants and stock">Catalogo con taglie, varianti e disponibilità</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Cart and card payments, set up with your bank details">Carrello e pagamenti con carta, configurati con i tuoi dati bancari</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Shipping and pick-up in store">Spedizione e ritiro in negozio</span></li>
+              <li class="tar-voce"><svg class="tar-tick" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="A panel for orders and stock, plus half a day of training on it">Un pannello per ordini e magazzino, e mezza giornata per imparare a usarlo</span></li>
+            </ul>
+            <p class="tar-tempi"><span class="tar-tempi-k" data-en="Delivery">Consegna</span><span class="tar-tempi-v" data-en="4 to 6 weeks">4-6 settimane</span></p>
+            <button type="button" class="btn-ghost" data-apri-richiesta="Negozio online" data-en="Talk it through">Parliamone</button>
+          </article>
+
+        </div>
+
+        <p data-reveal="" data-en="Hosting and the domain are paid to the provider: 15 to 40 € a year. We set them up and the account stays in your name." style="font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--fg-3);margin-top:var(--sp-6);max-width:70ch">Hosting e dominio li paghi al fornitore: fra i 15 e i 40 € l&#8217;anno. Li configuriamo noi e l&#8217;account resta intestato a te.</p>
+      </div>
+    </section>
+
+    <section id="note" style="background:var(--bg);padding:var(--sp-9) var(--sp-5);overflow:hidden">
+      <div style="max-width:1100px;margin:0 auto">
+        <div data-reveal="" style="max-width:40ch;margin-bottom:var(--sp-8)">
+          <p data-en="Instead of testimonials" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Al posto delle testimonianze</p>
+          <h2 data-en="We have no clients yet. In their place, here is what we put in writing." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;text-wrap:balance">Di clienti non ne abbiamo ancora. Al loro posto, mettiamo per iscritto a cosa ci impegniamo.</h2>
+        </div>
+        <div data-reveal-group="" style="display:flex;flex-wrap:wrap;gap:var(--sp-6);justify-content:center;padding:var(--sp-4) 0">
+          <div data-reveal="" data-rv="scale" style="width:min(300px,86vw);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-2);padding:var(--sp-5);box-shadow:var(--sh-2);transform:rotate(-2.4deg);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease)" style-hover="transform:rotate(-.6deg) translateY(-4px);box-shadow:var(--sh-3)">
+            <p data-en="What we promise" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--sp-3)">Cosa promettiamo</p>
+            <p data-en="A site that opens in under a second on a customer's phone, out in the street, on one bar of signal." style="font-size:16.5px;line-height:1.55;color:var(--fg);text-wrap:pretty">Un sito che si apre in meno di un secondo sul telefono di un cliente, in mezzo alla strada, con una tacca di rete.</p>
+            <p style="font-family:var(--display);font-size:19px;font-weight:300;letter-spacing:.02em;color:var(--fg-2);margin-top:var(--sp-4);transform:skewX(-9deg);transform-origin:left">Vladyslav</p>
+          </div>
+          <div data-reveal="" data-rv="scale" style="width:min(300px,86vw);background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--r-2);padding:var(--sp-5);box-shadow:var(--sh-2);transform:rotate(1.8deg) translateY(18px);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease)" style-hover="transform:rotate(.4deg) translateY(12px);box-shadow:var(--sh-3)">
+            <p data-en="How long it takes" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--sp-3)">Quanto ci mettiamo</p>
+            <p data-en="Two weeks from the first call. One week for a one-page site. If we are late, you don't pay the difference." style="font-size:16.5px;line-height:1.55;color:var(--fg);text-wrap:pretty">Due settimane dalla prima chiamata. Una per un sito vetrina. Se sforiamo, la differenza non la paghi tu.</p>
+            <p style="font-family:var(--display);font-size:19px;font-weight:300;letter-spacing:.02em;color:var(--fg-2);margin-top:var(--sp-4);transform:skewX(-9deg);transform-origin:left">Heorhii</p>
+          </div>
+          <div data-reveal="" data-rv="scale" style="width:min(300px,86vw);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-2);padding:var(--sp-5);box-shadow:var(--sh-2);transform:rotate(-1.2deg) translateY(-10px);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease)" style-hover="transform:rotate(-.2deg) translateY(-16px);box-shadow:var(--sh-3)">
+            <p data-en="If you don't like it" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--sp-3)">Se non ti piace</p>
+            <p data-en="You see the mockup before we write a line of code. If it's not right, we redo it. You pay only when you say yes." style="font-size:16.5px;line-height:1.55;color:var(--fg);text-wrap:pretty">Il mockup lo vedi prima che scriviamo una riga di codice. Se non va, lo rifacciamo. Paghi solo quando dici sì.</p>
+            <p style="font-family:var(--display);font-size:19px;font-weight:300;letter-spacing:.02em;color:var(--fg-2);margin-top:var(--sp-4);transform:skewX(-9deg);transform-origin:left">Vladyslav &amp; Heorhii</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="parliamone" style="background:var(--bg-alt);padding:var(--sp-9) var(--sp-5);border-top:1px solid var(--line)">
+      <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-8);align-items:start">
+        <div data-reveal="" style="display:flex;flex-direction:column;gap:var(--sp-5)">
+          <p data-en="Let's talk" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)">Parliamone</p>
+          <h2 data-en="Tell us about the place. We'll reply on WhatsApp." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:20ch;text-wrap:balance">Raccontaci il locale. Ti rispondiamo su WhatsApp.</h2>
+          <p data-en="The form writes the message into your WhatsApp and opens the chat. You read it over, and you send it." style="font-size:16.5px;line-height:1.6;color:var(--fg-2);max-width:40ch;text-wrap:pretty">Il modulo scrive il messaggio nel tuo WhatsApp e apre la chat. Lo rileggi, e lo mandi tu.</p>
+          <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
+            <a href="https://wa.me/393270029126" target="_blank" rel="noopener" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline" style-hover="color:var(--accent)"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">WHATSAPP</span>+39 327 002 9126</a>
+            <a href="mailto:emailforworkvladora@gmail.com" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline;word-break:break-all" style-hover="color:var(--accent)"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">EMAIL</span>emailforworkvladora@gmail.com</a>
+            <a href="https://instagram.com/vlad.ora" target="_blank" rel="noopener" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline" style-hover="color:var(--accent)"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">INSTAGRAM</span>@vlad.ora</a>
+          </div>
+        </div>
+
+        <form data-wa-form="" data-reveal="" data-rv="right" style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-5);box-shadow:var(--sh-2)">
+          <label style="display:flex;flex-direction:column;gap:var(--sp-2)">
+            <span data-en="Name" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)">Nome</span>
+            <input type="text" name="nome" required="" autocomplete="name" style="background:var(--bg);border:1px solid var(--line);border-radius:var(--r-2);padding:12px 14px;font-size:16px;color:var(--fg);min-height:46px" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:var(--sp-2)">
+            <span data-en="Type of place" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)">Tipo di attività</span>
+            <select name="tipo" style="background:var(--bg);border:1px solid var(--line);border-radius:var(--r-2);padding:12px 14px;font-size:16px;color:var(--fg);min-height:46px">
+              <option>Ristorante</option>
+              <option>Bar</option>
+              <option>Barbershop</option>
+              <option>Altro</option>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:var(--sp-2)">
+            <span data-en="What do you need?" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)">Cosa ti serve?</span>
+            <textarea name="messaggio" rows="4" style="background:var(--bg);border:1px solid var(--line);border-radius:var(--r-2);padding:12px 14px;font-size:16px;color:var(--fg);resize:vertical;line-height:1.5"></textarea>
+          </label>
+          <button type="submit" data-en="Open WhatsApp" style="font-size:16px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:14px 26px;cursor:pointer;min-height:48px;transition:opacity var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)" style-hover="opacity:.88" style-active="transform:scale(.99)">Apri WhatsApp</button>
+          <p data-wa-hint="" data-en="The message opens in your WhatsApp. Until you press send, nothing has gone anywhere." style="font-family:var(--mono);font-size:11.5px;line-height:1.6;color:var(--fg-3)">Il messaggio si apre nel tuo WhatsApp. Finché non premi invia, non è partito niente.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background:var(--bg);padding:var(--sp-8) var(--sp-5) var(--sp-6);border-top:1px solid var(--line)">
+    <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:var(--sp-6)">
+      <div style="display:flex;flex-wrap:wrap;gap:var(--sp-6);justify-content:space-between;align-items:flex-end">
+        <p style="font-family:var(--display);font-size:clamp(44px,10vw,120px);font-weight:500;letter-spacing:-.045em;line-height:.8;color:var(--fg);opacity:.9">Vladora</p>
+        <nav aria-label="Pagine" style="display:flex;flex-direction:column;gap:var(--sp-2);text-align:right">
+          <a href="Vladora-Portfolio.dc.html" data-en="Work" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Lavori</a>
+          <a href="Vladora-CaseStudy.dc.html" data-en="Case study" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Case study</a>
+          <a href="Vladora-Contatti.dc.html" data-en="Contact" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Contatti</a>
+          <a href="Vladora-StyleGuide.dc.html" data-en="Style guide" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Style guide</a>
+        </nav>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);justify-content:space-between;padding-top:var(--sp-5);border-top:1px solid var(--line)">
+        <p style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--fg-3)">SAVONA · VADO LIGURE · 2026</p>
+        <p data-en="Written by hand, line by line." style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--fg-3)">Scritto a mano, riga per riga.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mdl" data-modal="anteprima" data-open="false" role="dialog" aria-modal="true" aria-label="Anteprima del progetto" aria-hidden="true">
+    <div class="mdl-scrim" data-modal-close=""></div>
+    <div class="mdl-panel" style="max-width:720px">
+      <button type="button" class="mdl-x" data-modal-close="" aria-label="Chiudi l&#8217;anteprima">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+      </button>
+      <div class="mdl-body"><div class="pv" data-pv=""></div></div>
+    </div>
+  </div>
+
+  <div class="mdl" data-modal="richiesta" data-open="false" role="dialog" aria-modal="true" aria-labelledby="rq-titolo" aria-hidden="true">
+    <div class="mdl-scrim" data-modal-close=""></div>
+    <div class="mdl-panel" style="max-width:880px">
+      <button type="button" class="mdl-x" data-modal-close="" aria-label="Chiudi">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+      </button>
+      <div class="mdl-body">
+        <div class="rq">
+          <div class="rq-sx">
+            <h2 class="rq-titolo" id="rq-titolo" data-en="You get the mockup of your first screen. Free, before anything else.">Ti mandiamo il mockup della prima schermata. Gratis, prima di tutto il resto.</h2>
+            <p class="rq-testo" data-en="Fill this in and we write back to ask two things about the place — by voice or by message, whichever you prefer. Then:">Compila e ti scriviamo per chiederti due cose sul locale: a voce o per messaggio, come preferisci. Poi:</p>
+            <ul class="rq-passi">
+              <li class="rq-passo"><svg class="rq-tick" width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="Within three days you see the first screen of your future site, drawn for you.">Entro tre giorni vedi la prima schermata del tuo futuro sito, disegnata per te.</span></li>
+              <li class="rq-passo"><svg class="rq-tick" width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="If you like it, the quote follows: exact price, dates, and what we do on each of them.">Se ti piace, arriva il preventivo: prezzo esatto, date, e cosa facciamo in ognuna.</span></li>
+              <li class="rq-passo"><svg class="rq-tick" width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" opacity=".35"></circle><path d="M4.8 8.2l2.2 2.2 4.2-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-en="No contract and no deposit. If you say no, the mockup is yours to keep anyway.">Nessun contratto e nessun anticipo. Se dici di no, il mockup resta tuo lo stesso.</span></li>
+            </ul>
+            <p class="rq-coda" data-en="Two of us read these. Vladyslav or Heorhii answers you, by name.">Queste le leggiamo in due. Ti risponde Vladyslav o Heorhii, con nome e cognome.</p>
+          </div>
+
+          <form class="rq-dx" data-rq-form="" novalidate="">
+            <label class="campo" data-campo="nome">
+              <span class="campo-et" data-en="What is your name?">Come ti chiami?</span>
+              <input type="text" name="nome" autocomplete="name" required="" aria-describedby="err-nome" />
+              <span class="campo-msg" id="err-nome" data-en="Write your name so we know who we are talking to.">Scrivi il tuo nome, così sappiamo con chi parliamo.</span>
+            </label>
+
+            <label class="campo" data-campo="progetto">
+              <span class="campo-et" data-en="Tell us about the place">Raccontaci il locale</span>
+              <textarea name="progetto" rows="4" required="" aria-describedby="err-progetto" placeholder="Che attività è e cosa ti serve. Due righe bastano." data-en-ph="What the place is and what you need. Two lines are enough."></textarea>
+              <span class="campo-msg" id="err-progetto" data-en="Two lines are enough: what the place is and what you need.">Bastano due righe: che attività è e cosa ti serve.</span>
+            </label>
+
+            <label class="campo" data-campo="email">
+              <span class="campo-et" data-en="Your email">La tua email</span>
+              <input type="email" name="email" autocomplete="email" inputmode="email" required="" aria-describedby="err-email" />
+              <span class="campo-msg" id="err-email" data-en="This address does not look complete. Check it and we will use it to send the quote.">Questo indirizzo non sembra completo. Controllalo: ci mandiamo il preventivo.</span>
+            </label>
+
+            <label class="campo" data-campo="telefono">
+              <span class="campo-et" data-en="Phone (optional)">Telefono (facoltativo)</span>
+              <input type="tel" name="telefono" autocomplete="tel" inputmode="tel" placeholder="+39 ..." aria-describedby="aiuto-telefono" />
+              <span class="campo-aiuto" id="aiuto-telefono" data-en="For WhatsApp or Telegram. International format, with the country code.">Per WhatsApp o Telegram. Formato internazionale, con il prefisso del paese.</span>
+            </label>
+
+            <div class="campo" data-campo="consenso">
+              <label class="consenso">
+                <input type="checkbox" name="consenso" required="" aria-describedby="err-consenso" />
+                <span data-en="I have read what happens to my data.">Ho letto cosa succede ai miei dati.</span>
+              </label>
+              <button type="button" class="campo-aiuto" data-apri-privacy="" style="align-self:flex-start;background:none;border:none;padding:0;color:var(--accent);text-decoration:underline;text-underline-offset:3px;cursor:pointer" data-en="Read it — it is four lines">Leggilo, sono quattro righe</button>
+              <span class="campo-msg" id="err-consenso" data-en="Tick the box and we can write back.">Spunta la casella e possiamo risponderti.</span>
+            </div>
+
+            <button type="submit" class="btn-solid btn-wide" data-en="Open WhatsApp with this message">Apri WhatsApp con questo messaggio</button>
+            <p class="rq-esito" data-rq-esito="" data-en="Nothing is sent from here. The button writes the message into your WhatsApp and you decide whether to send it.">Da qui non parte niente. Il pulsante scrive il messaggio nel tuo WhatsApp e sei tu a decidere se inviarlo.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mdl" data-modal="privacy" data-open="false" role="dialog" aria-modal="true" aria-labelledby="pp-titolo" aria-hidden="true">
+    <div class="mdl-scrim" data-modal-close=""></div>
+    <div class="mdl-panel" style="max-width:520px">
+      <button type="button" class="mdl-x" data-modal-close="" aria-label="Chiudi">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+      </button>
+      <div class="mdl-body" style="padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4)">
+        <h2 id="pp-titolo" data-en="What happens to your data" style="font-size:23px;font-weight:500;letter-spacing:-.02em">Cosa succede ai tuoi dati</h2>
+        <p data-en="This form has no server behind it. What you write stays in your browser until you press the button: at that point it becomes a WhatsApp message on your phone, already written, that you send or delete." style="font-size:15.5px;line-height:1.6;color:var(--fg-2);text-wrap:pretty">Questo modulo non ha un server dietro. Quello che scrivi resta nel tuo browser finché non premi il pulsante: a quel punto diventa un messaggio WhatsApp sul tuo telefono, già scritto, che invii o cancelli.</p>
+        <p data-en="If you send it, we read it in our WhatsApp and answer from there. Your details stay in that chat: no list, no newsletter, nobody else." style="font-size:15.5px;line-height:1.6;color:var(--fg-2);text-wrap:pretty">Se lo invii, lo leggiamo nel nostro WhatsApp e da lì ti rispondiamo. I tuoi dati restano in quella chat: nessuna lista, nessuna newsletter, nessun altro.</p>
+        <p data-en="Ask us to delete the conversation whenever you want, at the same number: we delete it." style="font-size:15.5px;line-height:1.6;color:var(--fg-2);text-wrap:pretty">Chiedici di cancellare la conversazione quando vuoi, allo stesso numero: la cancelliamo.</p>
+        <button type="button" class="btn-ghost" data-modal-close="" data-en="Got it" style="align-self:flex-start;margin-top:var(--sp-2)">Ho capito</button>
+      </div>
+    </div>
+  </div>
+
+  <div data-egg="" aria-hidden="true" style="position:fixed;inset:0;z-index:90;opacity:0;pointer-events:none;transition:opacity 220ms linear;background:#c0c0c0;background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.05) 0 2px,transparent 2px 4px);overflow:hidden">
+    <div style="font-family:'Comic Sans MS','Comic Sans',cursive;color:#000080;text-align:center;padding:24px 16px">
+      <p style="font-size:clamp(26px,6vw,54px);font-weight:bold;text-shadow:2px 2px 0 #ffff00">~ * ~ IL TUO SITO ~ * ~</p>
+      <p style="font-size:clamp(13px,2vw,18px);color:#ff0000;animation:blink90 900ms steps(1,end) infinite;margin-top:8px">*** SITO IN COSTRUZIONE ***</p>
+      <table style="margin:20px auto 0;border-collapse:collapse;background:#ffffff;max-width:520px;width:92%">
+        <tbody>
+          <tr>
+            <td style="border:3px ridge #808080;padding:10px;width:34%;background:#ffffcc;font-size:13px;color:#0000ee;text-decoration:underline;font-family:'Comic Sans MS',cursive">HOME<br />MENU<br />GUESTBOOK<br />LINKS</td>
+            <td style="border:3px ridge #808080;padding:10px;font-size:13px;color:#000000;font-family:'Comic Sans MS',cursive;text-align:left">Benvenuto nel mio sito!!! Aggiorna la pagina con F5. Firma il guestbook!<br /><br />Miglior visualizzazione 800x600.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="max-width:520px;width:92%;margin:14px auto 0;height:22px;background:repeating-linear-gradient(45deg,#ffcc00 0 12px,#000000 12px 24px)"></div>
+      <p data-egg-note="" style="font-family:var(--sans);font-size:clamp(13px,2vw,17px);color:#000000;background:#ffffff;display:inline-block;padding:8px 14px;margin-top:18px;border:1px solid #000000">ecco com'era il tuo sito prima.</p>
+    </div>
+  </div>
+
+  <div data-signatures="" aria-hidden="true" style="position:fixed;left:50%;bottom:var(--sp-6);transform:translate(-50%,12px);z-index:80;opacity:0;pointer-events:none;transition:opacity var(--dur-2) var(--ease),transform var(--dur-2) var(--ease);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);box-shadow:var(--sh-3);padding:var(--sp-5) var(--sp-6);display:flex;gap:var(--sp-7);align-items:center">
+    <p style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);writing-mode:vertical-rl;transform:rotate(180deg)">Fondatori</p>
+    <p style="font-family:var(--display);font-size:clamp(22px,4vw,34px);font-weight:300;letter-spacing:.01em;transform:skewX(-11deg);color:var(--fg)">Vladyslav</p>
+    <p style="font-family:var(--display);font-size:clamp(22px,4vw,34px);font-weight:300;letter-spacing:.01em;transform:skewX(-11deg);color:var(--fg)">Heorhii</p>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0B6B5E&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0B6B5E&quot;,&quot;#1B4DE4&quot;,&quot;#B4462A&quot;,&quot;#2E2A26&quot;],&quot;section&quot;:&quot;Tema&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    // Il runtime puo' rimontare la logica (streaming, hot reload): senza
+    // rimozione i listener si accumulano e piu' handler competono sullo
+    // stesso click. Ogni addEventListener globale registra qui il suo undo.
+    this._cleanup = [];
+    const root = document.documentElement;
+    root.lang = 'it';
+
+    // Accent: the CSS tokens stay authoritative (the palette lives in the CSS above).
+    // accent. Only a non-default prop writes inline values.
+    const DEFAULT_ACCENT = '#0B6B5E';
+    const shift = (hex, amount) => {
+      const n = parseInt(hex.slice(1), 16);
+      const mix = (c) => Math.round(amount > 0 ? c + (255 - c) * amount : c * (1 + amount));
+      const r = mix((n >> 16) & 255), g = mix((n >> 8) & 255), b = mix(n & 255);
+      return '#' + [r, g, b].map(v => Math.max(0, Math.min(255, v)).toString(16).padStart(2, '0')).join('');
+    };
+    const applyAccent = () => {
+      const picked = this.props.accentColor;
+      const props = ['--accent', '--accent-hover', '--accent-soft'];
+      if (!picked || picked.toLowerCase() === DEFAULT_ACCENT.toLowerCase()) {
+        props.forEach(p => root.style.removeProperty(p));
+        return;
+      }
+      root.style.setProperty('--accent', picked);
+      root.style.setProperty('--accent-hover', shift(picked, -0.22));
+      root.style.setProperty('--accent-soft', picked + '1a');
+    };
+    applyAccent();
+
+    // ---- reveal on scroll
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets = document.querySelectorAll('[data-reveal]');
+    // stagger: l'indice dentro un gruppo diventa il ritardo, calcolato in CSS
+    document.querySelectorAll('[data-reveal-group]').forEach(group => {
+      group.querySelectorAll('[data-reveal]').forEach((el, i) => el.style.setProperty('--rv-i', String(i)));
+    });
+    if (reduce || !('IntersectionObserver' in window)) {
+      targets.forEach(el => el.setAttribute('data-reveal', 'in'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.setAttribute('data-reveal', 'in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+      targets.forEach(el => io.observe(el));
+    }
+
+    // fallback: some hosts never deliver IntersectionObserver entries
+    const geoReveal = () => {
+      targets.forEach(el => {
+        if (el.getAttribute('data-reveal') === 'in') return;
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.94) el.setAttribute('data-reveal', 'in');
+      });
+    };
+    let geoRaf = null;
+    const onGeoScroll = () => { if (geoRaf) return; geoRaf = requestAnimationFrame(() => { geoRaf = null; geoReveal(); }); };
+    window.addEventListener('scroll', onGeoScroll, { passive: true });
+    window.addEventListener('resize', onGeoScroll);
+    this._cleanup.push(() => {
+      window.removeEventListener('scroll', onGeoScroll);
+      window.removeEventListener('resize', onGeoScroll);
+    });
+    window.addEventListener('load', () => setTimeout(geoReveal, 200), { once: true });
+    setTimeout(geoReveal, 600);
+    setTimeout(() => targets.forEach(el => el.setAttribute('data-reveal', 'in')), 4000);
+
+    // Guardia sull'animazione d'ingresso. Il fotogramma 0% di pageIn e'
+    // opacity:0: finche' l'animazione e' in fase attiva quel valore vale, e se
+    // non avanza mai (tab in background al primo paint, anteprima non
+    // compositata, motore di rendering che non anima) la pagina resta bianca.
+    // Se dopo 1,5s l'animazione non e' partita, la si annulla: l'opacita'
+    // torna a 1 e il contenuto si vede comunque.
+    const pageEl = document.querySelector('[data-page]');
+    if (pageEl && pageEl.getAnimations) {
+      const tGuard = setTimeout(() => {
+        pageEl.getAnimations().forEach(anim => {
+          if (anim.animationName === 'pageIn' && !anim.currentTime) anim.cancel();
+        });
+      }, 1500);
+      this._cleanup.push(() => clearTimeout(tGuard));
+    }
+
+    // ---- arrivo su un'ancora da un'altra pagina (es. index.html#servizi).
+    // Il browser prova a saltare alla sezione mentre il documento e' ancora in
+    // costruzione: il target non e' al suo posto definitivo e lo scroll finisce
+    // a zero, cioe' il link sembra non aver fatto niente. Qui si ripete il
+    // salto quando il layout si e' fermato. scroll-behavior torna 'auto' per il
+    // tempo del salto, altrimenti lo smooth parte da molto lontano.
+    const jumpToHash = () => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      target.scrollIntoView({ block: 'start' });
+      root.style.scrollBehavior = prev;
+    };
+    if (location.hash) {
+      requestAnimationFrame(() => requestAnimationFrame(jumpToHash));
+      const t1 = setTimeout(jumpToHash, 250);
+      const t2 = setTimeout(jumpToHash, 800);
+      this._cleanup.push(() => { clearTimeout(t1); clearTimeout(t2); });
+    }
+
+    // ---- transizione di pagina: fade-out prima di una navigazione interna
+    // Il fade parte solo per un link a un ALTRO documento senza frammento.
+    // Un href che contiene '#' (anche cross-page, es. index.html#servizi) passa
+    // nativo: lo scroll all'ancora resta al browser e il link funziona anche
+    // dove window.location e' bloccato (anteprima in iframe / sandbox), dove
+    // prima il preventDefault mangiava il click e non succedeva nulla.
+    // Il listener sta sul root del componente, non su document, cosi' due
+    // artboard montate insieme non si intercettano i click a vicenda.
+    const page = document.querySelector('[data-page]');
+    if (page && !reduce) {
+      const outMs = parseFloat(getComputedStyle(root).getPropertyValue('--dur-2')) || 320;
+      const onNavClick = (e) => {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const a = e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+        const href = a.getAttribute('href');
+        if (!href || href.charAt(0) === '#' || /^[a-z]+:/i.test(href)) return;
+        if (href.indexOf('#') !== -1) return;
+        e.preventDefault();
+        page.setAttribute('data-page', 'out');
+        setTimeout(() => { window.location.assign(href); }, outMs);
+        // rete di sicurezza: se la navigazione non parte, la pagina riappare
+        // invece di restare a opacita' zero (sembrava una pagina rotta).
+        setTimeout(() => { page.setAttribute('data-page', ''); }, outMs + 1400);
+      };
+      page.addEventListener('click', onNavClick);
+      this._cleanup.push(() => page.removeEventListener('click', onNavClick));
+    }
+
+    // ---- anteprima live: caricamento su richiesta + uscita di sicurezza.
+    // chinese-restaurant sta su InfinityFree, che risponde a ogni prima richiesta con una
+    // sfida JS: scrive un cookie e ricarica. Dentro un iframe cross-origin quel
+    // cookie e' di terza parte e i browser lo bloccano di default, quindi la
+    // sfida non si chiude mai e il riquadro resta bianco. Da fuori non c'e'
+    // nessun segnale: la pagina della sfida emette un 'load' regolare e non
+    // ricarica, e il documento e' cross-origin quindi non si puo' leggere.
+    // Percio' niente rilevamento a indovinare: il frame parte solo su richiesta
+    // e resta sempre visibile una via d'uscita dichiarata.
+    // La correzione vera sta sull'altro host, non qui: vedi il report.
+    document.querySelectorAll('[data-embed]').forEach(box => {
+      const frame = box.querySelector('[data-embed-frame]');
+      const cover = box.querySelector('[data-embed-cover]');
+      const btn = box.querySelector('[data-embed-load]');
+      const bar = box.querySelector('[data-embed-bar]');
+      if (!frame || !cover || !btn) return;
+      let timer = null;
+      const load = () => {
+        cover.style.display = 'none';
+        frame.src = frame.dataset.src;
+        clearTimeout(timer);
+        // il riquadro bianco non si distingue da un sito lento: dopo 6s si
+        // mostra comunque la scorciatoia, senza togliere il frame.
+        timer = setTimeout(() => { if (bar) bar.style.opacity = '1'; }, 6000);
+      };
+      btn.addEventListener('click', load);
+      this._cleanup.push(() => clearTimeout(timer));
+    });
+
+    // ================================================================
+    // ATTENZIONE: questo elenco vive in due copie, una in index.html e una
+    // in Vladora-Portfolio.dc.html. Le pagine .dc sono autonome e non
+    // condividono moduli: se modifichi qui, riporta la stessa modifica
+    // nell'altro file, altrimenti home e pagina Lavori si contraddicono.
+    // I progetti stanno tutti qui. Per pubblicarne uno vero: aggiungi
+    // un oggetto a questo array (o sostituisci uno studio), metti
+    // stato:'online' e l'indirizzo in url. Se hai uno screenshot vero,
+    // valorizza img e il mockup disegnato lascia il posto alla foto.
+    // Le due lingue viaggiano in coppia in ogni campo di testo.
+    // ================================================================
+    const PROGETTI = [
+      {
+        id: 'chinese-restaurant',
+        nome: 'chinese-restaurant',
+        tipo: { it: 'Ristorante di sushi · Savona', en: 'Sushi restaurant · Savona' },
+        riga: { it: 'Dalla scheda Google al tavolo confermato in tre tap: menu, prenotazione e indicazioni in una pagina.', en: 'From the Google listing to a confirmed table in three taps: menu, booking and directions on one page.' },
+        tag: { it: ['menu', 'prenotazioni', 'una pagina'], en: ['menu', 'booking', 'one page'] },
+        stato: 'online',
+        url: 'https://chinese-restaurant.kesug.com',
+        caso: 'Vladora-CaseStudy.dc.html',
+        img: null,
+        mock: { url: 'chinese-restaurant.kesug.com', kick: { it: 'Savona', en: 'Savona' }, titolo: { it: 'Prenota in due tap.', en: 'Book in two taps.' }, cta: { it: 'Prenota', en: 'Book' } },
+        home: 1
+      },
+      {
+        id: 'barbershop',
+        nome: { it: 'Barbershop', en: 'Barbershop' },
+        tipo: { it: 'Prenotazioni · studio', en: 'Booking · study' },
+        riga: { it: 'Scegli il taglio e l’ora, la conferma arriva su WhatsApp. Nessuna app da scaricare, nessun account da fare.', en: 'Pick the cut and the time, the confirmation lands on WhatsApp. No app to download, no account to create.' },
+        tag: { it: ['prenotazioni', 'listino', 'whatsapp'], en: ['booking', 'price list', 'whatsapp'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'ilnomedeltuobarbershop.it', kick: { it: 'Su appuntamento', en: 'By appointment' }, titolo: { it: 'Scegli l’ora. Basta.', en: 'Pick a time. That’s it.' }, cta: { it: 'Prenota', en: 'Book' } },
+        home: 2
+      },
+      {
+        id: 'bar-caffetteria',
+        nome: { it: 'Bar e caffetteria', en: 'Bar and coffee shop' },
+        tipo: { it: 'Sito vetrina · studio', en: 'One-page site · study' },
+        riga: { it: 'Orari, colazioni e aperitivo su tre schermate. Chi cerca sa in dieci secondi se siete aperti e dove siete.', en: 'Opening hours, breakfast and aperitivo across three screens. Anyone looking knows in ten seconds if you are open and where you are.' },
+        tag: { it: ['orari', 'aperitivo', 'mappa'], en: ['hours', 'aperitivo', 'map'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'ilnomedeltuobar.it', kick: { it: 'Dalle 6:30', en: 'From 6:30' }, titolo: { it: 'Aperti presto, chiusi tardi.', en: 'Open early, closed late.' }, cta: { it: 'Dove siamo', en: 'Find us' } },
+        home: 3
+      },
+      {
+        id: 'pizzeria-asporto',
+        nome: { it: 'Pizzeria d’asporto', en: 'Takeaway pizzeria' },
+        tipo: { it: 'Ordini · studio', en: 'Orders · study' },
+        riga: { it: 'L’ordine si compone dal telefono e arriva in cassa come messaggio, così nessuno resta in attesa mentre voi impastate.', en: 'The order is put together on the phone and reaches the till as a message, so nobody waits on hold while you are making dough.' },
+        tag: { it: ['asporto', 'listino', 'whatsapp'], en: ['takeaway', 'price list', 'whatsapp'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'lanostrapizzeria.it', kick: { it: 'Asporto', en: 'Takeaway' }, titolo: { it: 'Ordina senza telefonare.', en: 'Order without calling.' }, cta: { it: 'Ordina', en: 'Order' } },
+        home: 4
+      },
+      {
+        id: 'trattoria',
+        nome: { it: 'Trattoria', en: 'Trattoria' },
+        tipo: { it: 'Sito vetrina · studio', en: 'One-page site · study' },
+        riga: { it: 'Il menu del giorno si cambia dal telefono in trenta secondi, senza passare da noi e senza pagare nessuno.', en: 'The daily menu changes from your phone in thirty seconds, without going through us and without paying anyone.' },
+        tag: { it: ['menu del giorno', 'orari', 'mappa'], en: ['daily menu', 'hours', 'map'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'lanostratrattoria.it', kick: { it: 'Cucina ligure', en: 'Ligurian kitchen' }, titolo: { it: 'Il menu di oggi.', en: 'Today’s menu.' }, cta: { it: 'Vedi il menu', en: 'See the menu' } },
+        home: 5
+      },
+      {
+        id: 'pasticceria',
+        nome: { it: 'Pasticceria', en: 'Pastry shop' },
+        tipo: { it: 'Sito vetrina · studio', en: 'One-page site · study' },
+        riga: { it: 'Le torte su ordinazione, con le foto delle vostre. Il modulo chiede la data, le persone e il gusto, e finisce lì.', en: 'Cakes to order, shown with photos of yours. The form asks for the date, the headcount and the flavour, and stops there.' },
+        tag: { it: ['catalogo', 'ordinazioni', 'foto'], en: ['catalogue', 'orders', 'photos'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'lanostrapasticceria.it', kick: { it: 'Su ordinazione', en: 'Made to order' }, titolo: { it: 'La torta, come la vuoi.', en: 'The cake, your way.' }, cta: { it: 'Chiedi il prezzo', en: 'Ask the price' } }
+      },
+      {
+        id: 'enoteca',
+        nome: { it: 'Enoteca', en: 'Wine shop' },
+        tipo: { it: 'Negozio online · studio', en: 'Online shop · study' },
+        riga: { it: 'Catalogo e carrello per una cantina piccola: poche etichette, spiegate come le spieghereste al banco.', en: 'Catalogue and cart for a small cellar: a few labels, explained the way you would explain them at the counter.' },
+        tag: { it: ['catalogo', 'carrello', 'pagamenti'], en: ['catalogue', 'cart', 'payments'] },
+        stato: 'concept',
+        url: null, caso: null, img: null,
+        mock: { url: 'lanostraenoteca.it', kick: { it: 'Cantina', en: 'Cellar' }, titolo: { it: 'Poche etichette, spiegate.', en: 'A few labels, explained.' }, cta: { it: 'Il catalogo', en: 'The catalogue' } }
+      }
+    ];
+
+    const esc = (v) => String(v == null ? '' : v).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    // ogni testo esce con la coppia IT/EN addosso: il selettore di lingua
+    // raccoglie [data-en] dopo il render e da li' in poi lo gestisce da solo
+    const duo = (pair) => 'data-en="' + esc(pair.en) + '">' + esc(pair.it);
+    const nomeOf = (p) => (typeof p.nome === 'string' ? { it: p.nome, en: p.nome } : p.nome);
+
+    const mockHTML = (p) => {
+      if (p.img) return '<img class="mock" src="' + esc(p.img) + '" alt="" width="640" height="400" loading="lazy" style="object-fit:cover">';
+      return '<div class="mock" aria-hidden="true">'
+        + '<div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">' + esc(p.mock.url) + '</span></div>'
+        + '<div class="mock-page">'
+        + '<span class="mock-kick" ' + duo(p.mock.kick) + '</span>'
+        + '<span class="mock-title" ' + duo(p.mock.titolo) + '</span>'
+        + '<span class="mock-line" style="width:78%"></span><span class="mock-line" style="width:54%"></span>'
+        + '<span class="mock-cta" ' + duo(p.mock.cta) + '</span>'
+        + '<span class="mock-strip"><i class="mock-tile"></i><i class="mock-tile"></i><i class="mock-tile"></i></span>'
+        + '</div></div>';
+    };
+
+    const badgeHTML = (p) => p.stato === 'online'
+      ? '<span class="vc-badge vc-badge-live" data-en="Online">Online</span>'
+      : '<span class="vc-badge vc-badge-concept" data-en="Study">Studio</span>';
+
+    const cardHTML = (p, h) => {
+      const n = nomeOf(p);
+      return '<button type="button" class="vc" data-progetto="' + esc(p.id) + '" style="--vh:' + h + 'px">'
+        + badgeHTML(p)
+        + '<span class="vc-shot" style="display:block;height:' + h + 'px">' + mockHTML(p) + '</span>'
+        + '<span class="vc-foot"><span class="vc-name" ' + duo(n) + '</span>'
+        + '<span class="vc-kind" ' + duo(p.tipo) + '</span></span>'
+        + '</button>';
+    };
+
+    // ---- vetrina galleggiante (home). Ampiezza, durata e ritardo diversi
+    // per ogni scheda: se fossero uguali salirebbero e scenderebbero insieme
+    // e sembrerebbe un unico blocco che respira.
+    const vetrina = document.querySelector('[data-vetrina]');
+    if (vetrina) {
+      const ritmo = [
+        { h: 210, amp: 10, d: 7.4, del: 0 },
+        { h: 175, amp: 7,  d: 6.2, del: -1.9 },
+        { h: 140, amp: 12, d: 8.1, del: -3.4 },
+        { h: 175, amp: 8,  d: 6.8, del: -0.8 },
+        { h: 200, amp: 11, d: 7.9, del: -2.6 }
+      ];
+      const inVetrina = PROGETTI.filter(p => p.home).sort((a, b) => a.home - b.home).slice(0, 5);
+      vetrina.innerHTML = inVetrina.map((p, i) => {
+        const r = ritmo[i % ritmo.length];
+        return '<div class="vetrina-slot"><div class="vetrina-float" style="--amp:' + r.amp + 'px;--vd:' + r.d + 's;--vdel:' + r.del + 's">'
+          + cardHTML(p, r.h) + '</div></div>';
+      }).join('');
+    }
+
+    // ---- griglia completa (pagina Lavori)
+    const griglia = document.querySelector('[data-griglia]');
+    if (griglia) griglia.innerHTML = PROGETTI.map(p => '<li>' + cardHTML(p, 180) + '</li>').join('');
+
+    // ================================================================
+    // Modali. Un solo controller per tutte: apre, chiude, trattiene il
+    // fuoco e lo restituisce al bottone che l'ha aperta.
+    // ================================================================
+    const modali = new Map();
+    document.querySelectorAll('[data-modal]').forEach(m => {
+      const nome = m.dataset.modal;
+      let torna = null;
+      const fuoco = () => Array.from(m.querySelectorAll('a[href],button,input,select,textarea')).filter(el => !el.disabled && el.offsetParent !== null);
+      const set = (open) => {
+        m.dataset.open = String(open);
+        m.setAttribute('aria-hidden', String(!open));
+        if (open) {
+          torna = document.activeElement;
+          root.setAttribute('data-modal-open', '');
+          const f = fuoco();
+          if (f.length) f[0].focus();
+        } else {
+          root.removeAttribute('data-modal-open');
+          if (torna && torna !== document.body) torna.focus();
+          torna = null;
+        }
+      };
+      set(false);
+      m.querySelectorAll('[data-modal-close]').forEach(el => el.addEventListener('click', () => set(false)));
+      const onKey = (e) => {
+        if (m.dataset.open !== 'true') return;
+        if (e.key === 'Escape') { set(false); return; }
+        if (e.key !== 'Tab') return;
+        const f = fuoco();
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      };
+      document.addEventListener('keydown', onKey);
+      this._cleanup.push(() => { document.removeEventListener('keydown', onKey); root.removeAttribute('data-modal-open'); });
+      modali.set(nome, { set, el: m });
+    });
+    const apri = (nome) => { const m = modali.get(nome); if (m) m.set(true); };
+
+    // ---- anteprima di un progetto
+    const pv = document.querySelector('[data-pv]');
+    if (pv) {
+      const mostra = (p) => {
+        const n = nomeOf(p), en = root.lang === 'en';
+        const tags = (en ? p.tag.en : p.tag.it).map(t => '<li class="pv-tag">' + esc(t) + '</li>').join('');
+        const azioni = [];
+        if (p.url) azioni.push('<a class="btn-solid" href="' + esc(p.url) + '" target="_blank" rel="noopener" data-en="Open the live site &#8599;">Apri il sito vero &#8599;</a>');
+        if (p.caso) azioni.push('<a class="btn-ghost" href="' + esc(p.caso) + '" data-en="Read the case study">Leggi il case study</a>');
+        if (!p.url) azioni.push('<a class="btn-solid" href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Want one like this? Write to us">Ne vuoi uno cosi’? Scrivici</a>');
+        pv.innerHTML = '<div class="pv-shot" style="display:block">' + mockHTML(p) + '</div>'
+          + '<div class="pv-head"><h2 class="pv-name" id="pv-nome" ' + duo(n) + '</h2>'
+          + '<p class="pv-kind" ' + duo(p.tipo) + '</p></div>'
+          + '<p class="pv-text" ' + duo(p.riga) + '</p>'
+          + (p.stato === 'concept'
+            ? '<p class="pv-kind" data-en="This one is a study of ours: we designed it to show how we would handle this trade.">Questo è uno studio nostro: l’abbiamo disegnato per mostrare come affronteremmo questo mestiere.</p>'
+            : '')
+          + '<ul class="pv-tags">' + tags + '</ul>'
+          + '<div class="pv-actions">' + azioni.join('') + '</div>';
+        // i testi appena creati entrano nella lingua corrente
+        pv.querySelectorAll('[data-en]').forEach(el => {
+          if (el.children.length) return;
+          if (!el.dataset.it) el.dataset.it = el.textContent;
+          if (en) el.textContent = el.dataset.en;
+        });
+        apri('anteprima');
+      };
+      // delega: le schede nascono dal render, quindi l'ascolto sta sul document
+      const onCard = (e) => {
+        const b = e.target.closest ? e.target.closest('[data-progetto]') : null;
+        if (!b) return;
+        const p = PROGETTI.find(x => x.id === b.dataset.progetto);
+        if (p) mostra(p);
+      };
+      document.addEventListener('click', onCard);
+      this._cleanup.push(() => document.removeEventListener('click', onCard));
+    }
+
+    // ---- modale "Parliamone": apertura dalle tre tariffe
+    document.querySelectorAll('[data-apri-richiesta]').forEach(b => b.addEventListener('click', () => {
+      const f = document.querySelector('[data-rq-form]');
+      // la tariffa da cui si arriva viaggia nel messaggio, cosi' non
+      // dobbiamo richiedere al cliente una cosa che ha gia' scelto
+      if (f) f.dataset.tariffa = b.dataset.apriRichiesta;
+      apri('richiesta');
+    }));
+    document.querySelectorAll('[data-apri-privacy]').forEach(b => b.addEventListener('click', () => apri('privacy')));
+
+    // ---- il modulo compone il messaggio WhatsApp: stesso meccanismo del
+    // form in fondo alla home. Nessun backend, quindi niente mail perse.
+    // TODO backend: se un giorno serve una copia via mail, il punto in cui
+    // agganciare una fetch() e' qui, prima di window.open.
+    const rq = document.querySelector('[data-rq-form]');
+    if (rq) {
+      const campo = (n) => rq.querySelector('[data-campo="' + n + '"]');
+      const segna = (n, male) => { const c = campo(n); if (c) c.classList.toggle('campo-err', male); };
+      const valido = {
+        nome: () => rq.nome.value.trim().length > 1,
+        progetto: () => rq.progetto.value.trim().length > 4,
+        email: () => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(rq.email.value.trim()),
+        consenso: () => rq.consenso.checked
+      };
+      // controllo all'uscita dal campo, non a ogni tasto: correggere mentre
+      // si scrive e' fastidioso, e l'errore arriva quando la frase e' finita
+      Object.keys(valido).forEach(n => {
+        const el = rq[n];
+        if (!el) return;
+        el.addEventListener('blur', () => { if (el.value !== '' || el.type === 'checkbox') segna(n, !valido[n]()); });
+        el.addEventListener('input', () => { if (campo(n) && campo(n).classList.contains('campo-err') && valido[n]()) segna(n, false); });
+        el.addEventListener('change', () => { if (el.type === 'checkbox') segna(n, !valido[n]()); });
+      });
+      rq.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const rotti = Object.keys(valido).filter(n => !valido[n]());
+        rotti.forEach(n => segna(n, true));
+        Object.keys(valido).filter(n => valido[n]()).forEach(n => segna(n, false));
+        if (rotti.length) {
+          // il fuoco va al primo campo da sistemare, non in cima al modulo
+          const primo = rq[rotti[0]];
+          if (primo && primo.focus) primo.focus();
+          return;
+        }
+        const en = root.lang === 'en';
+        const tariffa = rq.dataset.tariffa || '';
+        const righe = en
+          ? ['Hi Vladora, I am ' + rq.nome.value.trim() + '.',
+             tariffa ? 'Coming from: ' + tariffa : '',
+             'The place: ' + rq.progetto.value.trim(),
+             'Email: ' + rq.email.value.trim(),
+             rq.telefono.value.trim() ? 'Phone: ' + rq.telefono.value.trim() : '']
+          : ['Ciao Vladora, sono ' + rq.nome.value.trim() + '.',
+             tariffa ? 'Arrivo da: ' + tariffa : '',
+             'Il locale: ' + rq.progetto.value.trim(),
+             'Email: ' + rq.email.value.trim(),
+             rq.telefono.value.trim() ? 'Telefono: ' + rq.telefono.value.trim() : ''];
+        window.open('https://wa.me/393270029126?text=' + encodeURIComponent(righe.filter(Boolean).join('\n')), '_blank', 'noopener');
+        const esito = rq.querySelector('[data-rq-esito]');
+        if (esito) {
+          esito.dataset.it = 'WhatsApp è aperto in una scheda nuova con il messaggio già scritto. Se non si vede, il browser ha bloccato la finestra: riprova o scrivici a +39 327 002 9126.';
+          esito.dataset.en = 'WhatsApp is open in a new tab with the message already written. If you cannot see it, the browser blocked the window: try again or write to +39 327 002 9126.';
+          esito.textContent = en ? esito.dataset.en : esito.dataset.it;
+        }
+      });
+    }
+
+    // ---- IT / EN. Il testo vive in coppia sull'elemento (data-en + data-it),
+    // il selettore scambia solo textContent: nessuna seconda copia del DOM.
+    const pairs = Array.from(document.querySelectorAll('[data-en]')).filter(el => el.children.length === 0);
+    pairs.forEach(el => { if (!el.dataset.it) el.dataset.it = el.textContent; });
+    // i placeholder non sono textContent: viaggiano su data-en-ph a parte
+    const placeholders = Array.from(document.querySelectorAll('[data-en-ph]'));
+    placeholders.forEach(el => { if (!el.dataset.itPh) el.dataset.itPh = el.getAttribute('placeholder') || ''; });
+    const langRoot = document.querySelector('[data-lang]');
+    const langBtn = document.querySelector('[data-lang-btn]');
+    const langOpts = Array.from(document.querySelectorAll('[data-lang-opt]'));
+    const applyLang = (lang) => {
+      pairs.forEach(el => { el.textContent = lang === 'en' ? el.dataset.en : el.dataset.it; });
+      placeholders.forEach(el => el.setAttribute('placeholder', lang === 'en' ? el.dataset.enPh : el.dataset.itPh));
+      root.lang = lang;
+      langOpts.forEach(o => o.setAttribute('aria-checked', String(o.dataset.langOpt === lang)));
+      if (langBtn) langBtn.setAttribute('aria-label', lang === 'en' ? 'Language: English. Change language' : 'Lingua: italiano. Cambia lingua');
+      try { localStorage.setItem('vladora-lang', lang); } catch (e) {}
+    };
+    let savedLang = null;
+    try { savedLang = localStorage.getItem('vladora-lang'); } catch (e) {}
+    applyLang(savedLang === 'en' ? 'en' : 'it');
+
+    if (langRoot && langBtn) {
+      const setLangOpen = (open) => {
+        langRoot.dataset.open = String(open);
+        langBtn.setAttribute('aria-expanded', String(open));
+        langOpts.forEach(o => { o.tabIndex = open ? 0 : -1; });
+        if (open) { const c = langOpts.find(o => o.getAttribute('aria-checked') === 'true'); if (c) c.focus(); }
+      };
+      setLangOpen(false);
+      langBtn.addEventListener('click', (e) => { e.stopPropagation(); setLangOpen(langRoot.dataset.open !== 'true'); });
+      langOpts.forEach(o => o.addEventListener('click', () => { applyLang(o.dataset.langOpt); setLangOpen(false); langBtn.focus(); }));
+      const onLangDoc = (e) => { if (langRoot.dataset.open === 'true' && !langRoot.contains(e.target)) setLangOpen(false); };
+      const onLangKey = (e) => {
+        if (langRoot.dataset.open !== 'true') return;
+        if (e.key === 'Escape') { setLangOpen(false); langBtn.focus(); return; }
+        if (e.key !== 'Tab') return;
+        // il menu e' corto: due voci, si gira su se stesso
+        const i = langOpts.indexOf(document.activeElement);
+        if (i === -1) return;
+        e.preventDefault();
+        langOpts[(i + (e.shiftKey ? -1 : 1) + langOpts.length) % langOpts.length].focus();
+      };
+      document.addEventListener('click', onLangDoc);
+      document.addEventListener('keydown', onLangKey);
+      this._cleanup.push(() => {
+        document.removeEventListener('click', onLangDoc);
+        document.removeEventListener('keydown', onLangKey);
+      });
+    }
+
+    // ---- pannello di navigazione (sotto 860px). Fuori dallo schermo e'
+    // inerte: tabindex -1 su tutto, cosi' il Tab non ci finisce dentro.
+    const drawer = document.querySelector('[data-drawer]');
+    const drawerBtn = document.querySelector('[data-drawer-btn]');
+    if (drawer && drawerBtn) {
+      const scrim = document.querySelector('[data-drawer-scrim]');
+      const items = Array.from(drawer.querySelectorAll('a[href],button'));
+      drawer.querySelectorAll('.drawer-link').forEach((el, i) => el.style.setProperty('--dl-i', String(i)));
+      let lastFocus = null;
+      const isOpen = () => root.hasAttribute('data-drawer-open');
+      const setDrawer = (open, restore) => {
+        if (open) root.setAttribute('data-drawer-open', ''); else root.removeAttribute('data-drawer-open');
+        drawer.setAttribute('aria-hidden', String(!open));
+        drawerBtn.setAttribute('aria-expanded', String(open));
+        drawerBtn.setAttribute('aria-label', open
+          ? (root.lang === 'en' ? 'Close the menu' : 'Chiudi il menu')
+          : (root.lang === 'en' ? 'Open the menu' : 'Apri il menu'));
+        items.forEach(el => { el.tabIndex = open ? 0 : -1; });
+        if (open) { lastFocus = document.activeElement; if (items[0]) items[0].focus(); }
+        else if (restore) { const back = (lastFocus && lastFocus !== document.body) ? lastFocus : drawerBtn; if (back) back.focus(); lastFocus = null; }
+      };
+      setDrawer(false, false);
+      drawerBtn.addEventListener('click', () => setDrawer(!isOpen(), true));
+      if (scrim) scrim.addEventListener('click', () => setDrawer(false, true));
+      drawer.querySelectorAll('[data-drawer-close]').forEach(el => el.addEventListener('click', () => setDrawer(false, true)));
+      // un link chiude il pannello: la navigazione resta al browser
+      drawer.querySelectorAll('a[href]').forEach(el => el.addEventListener('click', () => setDrawer(false, false)));
+      const onDrawerKey = (e) => {
+        if (!isOpen()) return;
+        if (e.key === 'Escape') { setDrawer(false, true); return; }
+        if (e.key !== 'Tab') return;
+        const f = items.filter(el => el.offsetParent !== null);
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      };
+      document.addEventListener('keydown', onDrawerKey);
+      // il pannello esiste solo sotto 860px: allargando la finestra si chiude,
+      // altrimenti restava overflow:hidden su una pagina senza pannello visibile
+      const mqNav = window.matchMedia('(min-width:861px)');
+      const onMqNav = (e) => { if (e.matches && isOpen()) setDrawer(false, false); };
+      if (mqNav.addEventListener) mqNav.addEventListener('change', onMqNav); else mqNav.addListener(onMqNav);
+      this._cleanup.push(() => {
+        document.removeEventListener('keydown', onDrawerKey);
+        if (mqNav.removeEventListener) mqNav.removeEventListener('change', onMqNav); else mqNav.removeListener(onMqNav);
+        root.removeAttribute('data-drawer-open');
+      });
+    }
+
+    // ---- measured load time (Performance API, not hand-written)
+    const perfEl = document.querySelector('[data-perf]');
+    const showPerf = () => {
+      if (!perfEl) return;
+      const nav = performance.getEntriesByType('navigation')[0];
+      const ms = nav && nav.domContentLoadedEventEnd ? nav.domContentLoadedEventEnd : performance.now();
+      const s = (ms / 1000).toFixed(2).replace('.', ',');
+      perfEl.dataset.it = 'Questa pagina si è caricata in ' + s + ' s. Il numero lo misura il browser mentre leggi.';
+      perfEl.dataset.en = 'This page loaded in ' + s + ' s. Your browser measured it while you were reading.';
+      perfEl.textContent = root.lang === 'en' ? perfEl.dataset.en : perfEl.dataset.it;
+    };
+    if (document.readyState === 'complete') showPerf(); else window.addEventListener('load', showPerf, { once: true });
+
+    // ---- wordmark: opacity + tracking on scroll, 5 clicks = 1998
+    const wm = document.querySelector('[data-wordmark]');
+    const egg = document.querySelector('[data-egg]');
+    if (wm) {
+      let raf = null;
+      const onScroll = () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = null;
+          const y = Math.min(window.scrollY, 700) / 700;
+          wm.style.opacity = String(0.10 + y * 0.16);
+          wm.style.letterSpacing = (-0.04 + y * 0.035).toFixed(4) + 'em';
+          // parallasse: il wordmark scorre piu' lento della pagina (max ~24px, come --sp-5)
+          wm.style.transform = 'translate3d(0,' + (y * 24).toFixed(1) + 'px,0)';
+        });
+      };
+      if (!reduce) { window.addEventListener('scroll', onScroll, { passive: true }); onScroll(); }
+
+      let clicks = [];
+      wm.addEventListener('click', () => {
+        const now = Date.now();
+        clicks = clicks.filter(t => now - t < 1600);
+        clicks.push(now);
+        if (clicks.length >= 5 && egg) {
+          clicks = [];
+          egg.style.opacity = '1';
+          egg.style.pointerEvents = 'auto';
+          setTimeout(() => { egg.style.opacity = '0'; egg.style.pointerEvents = 'none'; }, 3000);
+        }
+      });
+    }
+
+    // ---- hold the circular button = founders' signatures
+    const holdBtn = document.querySelector('[data-hold-btn]');
+    const sig = document.querySelector('[data-signatures]');
+    if (holdBtn) {
+      let timer = null, held = false;
+      const show = () => { held = true; if (sig) { sig.style.opacity = '1'; sig.style.transform = 'translate(-50%,0)'; } };
+      const hide = () => { if (sig) { sig.style.opacity = '0'; sig.style.transform = 'translate(-50%,12px)'; } };
+      const start = () => { held = false; timer = setTimeout(show, 550); };
+      const end = (e) => {
+        clearTimeout(timer);
+        if (held) { e.preventDefault(); setTimeout(hide, 1400); }
+        else { document.getElementById('prima-dopo').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
+      };
+      holdBtn.addEventListener('pointerdown', start);
+      holdBtn.addEventListener('pointerup', end);
+      holdBtn.addEventListener('pointerleave', () => { clearTimeout(timer); hide(); });
+      holdBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') show(); });
+      holdBtn.addEventListener('keyup', () => setTimeout(hide, 1200));
+    }
+
+    // ---- before / after slider
+    const ba = document.querySelector('[data-ba-root]');
+    if (ba) {
+      const after = ba.querySelector('[data-ba-after]');
+      const handle = ba.querySelector('[data-ba-handle]');
+      const input = ba.querySelector('[data-ba-input]');
+      const set = (pct) => {
+        const p = Math.max(2, Math.min(98, pct));
+        after.style.clipPath = 'inset(0 0 0 ' + p + '%)';
+        handle.style.left = p + '%';
+        if (input) input.value = String(Math.round(p));
+      };
+      const fromEvent = (e) => {
+        const r = ba.getBoundingClientRect();
+        set(((e.clientX - r.left) / r.width) * 100);
+      };
+      let dragging = false;
+      ba.addEventListener('pointerdown', (e) => { dragging = true; fromEvent(e); });
+      window.addEventListener('pointermove', (e) => { if (dragging) fromEvent(e); });
+      window.addEventListener('pointerup', () => { dragging = false; });
+      if (input) input.addEventListener('input', () => set(Number(input.value)));
+      set(50);
+    }
+
+    // ---- form composes a WhatsApp message
+    const form = document.querySelector('[data-wa-form]');
+    if (form) form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const d = new FormData(form);
+      const en = root.lang === 'en';
+      const lines = en
+        ? ['Hi Vladora, I am ' + (d.get('nome') || ''), 'Type of place: ' + (d.get('tipo') || ''), (d.get('messaggio') ? 'What I need: ' + d.get('messaggio') : '')]
+        : ['Ciao Vladora, sono ' + (d.get('nome') || ''), 'Tipo di attività: ' + (d.get('tipo') || ''), (d.get('messaggio') ? 'Cosa mi serve: ' + d.get('messaggio') : '')];
+      const msg = lines.filter(Boolean).join('\n');
+      window.open('https://wa.me/393270029126?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    });
+  }
+  componentWillUnmount() {
+    (this._cleanup || []).forEach(off => { try { off(); } catch (e) {} });
+    this._cleanup = [];
+  }
+  renderVals() { return {}; }
+}
+
+</script>
+</body>
+</html>

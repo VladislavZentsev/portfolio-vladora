@@ -1,0 +1,11 @@
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp
+
+# materiale di lavorazione interno: brief, screenshot di riferimento,
+# note di prezzo — mai nel repo pubblico. Cartella intera, non file per
+# file: un nuovo upload qui dentro deve restare fuori di default.
+uploads/
+prompt-*.md
