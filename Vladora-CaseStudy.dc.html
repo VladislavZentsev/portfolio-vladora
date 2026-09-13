@@ -17,11 +17,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;family=Outfit:wght@300..600&amp;display=swap" />
 <style>
 :root{
-  --bg:#ffffff; --bg-alt:#f4f4f5; --bg-sunk:#ebebed; --surface:#ffffff;
-  --fg:#0a0a0a; --fg-2:#6b6b70; --fg-3:#74747a; --fg-inv:#fafafa;
-  --line:rgba(10,10,10,.10); --line-strong:rgba(10,10,10,.22);
-  --accent:#0B6B5E; --accent-hover:#08544a; --accent-soft:rgba(11,107,94,.10);
-  --grad-hero:radial-gradient(110% 78% at 50% -12%,var(--accent-soft) 0%,transparent 62%),linear-gradient(180deg,var(--bg) 0%,var(--bg-alt) 52%,var(--bg) 100%);
+  /* Identici alla home: due pagine, una palette sola. Se cambi qui,
+     cambia anche in index.html (le pagine .dc non condividono file). */
+  --bg:#FAF1EE; --bg-alt:#F1E8E5; --bg-sunk:#E7DFDC; --surface:#FFFFFF;
+  --fg:#150F0D; --fg-2:#6A5D58; --fg-3:#6E615C; --fg-inv:#FAF1EE;
+  --line:rgba(21,15,13,.11); --line-strong:rgba(21,15,13,.24);
+  --accent:#AC3F34; --accent-hover:#933627; --accent-soft:rgba(172,63,52,.10);
+  --accent-deep:#171616;
+  --accent-bright:#F95C4B;
+  --on-accent:#ffffff;
   --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
   --sp-7:48px; --sp-8:64px; --sp-9:96px; --sp-10:128px; --sp-11:192px;
   --r-1:2px; --r-2:8px; --r-3:14px; --r-4:24px; --r-pill:999px;
@@ -33,7 +37,7 @@
   --sans:"Geist","Helvetica Neue",Helvetica,Arial,sans-serif;
   --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --display:"Outfit","Geist",sans-serif;
-  --mock:#f4f4f5;
+  --mock:#F1E8E5;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -216,7 +220,7 @@ html[data-drawer-open] .drawer-link{opacity:1;transform:none}
   </aside>
 
   <main>
-    <section style="padding:var(--sp-8) var(--sp-5) var(--sp-7);background:var(--grad-hero)">
+    <section style="padding:var(--sp-8) var(--sp-5) var(--sp-7);background:var(--bg)">
       <div style="max-width:1100px;margin:0 auto">
         <a href="index.html#lavori" data-en="← All work" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--fg-3)" style-hover="color:var(--fg)">← Tutti i lavori</a>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-7);align-items:end;margin-top:var(--sp-6)">
