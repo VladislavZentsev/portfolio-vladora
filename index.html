@@ -18,10 +18,18 @@
 <style>
 :root{
   --bg:#ffffff; --bg-alt:#f4f4f5; --bg-sunk:#ebebed; --surface:#ffffff;
-  --fg:#0a0a0a; --fg-2:#6b6b70; --fg-3:#74747a; --fg-inv:#fafafa;
+  --fg:#0a0a0a; --fg-2:#6b6b70; --fg-3:#6a6a70; --fg-inv:#fafafa;
   --line:rgba(10,10,10,.10); --line-strong:rgba(10,10,10,.22);
   --accent:#0B6B5E; --accent-hover:#08544a; --accent-soft:rgba(11,107,94,.10);
-  --grad-hero:radial-gradient(110% 78% at 50% -12%,var(--accent-soft) 0%,transparent 62%),linear-gradient(180deg,var(--bg) 0%,var(--bg-alt) 52%,var(--bg) 100%);
+  /* Verde per le superfici grandi. Bianco sopra questo da' 11.8:1, molto
+     oltre AA; il nero NON va mai sul verde (1.67:1, illeggibile). */
+  --accent-deep:#063F38;
+  /* Solo per numeri e accenti SOPRA --accent-deep: 5.14:1 su quel fondo. */
+  --accent-bright:#2FBFA6;
+  --on-accent:#ffffff;
+  --on-accent-2:rgba(255,255,255,.72);
+  --line-on-accent:rgba(255,255,255,.18);
+  --line-on-accent-strong:rgba(255,255,255,.34);
   --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
   --sp-7:48px; --sp-8:64px; --sp-9:96px; --sp-10:128px; --sp-11:192px;
   --r-1:2px; --r-2:8px; --r-3:14px; --r-4:24px; --r-pill:999px;
@@ -216,11 +224,74 @@ html[data-modal-open]{overflow:hidden}
   .vetrina-slot:nth-child(3){grid-column:10 / span 3;margin-top:var(--sp-8)}
   .vetrina-slot:nth-child(4){grid-column:2 / span 4;margin-top:var(--sp-5)}
   .vetrina-slot:nth-child(5){grid-column:6 / span 5;margin-top:calc(var(--sp-6) * -1)}
+  .vetrina-slot:nth-child(6){grid-column:3 / span 4;margin-top:var(--sp-7)}
+  .vetrina-slot:nth-child(7){grid-column:7 / span 4;margin-top:calc(var(--sp-4) * -1)}
 }
 @media (max-width:620px){
   .vetrina{grid-template-columns:1fr;gap:var(--sp-4)}
   .vetrina-slot{margin-top:0!important}
 }
+/* ============================================================
+   Lastre verdi. Due sole in tutta la pagina, nei due punti dove
+   si decide: il prezzo e il modulo finale.
+
+   Il trucco e' ridefinire i token DENTRO la sezione invece di
+   riscrivere i colori uno per uno: ogni var(--fg-2) gia' scritto
+   negli stili inline si risolve da solo sul valore chiaro.
+   Le schede bianche rimettono i token scuri e tornano isole di
+   palette chiara sopra la lastra.
+   ============================================================ */
+.sez-deep{
+  background:var(--accent-deep);
+  /* color esplicito, non solo il token: gli elementi senza color proprio
+     (h2, p) ereditano il valore GIA' calcolato da body, che resterebbe nero. */
+  color:var(--on-accent);
+  --fg:var(--on-accent);
+  --fg-2:var(--on-accent-2);
+  --fg-3:rgba(255,255,255,.60);
+  --fg-inv:var(--accent-deep);
+  --line:var(--line-on-accent);
+  --line-strong:var(--line-on-accent-strong);
+  --accent:var(--accent-bright);
+  --accent-hover:#5FD9C4;
+  --accent-soft:rgba(47,191,166,.16);
+  --bg:var(--accent-deep);
+  --bg-alt:#0A4E45;
+  --bg-sunk:#0A4E45;
+  --sh-1:0 1px 2px rgba(0,0,0,.22);
+  --sh-2:0 2px 12px rgba(0,0,0,.26);
+  --sh-3:0 16px 44px rgba(0,0,0,.34);
+}
+/* isole chiare sopra la lastra: schede prezzo e modulo */
+.sez-deep .tar,
+.sez-deep [data-wa-form]{
+  color:#0a0a0a;
+  --fg:#0a0a0a;
+  --fg-2:#6b6b70;
+  --fg-3:#6a6a70;
+  --fg-inv:#fafafa;
+  --line:rgba(10,10,10,.10);
+  --line-strong:rgba(10,10,10,.22);
+  --accent:#0B6B5E;
+  --accent-hover:#08544a;
+  --accent-soft:rgba(11,107,94,.10);
+  --bg:#ffffff;
+  --bg-alt:#f4f4f5;
+  --bg-sunk:#ebebed;
+}
+/* la corsia consigliata: anello verde chiaro, si stacca sul fondo scuro */
+.sez-deep .tar-top{
+  box-shadow:0 0 0 2px var(--accent-bright),0 16px 44px rgba(0,0,0,.34);
+  border-color:transparent;
+}
+.sez-deep .tar-top:hover{
+  box-shadow:0 0 0 2px var(--accent-bright),0 20px 54px rgba(0,0,0,.42);
+}
+.sez-deep .tar-flag{
+  background:var(--accent-bright);
+  color:var(--accent-deep);
+}
+
 @media (prefers-reduced-motion:reduce){
   .vetrina-float{animation:none!important}
 }
@@ -340,10 +411,10 @@ html[data-modal-open]{overflow:hidden}
     <div data-nav-row="">
       <a href="index.html" class="nav-mark">Vladora</a>
       <nav class="nav-desktop" aria-label="Principale">
-        <a href="Vladora-Portfolio.dc.html" data-en="Work">Lavori</a>
+        <a href="#lavori" data-en="Work">Lavori</a>
         <a href="#servizi" data-en="Services">Servizi</a>
         <a href="#prezzi" data-en="Pricing">Prezzi</a>
-        <a href="Vladora-Contatti.dc.html" data-en="Contact">Contatti</a>
+        <a href="#parliamone" data-en="Contact">Contatti</a>
       </nav>
       <div class="nav-tools">
         <div class="lang" data-lang="" data-open="false">
@@ -384,10 +455,10 @@ html[data-modal-open]{overflow:hidden}
     <nav class="drawer-body" aria-label="Menu">
       <p class="drawer-eyebrow" data-en="Pages">Pagine</p>
       <a class="drawer-link" href="index.html" aria-current="page" tabindex="-1"><span data-en="Home">Home</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
-      <a class="drawer-link" href="Vladora-Portfolio.dc.html" tabindex="-1"><span data-en="Work">Lavori</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="drawer-link" href="#lavori" tabindex="-1"><span data-en="Work">Lavori</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
       <a class="drawer-link" href="#servizi" tabindex="-1"><span data-en="Services">Servizi</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
       <a class="drawer-link" href="#prezzi" tabindex="-1"><span data-en="Pricing">Prezzi</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
-      <a class="drawer-link" href="Vladora-Contatti.dc.html" tabindex="-1"><span data-en="Contact">Contatti</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="drawer-link" href="#parliamone" tabindex="-1"><span data-en="Contact">Contatti</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
     </nav>
     <div class="drawer-foot">
       <a class="drawer-cta" href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Write to us on WhatsApp" tabindex="-1">Scrivici su WhatsApp</a>
@@ -397,7 +468,7 @@ html[data-modal-open]{overflow:hidden}
 
   <main id="contenuto">
 
-    <section style="position:relative;overflow:hidden;padding:var(--sp-8) var(--sp-5) var(--sp-9);background:var(--grad-hero)">
+    <section style="position:relative;overflow:hidden;padding:var(--sp-8) var(--sp-5) var(--sp-9);background:var(--bg)">
       <div style="max-width:1240px;margin:0 auto;position:relative">
 
         <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-4);flex-wrap:wrap">
@@ -424,7 +495,7 @@ html[data-modal-open]{overflow:hidden}
           <div style="display:flex;flex-direction:column;gap:var(--sp-5);max-width:44ch;justify-self:end;width:100%">
             <p data-en="We build sites for restaurants, bars and barbershops around Savona. Two weeks, you know the price up front, and it opens straight away on a phone." style="font-size:18px;line-height:1.55;color:var(--fg-2);text-wrap:pretty">Facciamo siti per ristoranti, bar e barbershop di Savona. Due settimane, il prezzo lo sai prima, e dal telefono si apre subito.</p>
             <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3)">
-              <a href="Vladora-Portfolio.dc.html" data-en="See the work" style="font-size:15px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:opacity var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)" style-hover="opacity:.88;color:var(--fg-inv)" style-active="transform:scale(.98)">Vedi i lavori</a>
+              <a href="#lavori" data-en="See the work" style="font-size:15px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:opacity var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)" style-hover="opacity:.88;color:var(--fg-inv)" style-active="transform:scale(.98)">Vedi i lavori</a>
               <a href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Let's talk" style="font-size:15px;font-weight:450;color:var(--fg);background:transparent;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:background var(--dur-1) var(--ease)" style-hover="background:var(--bg-alt);color:var(--fg)">Parliamone</a>
             </div>
             <p data-perf="" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3)">Misurazione del caricamento in corso…</p>
@@ -541,7 +612,7 @@ html[data-modal-open]{overflow:hidden}
             <p data-en="Selected work" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Lavori in evidenza</p>
             <h2 data-en="One site online. The rest are studies of ours." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:22ch">Un sito online. Il resto sono studi nostri.</h2>
           </div>
-          <a href="Vladora-Portfolio.dc.html" data-en="All work" style="font-size:14.5px;color:var(--fg);border-bottom:1px solid var(--line-strong);text-decoration:none;padding-bottom:3px" style-hover="color:var(--accent);border-color:var(--accent)">Tutti i lavori</a>
+          <a href="#lavori" data-en="All work" style="font-size:14.5px;color:var(--fg);border-bottom:1px solid var(--line-strong);text-decoration:none;padding-bottom:3px" style-hover="color:var(--accent);border-color:var(--accent)">Tutti i lavori</a>
         </div>
 
         <div data-reveal="" data-rv="rise" style="margin-bottom:var(--sp-8)">
@@ -622,7 +693,7 @@ html[data-modal-open]{overflow:hidden}
       </div>
     </section>
 
-    <section id="prezzi" style="background:var(--bg-alt);padding:var(--sp-9) var(--sp-5);border-top:1px solid var(--line)">
+    <section id="prezzi" class="sez-deep" style="padding:var(--sp-9) var(--sp-5)">
       <div style="max-width:1100px;margin:0 auto">
         <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--sp-5);align-items:end;margin-bottom:var(--sp-8)">
           <div>
@@ -716,7 +787,7 @@ html[data-modal-open]{overflow:hidden}
       </div>
     </section>
 
-    <section id="parliamone" style="background:var(--bg-alt);padding:var(--sp-9) var(--sp-5);border-top:1px solid var(--line)">
+    <section id="parliamone" class="sez-deep" style="padding:var(--sp-9) var(--sp-5)">
       <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-8);align-items:start">
         <div data-reveal="" style="display:flex;flex-direction:column;gap:var(--sp-5)">
           <p data-en="Let's talk" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)">Parliamone</p>
@@ -727,6 +798,44 @@ html[data-modal-open]{overflow:hidden}
             <a href="mailto:emailforworkvladora@gmail.com" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline;word-break:break-all" style-hover="color:var(--accent)"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">EMAIL</span>emailforworkvladora@gmail.com</a>
             <a href="https://instagram.com/vlad.ora" target="_blank" rel="noopener" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline" style-hover="color:var(--accent)"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">INSTAGRAM</span>@vlad.ora</a>
           </div>
+        <div data-reveal="" data-rv="rise" style="margin-top:var(--sp-8);padding-top:var(--sp-7);border-top:1px solid var(--line)">
+        <div data-reveal-group="" style="display:flex;flex-direction:column;gap:var(--sp-3)">
+          <p data-en="Short FAQ" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-2)">Mini-FAQ</p>
+        
+          <details data-reveal="" data-rv="rise" style="border-top:1px solid var(--line);padding:var(--sp-4) 0">
+            <summary style="cursor:pointer;display:flex;justify-content:space-between;gap:var(--sp-4);align-items:baseline;list-style:none">
+              <span data-en="How long does it take?" style="font-size:16.5px;font-weight:450">Quanto ci vuole?</span>
+              <span style="font-family:var(--mono);font-size:14px;color:var(--fg-3);flex:none">+</span>
+            </summary>
+            <p data-en="One week for a one-page site, two weeks for the others. The clock starts when we have your texts and photos." style="font-size:15.5px;line-height:1.6;color:var(--fg-2);margin-top:var(--sp-3);max-width:36ch">Una settimana per un sito vetrina, due per gli altri. Il conto parte quando abbiamo testi e foto.</p>
+          </details>
+        
+          <details data-reveal="" data-rv="rise" style="border-top:1px solid var(--line);padding:var(--sp-4) 0">
+            <summary style="cursor:pointer;display:flex;justify-content:space-between;gap:var(--sp-4);align-items:baseline;list-style:none">
+              <span data-en="How do I pay?" style="font-size:16.5px;font-weight:450">Come si paga?</span>
+              <span style="font-family:var(--mono);font-size:14px;color:var(--fg-3);flex:none">+</span>
+            </summary>
+            <p data-en="Half when you approve the mockup, half when the site goes live. Bank transfer or cash, with a receipt." style="font-size:15.5px;line-height:1.6;color:var(--fg-2);margin-top:var(--sp-3);max-width:36ch">Metà quando approvi il mockup, metà quando il sito è online. Bonifico o contanti, con ricevuta.</p>
+          </details>
+        
+          <details data-reveal="" data-rv="rise" style="border-top:1px solid var(--line);padding:var(--sp-4) 0">
+            <summary style="cursor:pointer;display:flex;justify-content:space-between;gap:var(--sp-4);align-items:baseline;list-style:none">
+              <span data-en="Are domain and hosting included?" style="font-size:16.5px;font-weight:450">Dominio e hosting sono compresi?</span>
+              <span style="font-family:var(--mono);font-size:14px;color:var(--fg-3);flex:none">+</span>
+            </summary>
+            <p data-en="They stay in your name, so the site is yours. We set them up with you and tell you the real cost: around 15–40 € a year, paid straight to the provider." style="font-size:15.5px;line-height:1.6;color:var(--fg-2);margin-top:var(--sp-3);max-width:36ch">Restano a tuo nome, così il sito è tuo. Li configuriamo insieme e ti diciamo il costo reale: circa 15–40 € l'anno, pagati direttamente al provider.</p>
+          </details>
+        
+          <details data-reveal="" data-rv="rise" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:var(--sp-4) 0">
+            <summary style="cursor:pointer;display:flex;justify-content:space-between;gap:var(--sp-4);align-items:baseline;list-style:none">
+              <span data-en="Can I update it myself?" style="font-size:16.5px;font-weight:450">Posso aggiornarlo da solo?</span>
+              <span style="font-family:var(--mono);font-size:14px;color:var(--fg-3);flex:none">+</span>
+            </summary>
+            <p data-en="Yes. At delivery we spend half an hour showing you how to change prices, hours and photos. Included." style="font-size:15.5px;line-height:1.6;color:var(--fg-2);margin-top:var(--sp-3);max-width:36ch">Sì. Alla consegna passiamo mezz'ora a mostrarti come cambiare prezzi, orari e foto. È compreso.</p>
+          </details>
+        </div>
+        </div>
+
         </div>
 
         <form data-wa-form="" data-reveal="" data-rv="right" style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-5);box-shadow:var(--sh-2)">
@@ -759,10 +868,9 @@ html[data-modal-open]{overflow:hidden}
       <div style="display:flex;flex-wrap:wrap;gap:var(--sp-6);justify-content:space-between;align-items:flex-end">
         <p style="font-family:var(--display);font-size:clamp(44px,10vw,120px);font-weight:500;letter-spacing:-.045em;line-height:.8;color:var(--fg);opacity:.9">Vladora</p>
         <nav aria-label="Pagine" style="display:flex;flex-direction:column;gap:var(--sp-2);text-align:right">
-          <a href="Vladora-Portfolio.dc.html" data-en="Work" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Lavori</a>
+          <a href="#lavori" data-en="Work" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Lavori</a>
           <a href="Vladora-CaseStudy.dc.html" data-en="Case study" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Case study</a>
-          <a href="Vladora-Contatti.dc.html" data-en="Contact" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Contatti</a>
-          <a href="Vladora-StyleGuide.dc.html" data-en="Style guide" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Style guide</a>
+          <a href="#parliamone" data-en="Contact" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Contatti</a>
         </nav>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);justify-content:space-between;padding-top:var(--sp-5);border-top:1px solid var(--line)">
@@ -1125,7 +1233,9 @@ class Component extends DCLogic {
         tag: { it: ['catalogo', 'ordinazioni', 'foto'], en: ['catalogue', 'orders', 'photos'] },
         stato: 'concept',
         url: null, caso: null, img: null,
-        mock: { url: 'lanostrapasticceria.it', kick: { it: 'Su ordinazione', en: 'Made to order' }, titolo: { it: 'La torta, come la vuoi.', en: 'The cake, your way.' }, cta: { it: 'Chiedi il prezzo', en: 'Ask the price' } }
+        mock: { url: 'lanostrapasticceria.it', kick: { it: 'Su ordinazione', en: 'Made to order' }, titolo: { it: 'La torta, come la vuoi.', en: 'The cake, your way.' }, cta: { it: 'Chiedi il prezzo', en: 'Ask the price' } },
+
+        home: 6
       },
       {
         id: 'enoteca',
@@ -1135,7 +1245,9 @@ class Component extends DCLogic {
         tag: { it: ['catalogo', 'carrello', 'pagamenti'], en: ['catalogue', 'cart', 'payments'] },
         stato: 'concept',
         url: null, caso: null, img: null,
-        mock: { url: 'lanostraenoteca.it', kick: { it: 'Cantina', en: 'Cellar' }, titolo: { it: 'Poche etichette, spiegate.', en: 'A few labels, explained.' }, cta: { it: 'Il catalogo', en: 'The catalogue' } }
+        mock: { url: 'lanostraenoteca.it', kick: { it: 'Cantina', en: 'Cellar' }, titolo: { it: 'Poche etichette, spiegate.', en: 'A few labels, explained.' }, cta: { it: 'Il catalogo', en: 'The catalogue' } },
+
+        home: 7
       }
     ];
 
@@ -1182,9 +1294,11 @@ class Component extends DCLogic {
         { h: 175, amp: 7,  d: 6.2, del: -1.9 },
         { h: 140, amp: 12, d: 8.1, del: -3.4 },
         { h: 175, amp: 8,  d: 6.8, del: -0.8 },
-        { h: 200, amp: 11, d: 7.9, del: -2.6 }
+        { h: 200, amp: 11, d: 7.9, del: -2.6 },
+        { h: 165, amp: 9,  d: 7.1, del: -4.2 },
+        { h: 190, amp: 6,  d: 8.6, del: -1.3 }
       ];
-      const inVetrina = PROGETTI.filter(p => p.home).sort((a, b) => a.home - b.home).slice(0, 5);
+      const inVetrina = PROGETTI.filter(p => p.home).sort((a, b) => a.home - b.home);
       vetrina.innerHTML = inVetrina.map((p, i) => {
         const r = ritmo[i % ritmo.length];
         return '<div class="vetrina-slot"><div class="vetrina-float" style="--amp:' + r.amp + 'px;--vd:' + r.d + 's;--vdel:' + r.del + 's">'

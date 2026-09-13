@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Quattro pagine pubbliche. La style guide sta fuori: e' documentazione
-  interna ed e' marcata noindex. Gli indirizzi devono corrispondere ai
-  <link rel="canonical"> nel <head>; se cambia il dominio, cambiali insieme.
+  Due pagine: la home fa tutto il percorso di vendita, il case study
+  approfondisce l'unico progetto reale. Gli indirizzi devono
+  corrispondere ai <link rel="canonical"> nel <head>.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -11,18 +11,8 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://portfolio-vladora.kesug.com/Vladora-Portfolio.dc.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://portfolio-vladora.kesug.com/Vladora-CaseStudy.dc.html</loc>
     <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://portfolio-vladora.kesug.com/Vladora-Contatti.dc.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
 </urlset>

@@ -9,3 +9,6 @@ desktop.ini
 # file: un nuovo upload qui dentro deve restare fuori di default.
 uploads/
 prompt-*.md
+
+# configurazione locale dell'editor
+.claude/
