@@ -337,6 +337,87 @@ html[data-modal-open]{overflow:hidden}
 .hv-nota-3:hover{transform:rotate(-.2deg) translateY(-16px) !important;box-shadow:var(--sh-3) !important}
 .hv-solleva:hover{box-shadow:var(--sh-3) !important;transform:translateY(-3px) !important;color:var(--fg) !important}
 
+/* ============================================================
+   Divisori a onda. Erano nel brief iniziale fra i quattro
+   dettagli speciali e non erano mai stati costruiti.
+
+   Stanno in due punti soltanto, come chiedeva il brief, e sempre
+   dove la pagina cambia registro: l'ingresso nelle due lastre
+   scure, cioe' i due momenti in cui si decide. Non sono decoro
+   ripetuto: sono il segnale che si entra in una zona diversa.
+   I due tracciati sono diversi fra loro, altrimenti "organico"
+   diventa "stampino".
+   ============================================================ */
+.onda{
+  position:absolute;left:0;right:0;bottom:100%;
+  width:100%;height:clamp(22px,3.2vw,46px);
+  display:block;color:var(--accent-deep);pointer-events:none;
+}
+/* la sezione sopra deve lasciare spazio all'onda che la invade */
+.pre-onda{padding-bottom:calc(var(--sp-9) + clamp(22px,3.2vw,46px))}
+
+/* ============================================================
+   Ingresso dell'hero: una sequenza sola, orchestrata, invece di
+   una dissolvenza piatta su tutta la pagina.
+
+   Lo stato di partenza esiste solo dopo che il JS ha confermato
+   di poter animare: senza JS, o con motion ridotto, gli elementi
+   sono gia' al loro posto e nessuno resta a opacita' zero. E' lo
+   stesso problema che il vecchio pageIn documentava, risolto
+   all'origine invece che con un timeout di sicurezza.
+   ============================================================ */
+html[data-hero-pronto] [data-hero-i]{opacity:0;transform:translateY(16px)}
+html[data-hero-pronto] [data-hero-i="0"]{transform:translateY(8px)}
+html[data-hero-via] [data-hero-i]{
+  opacity:1;transform:none;
+  transition:opacity var(--dur-3) var(--ease-out),transform var(--dur-3) var(--ease-out);
+  transition-delay:calc(var(--hero-i,0) * 85ms);
+}
+/* il wordmark emerge piu' lentamente degli altri: e' lo sfondo
+   della scena, non un elemento della sequenza */
+html[data-hero-pronto] [data-wordmark-wrap]{opacity:0;transform:scale(1.04)}
+html[data-hero-via] [data-wordmark-wrap]{
+  opacity:1;transform:none;
+  transition:opacity 1100ms var(--ease-out),transform 1400ms var(--ease-out);
+}
+
+/* ============================================================
+   Microinterazioni. Solo dove dicono qualcosa: una scheda che
+   smette di galleggiare quando la guardi, un cursore che mostra
+   una volta sola che si puo' trascinare. Niente effetti sparsi.
+   ============================================================ */
+
+/* Il galleggio si ferma sotto il puntatore: la scheda che stai
+   guardando sta ferma, le altre continuano. Dice "questa e' sotto
+   esame" senza scriverlo. */
+.vetrina-slot:hover .vetrina-float,
+.vetrina-slot:focus-within .vetrina-float{animation-play-state:paused}
+
+/* Il confronto prima/dopo e' trascinabile ma niente lo diceva.
+   Una spinta sola, alla prima volta che entra nello schermo. */
+@keyframes suggerisciTrascina{
+  0%,100%{transform:translateX(-1px)}
+  30%{transform:translateX(-11px)}
+  60%{transform:translateX(9px)}
+}
+[data-ba-handle][data-suggerisci]{animation:suggerisciTrascina 1.5s var(--ease) 1}
+
+/* La cifra del caricamento cambia a ogni visita: cifre tabulari,
+   altrimenti il testo intorno balla mentre il numero si scrive. */
+[data-perf]{font-variant-numeric:tabular-nums}
+
+@media (prefers-reduced-motion:reduce){
+  [data-ba-handle][data-suggerisci]{animation:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html[data-hero-pronto] [data-hero-i],
+  html[data-hero-pronto] [data-wordmark-wrap]{opacity:1!important;transform:none!important}
+  html[data-hero-via] [data-hero-i],
+  html[data-hero-via] [data-wordmark-wrap]{transition:none!important}
+  .onda{display:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   .vetrina-float{animation:none!important}
 }
@@ -517,7 +598,7 @@ html[data-modal-open]{overflow:hidden}
       <div style="max-width:1240px;margin:0 auto;position:relative">
 
         <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-4);flex-wrap:wrap">
-          <p data-en="Web design studio · Savona, Italy" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)">Studio di web design · Savona</p>
+          <p data-en="Web design studio · Savona, Italy" data-hero-i="0" style="--hero-i:0;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)">Studio di web design · Savona</p>
           <p style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);display:flex;align-items:center;gap:var(--sp-2)"><span style="width:6px;height:6px;border-radius:var(--r-pill);background:var(--accent);display:inline-block"></span><span data-en="Available for 2 projects">Disponibili per 2 progetti</span></p>
         </div>
 
@@ -525,7 +606,7 @@ html[data-modal-open]{overflow:hidden}
           <div data-wordmark-wrap="" aria-hidden="true" style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:center;pointer-events:none">
             <span data-wordmark="" style="font-family:var(--display);font-weight:500;font-size:min(21vw,290px);line-height:.78;letter-spacing:-.04em;color:var(--fg);opacity:.13;white-space:nowrap;transition:opacity var(--dur-2) var(--ease);pointer-events:auto;cursor:pointer;user-select:none">Vladora</span>
           </div>
-          <figure data-reveal="" data-rv="scale" style="position:relative;z-index:2;width:min(480px,86vw);margin-top:var(--sp-9);border-radius:var(--r-4);background:var(--surface);box-shadow:var(--sh-3);border:1px solid var(--line);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4)">
+          <figure data-reveal="" data-rv="scale" data-hero-i="1" style="--hero-i:1;position:relative;z-index:2;width:min(480px,86vw);margin-top:var(--sp-9);border-radius:var(--r-4);background:var(--surface);box-shadow:var(--sh-3);border:1px solid var(--line);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4)">
             <p data-en="Demonstration project" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:var(--r-pill);padding:5px 11px;align-self:start">Progetto dimostrativo</p>
             <p style="font-family:var(--display);font-size:clamp(26px,4.4vw,44px);font-weight:400;line-height:1.02;letter-spacing:-.03em;color:var(--fg)">chinese-restaurant</p>
             <p data-en="A sushi restaurant in Savona: menu, booking and directions on one page. It is online, open it." style="font-size:16px;line-height:1.55;color:var(--fg-2);max-width:34ch;text-wrap:pretty">Un ristorante di sushi a Savona: menu, prenotazione e indicazioni in una pagina. &#200; online, aprilo.</p>
@@ -535,15 +616,15 @@ html[data-modal-open]{overflow:hidden}
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-6);align-items:end;margin-top:var(--sp-7)">
           <div style="display:flex;flex-direction:column;gap:var(--sp-4);max-width:20ch">
-            <h1 data-en="Two guys from Savona. Real sites, real prices." style="font-family:var(--display);font-size:clamp(34px,5.4vw,64px);font-weight:500;line-height:1.02;letter-spacing:-.035em;text-wrap:balance">Due ragazzi di Savona. Siti veri, prezzi veri.</h1>
+            <h1 data-en="Two guys from Savona. Real sites, real prices." data-hero-i="2" style="--hero-i:2;font-family:var(--display);font-size:clamp(34px,5.4vw,64px);font-weight:500;line-height:1.02;letter-spacing:-.035em;text-wrap:balance">Due ragazzi di Savona. Siti veri, prezzi veri.</h1>
           </div>
           <div style="display:flex;flex-direction:column;gap:var(--sp-5);max-width:44ch;justify-self:end;width:100%">
-            <p data-en="We build sites for restaurants, bars and barbershops around Savona. Two weeks, you know the price up front, and it opens straight away on a phone." style="font-size:18px;line-height:1.55;color:var(--fg-2);text-wrap:pretty">Facciamo siti per ristoranti, bar e barbershop di Savona. Due settimane, il prezzo lo sai prima, e dal telefono si apre subito.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3)">
-              <a class="hv-attenua-inv at-98" href="#lavori" data-en="See the work" style="font-size:15px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:opacity var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)">Vedi i lavori</a>
+            <p data-hero-i="3" data-en="We build sites for restaurants, bars and barbershops around Savona. Two weeks, you know the price up front, and it opens straight away on a phone." style="--hero-i:3;font-size:18px;line-height:1.55;color:var(--fg-2);text-wrap:pretty">Facciamo siti per ristoranti, bar e barbershop di Savona. Due settimane, il prezzo lo sai prima, e dal telefono si apre subito.</p>
+            <div data-hero-i="4" style="--hero-i:4;display:flex;flex-wrap:wrap;gap:var(--sp-3)">
+            <a class="hv-attenua-inv at-98" href="#lavori" data-en="See the work" style="font-size:15px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:opacity var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)">Vedi i lavori</a>
               <a class="hv-alt-fg" href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Let's talk" style="font-size:15px;font-weight:450;color:var(--fg);background:transparent;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:background var(--dur-1) var(--ease)">Parliamone</a>
             </div>
-            <p data-perf="" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3)">Misurazione del caricamento in corso…</p>
+            <p data-perf="" data-hero-i="5" style="--hero-i:5;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3)">Misurazione del caricamento in corso…</p>
           </div>
         </div>
 
@@ -620,7 +701,7 @@ html[data-modal-open]{overflow:hidden}
               </span>
             </div>
           </div>
-          <input type="range" min="0" max="100" value="50" data-ba-input="" aria-label="Confronta prima e dopo" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;z-index:6" />
+          <input type="range" min="0" max="100" value="50" data-ba-input="" aria-label="Confronta prima e dopo" / style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;z-index:6">
         </div>
         <div style="display:flex;justify-content:space-between;margin-top:var(--sp-3)">
           <p data-en="Today — Google listing only" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)">Oggi — solo scheda Google</p>
@@ -707,7 +788,7 @@ html[data-modal-open]{overflow:hidden}
       </div>
     </section>
 
-    <section id="servizi" style="background:var(--bg);padding:var(--sp-9) var(--sp-5)">
+    <section id="servizi" style="background:var(--bg);padding:var(--sp-9) var(--sp-5);padding-bottom:calc(var(--sp-9) + clamp(22px,3.2vw,46px))">
       <div style="max-width:1100px;margin:0 auto">
         <div data-reveal="" style="max-width:34ch;margin-bottom:var(--sp-7)">
           <p data-en="Services" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Servizi</p>
@@ -738,7 +819,7 @@ html[data-modal-open]{overflow:hidden}
       </div>
     </section>
 
-    <section id="prezzi" class="sez-deep" style="padding:var(--sp-9) var(--sp-5)">
+    <section id="prezzi" class="sez-deep" style="position:relative;padding:var(--sp-9) var(--sp-5)"><svg class="onda" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 26C143 4 259 41 402 33 548 25 641 2 795 12c142 9 233 37 372 29 106-6 190-22 273-31v36H0Z" fill="currentColor"></path></svg>
       <div style="max-width:1100px;margin:0 auto">
         <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--sp-5);align-items:end;margin-bottom:var(--sp-8)">
           <div>
@@ -806,7 +887,7 @@ html[data-modal-open]{overflow:hidden}
       </div>
     </section>
 
-    <section id="note" style="background:var(--bg);padding:var(--sp-9) var(--sp-5);overflow:hidden">
+    <section id="note" style="background:var(--bg);padding:var(--sp-9) var(--sp-5);overflow:hidden;padding-bottom:calc(var(--sp-9) + clamp(22px,3.2vw,46px))">
       <div style="max-width:1100px;margin:0 auto">
         <div data-reveal="" style="max-width:40ch;margin-bottom:var(--sp-8)">
           <p data-en="Instead of testimonials" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Al posto delle testimonianze</p>
@@ -832,7 +913,7 @@ html[data-modal-open]{overflow:hidden}
       </div>
     </section>
 
-    <section id="parliamone" class="sez-deep" style="padding:var(--sp-9) var(--sp-5)">
+    <section id="parliamone" class="sez-deep" style="position:relative;padding:var(--sp-9) var(--sp-5)"><svg class="onda" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 14c118 21 214 3 337 9 154 8 233 31 388 25 133-5 219-27 351-24 129 3 244 25 364 18v34H0Z" fill="currentColor"></path></svg>
       <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-8);align-items:start">
         <div data-reveal="" style="display:flex;flex-direction:column;gap:var(--sp-5)">
           <p data-en="Let's talk" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)">Parliamone</p>
@@ -886,7 +967,7 @@ html[data-modal-open]{overflow:hidden}
         <form data-wa-form="" data-reveal="" data-rv="right" style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-5);box-shadow:var(--sh-2)">
           <label style="display:flex;flex-direction:column;gap:var(--sp-2)">
             <span data-en="Name" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)">Nome</span>
-            <input type="text" name="nome" required="" autocomplete="name" style="background:var(--bg);border:1px solid var(--line);border-radius:var(--r-2);padding:12px 14px;font-size:16px;color:var(--fg);min-height:46px" />
+            <input type="text" name="nome" required="" autocomplete="name" / style="background:var(--bg);border:1px solid var(--line);border-radius:var(--r-2);padding:12px 14px;font-size:16px;color:var(--fg);min-height:46px">
           </label>
           <label style="display:flex;flex-direction:column;gap:var(--sp-2)">
             <span data-en="Type of place" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)">Tipo di attività</span>
@@ -984,7 +1065,7 @@ html[data-modal-open]{overflow:hidden}
                 <input type="checkbox" name="consenso" required="" aria-describedby="err-consenso" />
                 <span data-en="I have read what happens to my data.">Ho letto cosa succede ai miei dati.</span>
               </label>
-              <button type="button" class="campo-aiuto" data-apri-privacy="" style="align-self:flex-start;background:none;border:none;padding:0;color:var(--accent);text-decoration:underline;text-underline-offset:3px;cursor:pointer" data-en="Read it — it is four lines">Leggilo, sono quattro righe</button>
+              <button type="button" class="campo-aiuto" data-apri-privacy="" data-en="Read it — it is four lines" style="align-self:flex-start;background:none;border:none;padding:0;color:var(--accent);text-decoration:underline;text-underline-offset:3px;cursor:pointer">Leggilo, sono quattro righe</button>
               <span class="campo-msg" id="err-consenso" data-en="Tick the box and we can write back.">Spunta la casella e possiamo risponderti.</span>
             </div>
 
@@ -1053,6 +1134,22 @@ html[data-modal-open]{overflow:hidden}
 
     // ---- reveal on scroll
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---- sequenza d'ingresso dell'hero. Lo stato di partenza lo mette
+    // il JS, non il CSS: se questo codice non gira, o se l'utente ha
+    // chiesto meno movimento, gli elementi restano dove sono e la pagina
+    // e' leggibile comunque. Nessun rischio di restare a opacita' zero.
+    if (!reduce && document.querySelector('[data-hero-i]')) {
+      root.setAttribute('data-hero-pronto', '');
+      const avviaHero = () => root.setAttribute('data-hero-via', '');
+      requestAnimationFrame(() => requestAnimationFrame(avviaHero));
+      // In una scheda aperta in background requestAnimationFrame non
+      // scatta: senza questo, chi apre il link in una scheda nuova
+      // troverebbe l'hero fermo a opacita' zero finche' non la guarda.
+      const tHero = setTimeout(avviaHero, 250);
+      _cleanup.push(() => clearTimeout(tHero));
+    }
+
     const targets = document.querySelectorAll('[data-reveal]');
     // stagger: l'indice dentro un gruppo diventa il ritardo, calcolato in CSS
     document.querySelectorAll('[data-reveal-group]').forEach(group => {
@@ -1671,6 +1768,33 @@ html[data-modal-open]{overflow:hidden}
       window.addEventListener('pointerup', () => { dragging = false; });
       if (input) input.addEventListener('input', () => set(Number(input.value)));
       set(50);
+    }
+
+    // ---- il confronto prima/dopo si puo' trascinare, ma nessun segno
+    // lo diceva. Una spinta sola, la prima volta che entra nello
+    // schermo: dopo, il gesto l'ha capito o non lo capira' comunque.
+    const baHandle = document.querySelector('[data-ba-handle]');
+    const baBlocco = document.querySelector('[data-ba-root]');
+    if (baHandle && baBlocco && !reduce) {
+      // Controllo geometrico invece di IntersectionObserver: piu' sopra
+      // c'e' gia' geoReveal per lo stesso motivo, alcuni ambienti non
+      // consegnano mai le voci dell'observer e l'effetto non partirebbe.
+      let suggerito = false;
+      const provaSuggerimento = () => {
+        if (suggerito) return;
+        const r = baBlocco.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight * 0.75) return;
+        suggerito = true;
+        window.removeEventListener('scroll', provaSuggerimento);
+        const t = setTimeout(() => {
+          baHandle.setAttribute('data-suggerisci', '');
+          setTimeout(() => baHandle.removeAttribute('data-suggerisci'), 1600);
+        }, 420);
+        _cleanup.push(() => clearTimeout(t));
+      };
+      window.addEventListener('scroll', provaSuggerimento, { passive: true });
+      _cleanup.push(() => window.removeEventListener('scroll', provaSuggerimento));
+      provaSuggerimento();
     }
 
     // ---- form composes a WhatsApp message
