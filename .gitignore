@@ -12,3 +12,6 @@ prompt-*.md
 
 # configurazione locale dell'editor
 .claude/
+
+# anteprima generata dal vecchio tool, non serve al sito
+.thumbnail

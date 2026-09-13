@@ -4,12 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://portfolio-vladora.kesug.com/Vladora-CaseStudy.dc.html">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Vladora" />
+<meta property="og:locale" content="it_IT" />
+<meta property="og:url" content="https://portfolio-vladora.kesug.com/Vladora-CaseStudy.dc.html" />
+<meta property="og:title" content="chinese-restaurant — case study Vladora" />
+<meta property="og:description" content="Case study dimostrativo: menu, prenotazione e indicazioni per un ristorante di sushi a Savona, in una pagina sola." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="chinese-restaurant — case study Vladora" />
+<meta name="twitter:description" content="Case study dimostrativo: menu, prenotazione e indicazioni per un ristorante di sushi a Savona, in una pagina sola." />
 <title>chinese-restaurant — case study Vladora</title>
 <meta name="description" content="Case study dimostrativo: menu, prenotazione e indicazioni per un ristorante di sushi a Savona, in una pagina sola." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -146,6 +149,35 @@ html[data-drawer-open] .drawer-link{opacity:1;transform:none}
 @media (min-width:861px){
   .scrim-nav,.drawer{display:none}
 }
+/* ============================================================
+   Stati hover/active/focus, prima gestiti a runtime dagli
+   attributi style-hover e simili. Ora CSS normale.
+
+   !important serve davvero: questi elementi hanno ancora uno
+   style inline, che vince su qualunque classe. Il runtime
+   applicava lo stesso !important. Si potra' togliere quando
+   anche gli stili inline saranno diventati classi.
+   ============================================================ */
+.at-96:active{transform:scale(.96) !important}
+.at-98:active{transform:scale(.98) !important}
+.at-99:active{transform:scale(.99) !important}
+.fc-salta:focus-visible{left:var(--sp-4) !important;top:var(--sp-4) !important}
+.hv-accent:hover{color:var(--accent) !important}
+.hv-accent-bordo:hover{color:var(--accent) !important;border-color:var(--accent) !important}
+.hv-accent-linea:hover{color:var(--accent-hover) !important;border-color:var(--accent-hover) !important}
+.hv-accent-velo:hover{background:var(--accent-soft) !important;color:var(--accent) !important}
+.hv-alt-fg:hover{background:var(--bg-alt) !important;color:var(--fg) !important}
+.hv-attenua:hover{opacity:.88 !important}
+.hv-attenua-inv:hover{opacity:.88 !important;color:var(--fg-inv) !important}
+.hv-cresce:hover{transform:scale(1.06) !important}
+.hv-fg:hover{color:var(--fg) !important}
+.hv-incavo:hover{background:var(--bg-sunk) !important}
+.hv-incavo-fg:hover{background:var(--bg-sunk) !important;color:var(--fg) !important}
+.hv-nota-1:hover{transform:rotate(-.6deg) translateY(-4px) !important;box-shadow:var(--sh-3) !important}
+.hv-nota-2:hover{transform:rotate(.4deg) translateY(12px) !important;box-shadow:var(--sh-3) !important}
+.hv-nota-3:hover{transform:rotate(-.2deg) translateY(-16px) !important;box-shadow:var(--sh-3) !important}
+.hv-solleva:hover{box-shadow:var(--sh-3) !important;transform:translateY(-3px) !important;color:var(--fg) !important}
+
 @media (prefers-reduced-motion:reduce){
   .drawer-link{opacity:1!important;transform:none!important;transition-delay:0ms!important}
 }
@@ -156,8 +188,8 @@ html[data-drawer-open] .drawer-link{opacity:1;transform:none}
   [data-page],[data-page="out"]{animation:none!important;opacity:1!important;transition:none!important}
   *{transition-duration:.001ms!important}
 }
-</style>
-</helmet>
+</style></head>
+<body>
 
 <div data-page="">
   <header style="position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)">
@@ -222,7 +254,7 @@ html[data-drawer-open] .drawer-link{opacity:1;transform:none}
   <main>
     <section style="padding:var(--sp-8) var(--sp-5) var(--sp-7);background:var(--bg)">
       <div style="max-width:1100px;margin:0 auto">
-        <a href="index.html#lavori" data-en="← All work" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--fg-3)" style-hover="color:var(--fg)">← Tutti i lavori</a>
+        <a class="hv-fg" href="index.html#lavori" data-en="← All work" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--fg-3)">← Tutti i lavori</a>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-7);align-items:end;margin-top:var(--sp-6)">
           <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
             <p data-en="Demonstration project" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:var(--r-pill);padding:5px 11px;align-self:start">Progetto dimostrativo</p>
@@ -274,7 +306,7 @@ html[data-drawer-open] .drawer-link{opacity:1;transform:none}
         <div data-reveal="" data-rv="rise" style="display:flex;flex-direction:column;gap:var(--sp-4)">
           <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-5);flex-wrap:wrap">
             <h2 data-en="Live preview" style="font-size:clamp(24px,3vw,34px);font-weight:500;letter-spacing:-.025em">Anteprima live</h2>
-            <a href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px" style-hover="color:var(--accent-hover);border-color:var(--accent-hover)">chinese-restaurant.kesug.com &#8599;</a>
+            <a class="hv-accent-linea" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px">chinese-restaurant.kesug.com &#8599;</a>
           </div>
           <p data-en="Not a mockup: the site itself, loaded in the frame below. If the browser blocks it, the link above opens it in a new tab." style="font-size:16.5px;line-height:1.6;color:var(--fg-2);max-width:52ch;text-wrap:pretty">Non un mockup: il sito stesso, caricato nel riquadro qui sotto. Se il browser lo blocca, il link qui sopra lo apre in una scheda nuova.</p>
           <div style="border:1px solid var(--line);border-radius:var(--r-2);overflow:hidden;background:var(--surface);margin-top:var(--sp-2)">
@@ -282,12 +314,12 @@ html[data-drawer-open] .drawer-link{opacity:1;transform:none}
               <iframe data-embed-frame="" data-src="https://chinese-restaurant.kesug.com/" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Anteprima live del sito chinese-restaurant" style="display:block;width:100%;height:100%;border:0;background:var(--bg-alt)"></iframe>
               <div data-embed-cover="" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:var(--sp-4);align-items:center;justify-content:center;text-align:center;padding:var(--sp-6);background:var(--bg-alt);color:var(--fg-2)">
                 <p data-embed-msg="" data-en="Live preview of the real site." style="font-size:15px;line-height:1.6;max-width:40ch;text-wrap:pretty">Anteprima live del sito vero.</p>
-                <button type="button" data-embed-load="" data-en="Load the preview" style="font-size:14.5px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;transition:opacity var(--dur-1) var(--ease)" style-hover="opacity:.88">Carica l'anteprima</button>
-                <a data-embed-open="" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open in a new tab &#8599;" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:2px" style-hover="color:var(--fg)">Apri in una scheda nuova &#8599;</a>
+                <button class="hv-attenua" type="button" data-embed-load="" data-en="Load the preview" style="font-size:14.5px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;transition:opacity var(--dur-1) var(--ease)">Carica l'anteprima</button>
+                <a class="hv-fg" data-embed-open="" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open in a new tab &#8599;" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:2px">Apri in una scheda nuova &#8599;</a>
               </div>
               <div data-embed-bar="" style="position:absolute;left:0;right:0;bottom:0;opacity:0;transition:opacity var(--dur-2) var(--ease);display:flex;gap:var(--sp-3);align-items:center;justify-content:space-between;flex-wrap:wrap;padding:var(--sp-3) var(--sp-4);background:var(--surface);border-top:1px solid var(--line)">
                 <span data-en="Frame still blank? The host is blocking the preview." style="font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--fg-3)">Riquadro ancora bianco? L'hosting sta bloccando l'anteprima.</span>
-                <a href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open the site &#8599;" style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px" style-hover="color:var(--accent-hover);border-color:var(--accent-hover)">Apri il sito &#8599;</a>
+                <a class="hv-accent-linea" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open the site &#8599;" style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px">Apri il sito &#8599;</a>
               </div>
             </div>
           </div>
@@ -307,8 +339,8 @@ html[data-drawer-open] .drawer-link{opacity:1;transform:none}
 
         <div role="tablist" aria-label="Settore" style="display:flex;gap:var(--sp-3);flex-wrap:wrap;margin-bottom:var(--sp-6)">
           <button type="button" role="tab" data-sector="ristorante" aria-selected="true" style="font-size:14.5px;border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;background:var(--fg);color:var(--fg-inv);border:1px solid var(--fg);transition:background var(--dur-1) var(--ease),color var(--dur-1) var(--ease)">Ristorante</button>
-          <button type="button" role="tab" data-sector="bar" aria-selected="false" style="font-size:14.5px;border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;background:transparent;color:var(--fg);border:1px solid var(--line-strong);transition:background var(--dur-1) var(--ease),color var(--dur-1) var(--ease)" style-hover="background:var(--bg-sunk)">Bar</button>
-          <button type="button" role="tab" data-sector="barbershop" aria-selected="false" style="font-size:14.5px;border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;background:transparent;color:var(--fg);border:1px solid var(--line-strong);transition:background var(--dur-1) var(--ease),color var(--dur-1) var(--ease)" style-hover="background:var(--bg-sunk)">Barbershop</button>
+          <button class="hv-incavo" type="button" role="tab" data-sector="bar" aria-selected="false" style="font-size:14.5px;border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;background:transparent;color:var(--fg);border:1px solid var(--line-strong);transition:background var(--dur-1) var(--ease),color var(--dur-1) var(--ease)">Bar</button>
+          <button class="hv-incavo" type="button" role="tab" data-sector="barbershop" aria-selected="false" style="font-size:14.5px;border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;background:transparent;color:var(--fg);border:1px solid var(--line-strong);transition:background var(--dur-1) var(--ease),color var(--dur-1) var(--ease)">Barbershop</button>
         </div>
 
         <div data-sector-mock="" style="border-radius:var(--r-3);overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:var(--sh-2);transition:background var(--dur-2) var(--ease)">
@@ -382,8 +414,8 @@ html[data-drawer-open] .drawer-link{opacity:1;transform:none}
         <div style="display:flex;flex-direction:column;gap:var(--sp-4);justify-self:end;align-items:flex-start">
           <p data-en="Send us a photo of your place and the name. We'll reply with what we would do, for free, on WhatsApp." style="font-size:17px;line-height:1.6;color:var(--fg-2);max-width:36ch">Mandaci una foto del locale e il nome. Ti rispondiamo con cosa faremmo, gratis, su WhatsApp.</p>
           <div style="display:flex;gap:var(--sp-3);flex-wrap:wrap">
-            <a href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Write on WhatsApp" style="font-size:15px;font-weight:450;color:var(--fg-inv);background:var(--fg);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none" style-hover="opacity:.88;color:var(--fg-inv)">Scrivi su WhatsApp</a>
-            <a href="index.html#parliamone" data-en="Contact page" style="font-size:15px;font-weight:450;color:var(--fg);border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none" style-hover="background:var(--bg-sunk);color:var(--fg)">Pagina contatti</a>
+            <a class="hv-attenua-inv" href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Write on WhatsApp" style="font-size:15px;font-weight:450;color:var(--fg-inv);background:var(--fg);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none">Scrivi su WhatsApp</a>
+            <a class="hv-incavo-fg" href="index.html#parliamone" data-en="Contact page" style="font-size:15px;font-weight:450;color:var(--fg);border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none">Pagina contatti</a>
           </div>
         </div>
       </div>
@@ -394,22 +426,25 @@ html[data-drawer-open] .drawer-link{opacity:1;transform:none}
     <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:var(--sp-4);justify-content:space-between">
       <p style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--fg-3)">VLADORA · SAVONA · VADO LIGURE</p>
       <nav style="display:flex;gap:var(--sp-5);font-size:14px">
-        <a href="index.html" data-en="Home" style="color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Home</a>
-        <a href="index.html#lavori" data-en="Work" style="color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Lavori</a>
-        <a href="index.html#parliamone" data-en="Contact" style="color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Contatti</a>
+        <a class="hv-fg" href="index.html" data-en="Home" style="color:var(--fg-2);text-decoration:none">Home</a>
+        <a class="hv-fg" href="index.html#lavori" data-en="Work" style="color:var(--fg-2);text-decoration:none">Lavori</a>
+        <a class="hv-fg" href="index.html#parliamone" data-en="Contact" style="color:var(--fg-2);text-decoration:none">Contatti</a>
       </nav>
     </div>
   </footer>
 </div>
 
-</x-dc>
-<script type="text/x-dc" data-dc-script>
-class Component extends DCLogic {
-  componentDidMount() {
-    // Il runtime puo' rimontare la logica (streaming, hot reload): senza
-    // rimozione i listener si accumulano e piu' handler competono sullo
-    // stesso click. Ogni addEventListener globale registra qui il suo undo.
-    this._cleanup = [];
+<script>
+(() => {
+  'use strict';
+    // Ogni addEventListener globale registra qui come disfarsi.
+    // In una pagina statica serve a un momento solo, l'uscita: senza,
+    // i listener sopravvivono nella bfcache quando si torna indietro.
+    const _cleanup = [];
+    window.addEventListener('pagehide', () => {
+      _cleanup.forEach(off => { try { off(); } catch (e) {} });
+      _cleanup.length = 0;
+    }, { once: true });
     const root = document.documentElement;
     root.lang = 'it';
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -438,7 +473,7 @@ class Component extends DCLogic {
     const onGeoScroll = () => { if (geoRaf) return; geoRaf = requestAnimationFrame(() => { geoRaf = null; geoReveal(); }); };
     window.addEventListener('scroll', onGeoScroll, { passive: true });
     window.addEventListener('resize', onGeoScroll);
-    this._cleanup.push(() => {
+    _cleanup.push(() => {
       window.removeEventListener('scroll', onGeoScroll);
       window.removeEventListener('resize', onGeoScroll);
     });
@@ -459,7 +494,7 @@ class Component extends DCLogic {
           if (anim.animationName === 'pageIn' && !anim.currentTime) anim.cancel();
         });
       }, 1500);
-      this._cleanup.push(() => clearTimeout(tGuard));
+      _cleanup.push(() => clearTimeout(tGuard));
     }
 
     // ---- arrivo su un'ancora da un'altra pagina (es. index.html#servizi).
@@ -482,7 +517,7 @@ class Component extends DCLogic {
       requestAnimationFrame(() => requestAnimationFrame(jumpToHash));
       const t1 = setTimeout(jumpToHash, 250);
       const t2 = setTimeout(jumpToHash, 800);
-      this._cleanup.push(() => { clearTimeout(t1); clearTimeout(t2); });
+      _cleanup.push(() => { clearTimeout(t1); clearTimeout(t2); });
     }
 
     // ---- transizione di pagina: fade-out prima di una navigazione interna
@@ -511,7 +546,7 @@ class Component extends DCLogic {
         setTimeout(() => { page.setAttribute('data-page', ''); }, outMs + 1400);
       };
       page.addEventListener('click', onNavClick);
-      this._cleanup.push(() => page.removeEventListener('click', onNavClick));
+      _cleanup.push(() => page.removeEventListener('click', onNavClick));
     }
 
 
@@ -541,8 +576,50 @@ class Component extends DCLogic {
         timer = setTimeout(() => { if (bar) bar.style.opacity = '1'; }, 6000);
       };
       btn.addEventListener('click', load);
-      this._cleanup.push(() => clearTimeout(timer));
+      _cleanup.push(() => clearTimeout(timer));
     });
+
+    // ---- selettore di settore: lo stesso componente, tre mestieri.
+    // Il testo sopra promette "tocca un settore e guarda cosa cambia":
+    // senza questo blocco la promessa restava senza seguito.
+    const SECTORS = {
+      ristorante: {
+        it: { name:'ristorante savona', url:'ilnomedeltuoristorante.it', title:'Il tavolo prenotato senza chiamare.', sub:'Via Paleocapa · martedì–domenica, 19:00–23:30', cta:'Prenota un tavolo', cta2:'Vedi il menu', photo:'bancone sushi · webp', k1:'Menu', v1:'32 piatti', k2:'Conferma', v2:'WhatsApp' },
+        en: { name:'ristorante savona', url:'yourrestaurantname.it', title:'A table booked without calling.', sub:'Via Paleocapa · Tuesday–Sunday, 7:00–11:30 pm', cta:'Book a table', cta2:'See the menu', photo:'sushi counter · webp', k1:'Menu', v1:'32 dishes', k2:'Confirmed via', v2:'WhatsApp' },
+        tone:'var(--bg-alt)'
+      },
+      bar: {
+        it: { name:'bar centrale', url:'ilnomedeltuobar.it', title:'Colazione dalle 6. Aperitivo dalle 18.', sub:'Corso Italia · tutti i giorni, 6:00–21:00', cta:'Vedi gli orari', cta2:'Come arrivare', photo:'bancone e brioche · webp', k1:'Aperitivo', v1:'18:00–21:00', k2:'Wi-Fi', v2:'gratis' },
+        en: { name:'bar centrale', url:'yourbarname.it', title:'Breakfast from 6. Aperitivo from 6 pm.', sub:'Corso Italia · every day, 6:00 am–9:00 pm', cta:'See opening hours', cta2:'Get directions', photo:'counter and pastries · webp', k1:'Aperitivo', v1:'6–9 pm', k2:'Wi-Fi', v2:'free' },
+        tone:'var(--bg-sunk)'
+      },
+      barbershop: {
+        it: { name:'barber savona', url:'ilnomedeltuobarber.it', title:'Taglio prenotato in venti secondi.', sub:'Via Boselli · lunedì–sabato, 9:00–19:00', cta:'Prenota il taglio', cta2:'Listino', photo:'poltrona e specchio · webp', k1:'Taglio', v1:'da 15 €', k2:'Attesa', v2:'zero' },
+        en: { name:'barber savona', url:'yourbarbername.it', title:'A cut booked in twenty seconds.', sub:'Via Boselli · Monday–Saturday, 9:00 am–7:00 pm', cta:'Book a cut', cta2:'Price list', photo:'chair and mirror · webp', k1:'Cut', v1:'from €15', k2:'Waiting', v2:'none' },
+        tone:'var(--bg-alt)'
+      }
+    };
+    let current = 'ristorante';
+    const q = (sel) => document.querySelector(sel);
+    const renderSector = () => {
+      const lang = root.lang === 'en' ? 'en' : 'it';
+      const d = SECTORS[current][lang];
+      const map = { '[data-s-name]':'name', '[data-s-url]':'url', '[data-s-title]':'title', '[data-s-sub]':'sub', '[data-s-cta]':'cta', '[data-s-cta2]':'cta2', '[data-s-photo-label]':'photo', '[data-s-k1]':'k1', '[data-s-v1]':'v1', '[data-s-k2]':'k2', '[data-s-v2]':'v2' };
+      Object.keys(map).forEach(sel => { const el = q(sel); if (el) el.textContent = d[map[sel]]; });
+      const mock = q('[data-sector-mock]');
+      if (mock) mock.style.background = SECTORS[current].tone === 'var(--bg-sunk)' ? 'var(--bg-alt)' : 'var(--surface)';
+      document.querySelectorAll('[data-sector]').forEach(b => {
+        const on = b.dataset.sector === current;
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+        b.style.background = on ? 'var(--fg)' : 'transparent';
+        b.style.color = on ? 'var(--fg-inv)' : 'var(--fg)';
+        b.style.borderColor = on ? 'var(--fg)' : 'var(--line-strong)';
+      });
+    };
+    document.querySelectorAll('[data-sector]').forEach(btn => {
+      btn.addEventListener('click', () => { current = btn.dataset.sector; renderSector(); });
+    });
+    renderSector();
 
     // ---- IT / EN. Il testo vive in coppia sull'elemento (data-en + data-it),
     // il selettore scambia solo textContent: nessuna seconda copia del DOM.
@@ -559,12 +636,14 @@ class Component extends DCLogic {
       placeholders.forEach(el => el.setAttribute('placeholder', lang === 'en' ? el.dataset.enPh : el.dataset.itPh));
       root.lang = lang;
       langOpts.forEach(o => o.setAttribute('aria-checked', String(o.dataset.langOpt === lang)));
+      if (typeof renderSector === 'function') renderSector();
       if (langBtn) langBtn.setAttribute('aria-label', lang === 'en' ? 'Language: English. Change language' : 'Lingua: italiano. Cambia lingua');
       try { localStorage.setItem('vladora-lang', lang); } catch (e) {}
     };
     let savedLang = null;
     try { savedLang = localStorage.getItem('vladora-lang'); } catch (e) {}
     applyLang(savedLang === 'en' ? 'en' : 'it');
+
 
     if (langRoot && langBtn) {
       const setLangOpen = (open) => {
@@ -589,7 +668,7 @@ class Component extends DCLogic {
       };
       document.addEventListener('click', onLangDoc);
       document.addEventListener('keydown', onLangKey);
-      this._cleanup.push(() => {
+      _cleanup.push(() => {
         document.removeEventListener('click', onLangDoc);
         document.removeEventListener('keydown', onLangKey);
       });
@@ -638,7 +717,7 @@ class Component extends DCLogic {
       const mqNav = window.matchMedia('(min-width:861px)');
       const onMqNav = (e) => { if (e.matches && isOpen()) setDrawer(false, false); };
       if (mqNav.addEventListener) mqNav.addEventListener('change', onMqNav); else mqNav.addListener(onMqNav);
-      this._cleanup.push(() => {
+      _cleanup.push(() => {
         document.removeEventListener('keydown', onDrawerKey);
         if (mqNav.removeEventListener) mqNav.removeEventListener('change', onMqNav); else mqNav.removeListener(onMqNav);
         root.removeAttribute('data-drawer-open');
@@ -675,13 +754,7 @@ class Component extends DCLogic {
       box.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') place(e); });
       box.addEventListener('pointerleave', () => { lens.style.opacity = '0'; });
     });
-  }
-  componentWillUnmount() {
-    (this._cleanup || []).forEach(off => { try { off(); } catch (e) {} });
-    this._cleanup = [];
-  }
-  renderVals() { return {}; }
-}
+})();
 
 </script>
 </body>

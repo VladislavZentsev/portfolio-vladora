@@ -4,12 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://portfolio-vladora.kesug.com/">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Vladora" />
+<meta property="og:locale" content="it_IT" />
+<meta property="og:url" content="https://portfolio-vladora.kesug.com/" />
+<meta property="og:title" content="Vladora — Siti per locali, bar e barbershop a Savona" />
+<meta property="og:description" content="Studio di web design a Savona. Siti veloci per ristoranti, bar e barbershop. Da 200 €, consegna in due settimane." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Vladora — Siti per locali, bar e barbershop a Savona" />
+<meta name="twitter:description" content="Studio di web design a Savona. Siti veloci per ristoranti, bar e barbershop. Da 200 €, consegna in due settimane." />
 <title>Vladora — Siti per locali, bar e barbershop a Savona</title>
 <meta name="description" content="Studio di web design a Savona. Siti veloci per ristoranti, bar e barbershop. Da 200 €, consegna in due settimane." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -305,6 +308,35 @@ html[data-modal-open]{overflow:hidden}
   color:var(--accent-deep);
 }
 
+/* ============================================================
+   Stati hover/active/focus, prima gestiti a runtime dagli
+   attributi style-hover e simili. Ora CSS normale.
+
+   !important serve davvero: questi elementi hanno ancora uno
+   style inline, che vince su qualunque classe. Il runtime
+   applicava lo stesso !important. Si potra' togliere quando
+   anche gli stili inline saranno diventati classi.
+   ============================================================ */
+.at-96:active{transform:scale(.96) !important}
+.at-98:active{transform:scale(.98) !important}
+.at-99:active{transform:scale(.99) !important}
+.fc-salta:focus-visible{left:var(--sp-4) !important;top:var(--sp-4) !important}
+.hv-accent:hover{color:var(--accent) !important}
+.hv-accent-bordo:hover{color:var(--accent) !important;border-color:var(--accent) !important}
+.hv-accent-linea:hover{color:var(--accent-hover) !important;border-color:var(--accent-hover) !important}
+.hv-accent-velo:hover{background:var(--accent-soft) !important;color:var(--accent) !important}
+.hv-alt-fg:hover{background:var(--bg-alt) !important;color:var(--fg) !important}
+.hv-attenua:hover{opacity:.88 !important}
+.hv-attenua-inv:hover{opacity:.88 !important;color:var(--fg-inv) !important}
+.hv-cresce:hover{transform:scale(1.06) !important}
+.hv-fg:hover{color:var(--fg) !important}
+.hv-incavo:hover{background:var(--bg-sunk) !important}
+.hv-incavo-fg:hover{background:var(--bg-sunk) !important;color:var(--fg) !important}
+.hv-nota-1:hover{transform:rotate(-.6deg) translateY(-4px) !important;box-shadow:var(--sh-3) !important}
+.hv-nota-2:hover{transform:rotate(.4deg) translateY(12px) !important;box-shadow:var(--sh-3) !important}
+.hv-nota-3:hover{transform:rotate(-.2deg) translateY(-16px) !important;box-shadow:var(--sh-3) !important}
+.hv-solleva:hover{box-shadow:var(--sh-3) !important;transform:translateY(-3px) !important;color:var(--fg) !important}
+
 @media (prefers-reduced-motion:reduce){
   .vetrina-float{animation:none!important}
 }
@@ -413,12 +445,12 @@ html[data-modal-open]{overflow:hidden}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://portfolio-vladora.kesug.com/#studio","name":"Vladora","description":"Studio di web design per attività locali: ristoranti, bar, barbershop.","url":"https://portfolio-vladora.kesug.com","email":"emailforworkvladora@gmail.com","telephone":"+393270029126","priceRange":"€€","areaServed":{"@type":"Place","name":"Savona e provincia"},"address":{"@type":"PostalAddress","addressLocality":"Savona","addressRegion":"SV","addressCountry":"IT"},"founder":[{"@type":"Person","name":"Zentsev Vladyslav"},{"@type":"Person","name":"Holovashchenko Heorhii"}],"sameAs":["https://instagram.com/vlad.ora"]}
-</script>
-</helmet>
+</script></head>
+<body>
 
 <div data-page="" style="position:relative">
 
-  <a href="#contenuto" style="position:absolute;left:-9999px;top:0;background:var(--fg);color:var(--fg-inv);padding:10px 16px;border-radius:var(--r-2);z-index:100" style-focus="left:var(--sp-4);top:var(--sp-4)">Vai al contenuto</a>
+  <a class="fc-salta" href="#contenuto" style="position:absolute;left:-9999px;top:0;background:var(--fg);color:var(--fg-inv);padding:10px 16px;border-radius:var(--r-2);z-index:100">Vai al contenuto</a>
 
   <header style="position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)">
     <div data-nav-row="">
@@ -497,7 +529,7 @@ html[data-modal-open]{overflow:hidden}
             <p data-en="Demonstration project" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:var(--r-pill);padding:5px 11px;align-self:start">Progetto dimostrativo</p>
             <p style="font-family:var(--display);font-size:clamp(26px,4.4vw,44px);font-weight:400;line-height:1.02;letter-spacing:-.03em;color:var(--fg)">chinese-restaurant</p>
             <p data-en="A sushi restaurant in Savona: menu, booking and directions on one page. It is online, open it." style="font-size:16px;line-height:1.55;color:var(--fg-2);max-width:34ch;text-wrap:pretty">Un ristorante di sushi a Savona: menu, prenotazione e indicazioni in una pagina. &#200; online, aprilo.</p>
-            <a href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" style="align-self:start;font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--accent);background:transparent;border:1px solid var(--accent);border-radius:var(--r-pill);padding:10px 18px;text-decoration:none;margin-top:var(--sp-2);transition:background var(--dur-1) var(--ease)" style-hover="background:var(--accent-soft);color:var(--accent)">chinese-restaurant.kesug.com &#8599;</a>
+            <a class="hv-accent-velo" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" style="align-self:start;font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--accent);background:transparent;border:1px solid var(--accent);border-radius:var(--r-pill);padding:10px 18px;text-decoration:none;margin-top:var(--sp-2);transition:background var(--dur-1) var(--ease)">chinese-restaurant.kesug.com &#8599;</a>
           </figure>
         </div>
 
@@ -508,8 +540,8 @@ html[data-modal-open]{overflow:hidden}
           <div style="display:flex;flex-direction:column;gap:var(--sp-5);max-width:44ch;justify-self:end;width:100%">
             <p data-en="We build sites for restaurants, bars and barbershops around Savona. Two weeks, you know the price up front, and it opens straight away on a phone." style="font-size:18px;line-height:1.55;color:var(--fg-2);text-wrap:pretty">Facciamo siti per ristoranti, bar e barbershop di Savona. Due settimane, il prezzo lo sai prima, e dal telefono si apre subito.</p>
             <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3)">
-              <a href="#lavori" data-en="See the work" style="font-size:15px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:opacity var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)" style-hover="opacity:.88;color:var(--fg-inv)" style-active="transform:scale(.98)">Vedi i lavori</a>
-              <a href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Let's talk" style="font-size:15px;font-weight:450;color:var(--fg);background:transparent;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:background var(--dur-1) var(--ease)" style-hover="background:var(--bg-alt);color:var(--fg)">Parliamone</a>
+              <a class="hv-attenua-inv at-98" href="#lavori" data-en="See the work" style="font-size:15px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:opacity var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)">Vedi i lavori</a>
+              <a class="hv-alt-fg" href="https://wa.me/393270029126" target="_blank" rel="noopener" data-en="Let's talk" style="font-size:15px;font-weight:450;color:var(--fg);background:transparent;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:13px 26px;text-decoration:none;transition:background var(--dur-1) var(--ease)">Parliamone</a>
             </div>
             <p data-perf="" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3)">Misurazione del caricamento in corso…</p>
           </div>
@@ -517,7 +549,7 @@ html[data-modal-open]{overflow:hidden}
 
         <div style="display:flex;justify-content:flex-end;margin-top:var(--sp-6)">
           <div style="display:flex;flex-direction:column;align-items:center;gap:var(--sp-2)">
-            <button type="button" data-hold-btn="" aria-label="Scorri alla sezione successiva. Tieni premuto per le firme." style="width:58px;height:58px;border-radius:var(--r-pill);background:var(--fg);color:var(--fg-inv);border:none;display:grid;place-items:center;cursor:pointer;transition:transform var(--dur-1) var(--ease);position:relative" style-hover="transform:scale(1.06)" style-active="transform:scale(.96)">
+            <button class="hv-cresce at-96" type="button" data-hold-btn="" aria-label="Scorri alla sezione successiva. Tieni premuto per le firme." style="width:58px;height:58px;border-radius:var(--r-pill);background:var(--fg);color:var(--fg-inv);border:none;display:grid;place-items:center;cursor:pointer;transition:transform var(--dur-1) var(--ease);position:relative">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v13M5 11l5 5 5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </button>
             <p data-en="Hold" style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)">Tieni premuto</p>
@@ -625,7 +657,7 @@ html[data-modal-open]{overflow:hidden}
             <p data-en="Selected work" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Lavori in evidenza</p>
             <h2 data-en="One site online. The rest are studies of ours." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:22ch">Un sito online. Il resto sono studi nostri.</h2>
           </div>
-          <a href="#lavori" data-en="All work" style="font-size:14.5px;color:var(--fg);border-bottom:1px solid var(--line-strong);text-decoration:none;padding-bottom:3px" style-hover="color:var(--accent);border-color:var(--accent)">Tutti i lavori</a>
+          <a class="hv-accent-bordo" href="#lavori" data-en="All work" style="font-size:14.5px;color:var(--fg);border-bottom:1px solid var(--line-strong);text-decoration:none;padding-bottom:3px">Tutti i lavori</a>
         </div>
 
         <div data-reveal="" data-rv="rise" style="margin-bottom:var(--sp-8)">
@@ -636,7 +668,7 @@ html[data-modal-open]{overflow:hidden}
           <div class="vetrina" data-vetrina=""></div>
         </div>
 
-        <a href="Vladora-CaseStudy.dc.html" data-reveal="" data-rv="scale" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-7);align-items:center;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);padding:var(--sp-6);transition:box-shadow var(--dur-2) var(--ease),transform var(--dur-2) var(--ease)" style-hover="box-shadow:var(--sh-3);transform:translateY(-3px);color:var(--fg)">
+        <a class="hv-solleva" href="Vladora-CaseStudy.dc.html" data-reveal="" data-rv="scale" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-7);align-items:center;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-3);padding:var(--sp-6);transition:box-shadow var(--dur-2) var(--ease),transform var(--dur-2) var(--ease)">
           <div style="border-radius:var(--r-2);border:1px solid var(--line);background:var(--bg);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4);justify-content:center;min-height:190px">
             <span style="font-family:var(--display);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2)">chinese-restaurant</span>
             <p style="font-family:var(--display);font-size:clamp(20px,2.4vw,28px);font-weight:400;letter-spacing:-.025em;line-height:1.04">Sushi, tavolo<br />e menu. Basta.</p>
@@ -654,19 +686,19 @@ html[data-modal-open]{overflow:hidden}
         <div data-reveal="" data-rv="rise" style="margin-top:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
           <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-4);flex-wrap:wrap">
             <h3 data-en="Live preview" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)">Anteprima live</h3>
-            <a href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px" style-hover="color:var(--accent-hover);border-color:var(--accent-hover)">chinese-restaurant.kesug.com &#8599;</a>
+            <a class="hv-accent-linea" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px">chinese-restaurant.kesug.com &#8599;</a>
           </div>
           <div style="border:1px solid var(--line);border-radius:var(--r-2);overflow:hidden;background:var(--surface)">
             <div data-embed="" style="position:relative;height:clamp(320px,60vh,560px)">
               <iframe data-embed-frame="" data-src="https://chinese-restaurant.kesug.com/" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Anteprima live del sito chinese-restaurant" style="display:block;width:100%;height:100%;border:0;background:var(--bg-alt)"></iframe>
               <div data-embed-cover="" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:var(--sp-4);align-items:center;justify-content:center;text-align:center;padding:var(--sp-6);background:var(--bg-alt);color:var(--fg-2)">
                 <p data-embed-msg="" data-en="Live preview of the real site." style="font-size:15px;line-height:1.6;max-width:40ch;text-wrap:pretty">Anteprima live del sito vero.</p>
-                <button type="button" data-embed-load="" data-en="Load the preview" style="font-size:14.5px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;transition:opacity var(--dur-1) var(--ease)" style-hover="opacity:.88">Carica l'anteprima</button>
-                <a data-embed-open="" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open in a new tab &#8599;" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:2px" style-hover="color:var(--fg)">Apri in una scheda nuova &#8599;</a>
+                <button class="hv-attenua" type="button" data-embed-load="" data-en="Load the preview" style="font-size:14.5px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:11px 22px;cursor:pointer;transition:opacity var(--dur-1) var(--ease)">Carica l'anteprima</button>
+                <a class="hv-fg" data-embed-open="" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open in a new tab &#8599;" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:2px">Apri in una scheda nuova &#8599;</a>
               </div>
               <div data-embed-bar="" style="position:absolute;left:0;right:0;bottom:0;opacity:0;transition:opacity var(--dur-2) var(--ease);display:flex;gap:var(--sp-3);align-items:center;justify-content:space-between;flex-wrap:wrap;padding:var(--sp-3) var(--sp-4);background:var(--surface);border-top:1px solid var(--line)">
                 <span data-en="Frame still blank? The host is blocking the preview." style="font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--fg-3)">Riquadro ancora bianco? L'hosting sta bloccando l'anteprima.</span>
-                <a href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open the site &#8599;" style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px" style-hover="color:var(--accent-hover);border-color:var(--accent-hover)">Apri il sito &#8599;</a>
+                <a class="hv-accent-linea" href="https://chinese-restaurant.kesug.com" target="_blank" rel="noopener" data-en="Open the site &#8599;" style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px">Apri il sito &#8599;</a>
               </div>
             </div>
           </div>
@@ -781,17 +813,17 @@ html[data-modal-open]{overflow:hidden}
           <h2 data-en="We have no clients yet. In their place, here is what we put in writing." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;text-wrap:balance">Di clienti non ne abbiamo ancora. Al loro posto, mettiamo per iscritto a cosa ci impegniamo.</h2>
         </div>
         <div data-reveal-group="" style="display:flex;flex-wrap:wrap;gap:var(--sp-6);justify-content:center;padding:var(--sp-4) 0">
-          <div data-reveal="" data-rv="scale" style="width:min(300px,86vw);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-2);padding:var(--sp-5);box-shadow:var(--sh-2);transform:rotate(-2.4deg);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease)" style-hover="transform:rotate(-.6deg) translateY(-4px);box-shadow:var(--sh-3)">
+          <div class="hv-nota-1" data-reveal="" data-rv="scale" style="width:min(300px,86vw);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-2);padding:var(--sp-5);box-shadow:var(--sh-2);transform:rotate(-2.4deg);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease)">
             <p data-en="What we promise" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--sp-3)">Cosa promettiamo</p>
             <p data-en="A site that opens in under a second on a customer's phone, out in the street, on one bar of signal." style="font-size:16.5px;line-height:1.55;color:var(--fg);text-wrap:pretty">Un sito che si apre in meno di un secondo sul telefono di un cliente, in mezzo alla strada, con una tacca di rete.</p>
             <p style="font-family:var(--display);font-size:19px;font-weight:300;letter-spacing:.02em;color:var(--fg-2);margin-top:var(--sp-4);transform:skewX(-9deg);transform-origin:left">Vladyslav</p>
           </div>
-          <div data-reveal="" data-rv="scale" style="width:min(300px,86vw);background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--r-2);padding:var(--sp-5);box-shadow:var(--sh-2);transform:rotate(1.8deg) translateY(18px);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease)" style-hover="transform:rotate(.4deg) translateY(12px);box-shadow:var(--sh-3)">
+          <div class="hv-nota-2" data-reveal="" data-rv="scale" style="width:min(300px,86vw);background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--r-2);padding:var(--sp-5);box-shadow:var(--sh-2);transform:rotate(1.8deg) translateY(18px);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease)">
             <p data-en="How long it takes" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--sp-3)">Quanto ci mettiamo</p>
             <p data-en="Two weeks from the first call. One week for a one-page site. If we are late, you don't pay the difference." style="font-size:16.5px;line-height:1.55;color:var(--fg);text-wrap:pretty">Due settimane dalla prima chiamata. Una per un sito vetrina. Se sforiamo, la differenza non la paghi tu.</p>
             <p style="font-family:var(--display);font-size:19px;font-weight:300;letter-spacing:.02em;color:var(--fg-2);margin-top:var(--sp-4);transform:skewX(-9deg);transform-origin:left">Heorhii</p>
           </div>
-          <div data-reveal="" data-rv="scale" style="width:min(300px,86vw);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-2);padding:var(--sp-5);box-shadow:var(--sh-2);transform:rotate(-1.2deg) translateY(-10px);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease)" style-hover="transform:rotate(-.2deg) translateY(-16px);box-shadow:var(--sh-3)">
+          <div class="hv-nota-3" data-reveal="" data-rv="scale" style="width:min(300px,86vw);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-2);padding:var(--sp-5);box-shadow:var(--sh-2);transform:rotate(-1.2deg) translateY(-10px);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease)">
             <p data-en="If you don't like it" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--sp-3)">Se non ti piace</p>
             <p data-en="You see the mockup before we write a line of code. If it's not right, we redo it. You pay only when you say yes." style="font-size:16.5px;line-height:1.55;color:var(--fg);text-wrap:pretty">Il mockup lo vedi prima che scriviamo una riga di codice. Se non va, lo rifacciamo. Paghi solo quando dici sì.</p>
             <p style="font-family:var(--display);font-size:19px;font-weight:300;letter-spacing:.02em;color:var(--fg-2);margin-top:var(--sp-4);transform:skewX(-9deg);transform-origin:left">Vladyslav &amp; Heorhii</p>
@@ -807,9 +839,9 @@ html[data-modal-open]{overflow:hidden}
           <h2 data-en="Tell us about the place. We'll reply on WhatsApp." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:20ch;text-wrap:balance">Raccontaci il locale. Ti rispondiamo su WhatsApp.</h2>
           <p data-en="The form writes the message into your WhatsApp and opens the chat. You read it over, and you send it." style="font-size:16.5px;line-height:1.6;color:var(--fg-2);max-width:40ch;text-wrap:pretty">Il modulo scrive il messaggio nel tuo WhatsApp e apre la chat. Lo rileggi, e lo mandi tu.</p>
           <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
-            <a href="https://wa.me/393270029126" target="_blank" rel="noopener" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline" style-hover="color:var(--accent)"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">WHATSAPP</span>+39 327 002 9126</a>
-            <a href="mailto:emailforworkvladora@gmail.com" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline;word-break:break-all" style-hover="color:var(--accent)"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">EMAIL</span>emailforworkvladora@gmail.com</a>
-            <a href="https://instagram.com/vlad.ora" target="_blank" rel="noopener" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline" style-hover="color:var(--accent)"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">INSTAGRAM</span>@vlad.ora</a>
+            <a class="hv-accent" href="https://wa.me/393270029126" target="_blank" rel="noopener" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">WHATSAPP</span>+39 327 002 9126</a>
+            <a class="hv-accent" href="mailto:emailforworkvladora@gmail.com" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline;word-break:break-all"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">EMAIL</span>emailforworkvladora@gmail.com</a>
+            <a class="hv-accent" href="https://instagram.com/vlad.ora" target="_blank" rel="noopener" style="font-size:16px;color:var(--fg);text-decoration:none;display:flex;gap:var(--sp-3);align-items:baseline"><span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);width:80px;flex:none;letter-spacing:.06em">INSTAGRAM</span>@vlad.ora</a>
           </div>
         <div data-reveal="" data-rv="rise" style="margin-top:var(--sp-8);padding-top:var(--sp-7);border-top:1px solid var(--line)">
         <div data-reveal-group="" style="display:flex;flex-direction:column;gap:var(--sp-3)">
@@ -869,7 +901,7 @@ html[data-modal-open]{overflow:hidden}
             <span data-en="What do you need?" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)">Cosa ti serve?</span>
             <textarea name="messaggio" rows="4" style="background:var(--bg);border:1px solid var(--line);border-radius:var(--r-2);padding:12px 14px;font-size:16px;color:var(--fg);resize:vertical;line-height:1.5"></textarea>
           </label>
-          <button type="submit" data-en="Open WhatsApp" style="font-size:16px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:14px 26px;cursor:pointer;min-height:48px;transition:opacity var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)" style-hover="opacity:.88" style-active="transform:scale(.99)">Apri WhatsApp</button>
+          <button class="hv-attenua at-99" type="submit" data-en="Open WhatsApp" style="font-size:16px;font-weight:450;color:var(--fg-inv);background:var(--fg);border:1px solid var(--fg);border-radius:var(--r-pill);padding:14px 26px;cursor:pointer;min-height:48px;transition:opacity var(--dur-1) var(--ease),transform var(--dur-1) var(--ease)">Apri WhatsApp</button>
           <p data-wa-hint="" data-en="The message opens in your WhatsApp. Until you press send, nothing has gone anywhere." style="font-family:var(--mono);font-size:11.5px;line-height:1.6;color:var(--fg-3)">Il messaggio si apre nel tuo WhatsApp. Finché non premi invia, non è partito niente.</p>
         </form>
       </div>
@@ -881,9 +913,9 @@ html[data-modal-open]{overflow:hidden}
       <div style="display:flex;flex-wrap:wrap;gap:var(--sp-6);justify-content:space-between;align-items:flex-end">
         <p style="font-family:var(--display);font-size:clamp(44px,10vw,120px);font-weight:500;letter-spacing:-.045em;line-height:.8;color:var(--fg);opacity:.9">Vladora</p>
         <nav aria-label="Pagine" style="display:flex;flex-direction:column;gap:var(--sp-2);text-align:right">
-          <a href="#lavori" data-en="Work" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Lavori</a>
-          <a href="Vladora-CaseStudy.dc.html" data-en="Case study" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Case study</a>
-          <a href="#parliamone" data-en="Contact" style="font-size:14.5px;color:var(--fg-2);text-decoration:none" style-hover="color:var(--fg)">Contatti</a>
+          <a class="hv-fg" href="#lavori" data-en="Work" style="font-size:14.5px;color:var(--fg-2);text-decoration:none">Lavori</a>
+          <a class="hv-fg" href="Vladora-CaseStudy.dc.html" data-en="Case study" style="font-size:14.5px;color:var(--fg-2);text-decoration:none">Case study</a>
+          <a class="hv-fg" href="#parliamone" data-en="Contact" style="font-size:14.5px;color:var(--fg-2);text-decoration:none">Contatti</a>
         </nav>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);justify-content:space-between;padding-top:var(--sp-5);border-top:1px solid var(--line)">
@@ -1004,38 +1036,20 @@ html[data-modal-open]{overflow:hidden}
   </div>
 </div>
 
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#AC3F34&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#AC3F34&quot;,&quot;#1B8292&quot;,&quot;#018759&quot;,&quot;#2E2A26&quot;],&quot;section&quot;:&quot;Tema&quot;}}">
-class Component extends DCLogic {
-  componentDidMount() {
-    // Il runtime puo' rimontare la logica (streaming, hot reload): senza
-    // rimozione i listener si accumulano e piu' handler competono sullo
-    // stesso click. Ogni addEventListener globale registra qui il suo undo.
-    this._cleanup = [];
+<script>
+(() => {
+  'use strict';
+    // Ogni addEventListener globale registra qui come disfarsi.
+    // In una pagina statica serve a un momento solo, l'uscita: senza,
+    // i listener sopravvivono nella bfcache quando si torna indietro.
+    const _cleanup = [];
+    window.addEventListener('pagehide', () => {
+      _cleanup.forEach(off => { try { off(); } catch (e) {} });
+      _cleanup.length = 0;
+    }, { once: true });
     const root = document.documentElement;
     root.lang = 'it';
 
-    // Accent: the CSS tokens stay authoritative (the palette lives in the CSS above).
-    // accent. Only a non-default prop writes inline values.
-    const DEFAULT_ACCENT = "#AC3F34";
-    const shift = (hex, amount) => {
-      const n = parseInt(hex.slice(1), 16);
-      const mix = (c) => Math.round(amount > 0 ? c + (255 - c) * amount : c * (1 + amount));
-      const r = mix((n >> 16) & 255), g = mix((n >> 8) & 255), b = mix(n & 255);
-      return '#' + [r, g, b].map(v => Math.max(0, Math.min(255, v)).toString(16).padStart(2, '0')).join('');
-    };
-    const applyAccent = () => {
-      const picked = this.props.accentColor;
-      const props = ['--accent', '--accent-hover', '--accent-soft'];
-      if (!picked || picked.toLowerCase() === DEFAULT_ACCENT.toLowerCase()) {
-        props.forEach(p => root.style.removeProperty(p));
-        return;
-      }
-      root.style.setProperty('--accent', picked);
-      root.style.setProperty('--accent-hover', shift(picked, -0.22));
-      root.style.setProperty('--accent-soft', picked + '1a');
-    };
-    applyAccent();
 
     // ---- reveal on scroll
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1064,7 +1078,7 @@ class Component extends DCLogic {
     const onGeoScroll = () => { if (geoRaf) return; geoRaf = requestAnimationFrame(() => { geoRaf = null; geoReveal(); }); };
     window.addEventListener('scroll', onGeoScroll, { passive: true });
     window.addEventListener('resize', onGeoScroll);
-    this._cleanup.push(() => {
+    _cleanup.push(() => {
       window.removeEventListener('scroll', onGeoScroll);
       window.removeEventListener('resize', onGeoScroll);
     });
@@ -1085,7 +1099,7 @@ class Component extends DCLogic {
           if (anim.animationName === 'pageIn' && !anim.currentTime) anim.cancel();
         });
       }, 1500);
-      this._cleanup.push(() => clearTimeout(tGuard));
+      _cleanup.push(() => clearTimeout(tGuard));
     }
 
     // ---- arrivo su un'ancora da un'altra pagina (es. index.html#servizi).
@@ -1108,7 +1122,7 @@ class Component extends DCLogic {
       requestAnimationFrame(() => requestAnimationFrame(jumpToHash));
       const t1 = setTimeout(jumpToHash, 250);
       const t2 = setTimeout(jumpToHash, 800);
-      this._cleanup.push(() => { clearTimeout(t1); clearTimeout(t2); });
+      _cleanup.push(() => { clearTimeout(t1); clearTimeout(t2); });
     }
 
     // ---- transizione di pagina: fade-out prima di una navigazione interna
@@ -1137,7 +1151,7 @@ class Component extends DCLogic {
         setTimeout(() => { page.setAttribute('data-page', ''); }, outMs + 1400);
       };
       page.addEventListener('click', onNavClick);
-      this._cleanup.push(() => page.removeEventListener('click', onNavClick));
+      _cleanup.push(() => page.removeEventListener('click', onNavClick));
     }
 
     // ---- anteprima live: caricamento su richiesta + uscita di sicurezza.
@@ -1166,7 +1180,7 @@ class Component extends DCLogic {
         timer = setTimeout(() => { if (bar) bar.style.opacity = '1'; }, 6000);
       };
       btn.addEventListener('click', load);
-      this._cleanup.push(() => clearTimeout(timer));
+      _cleanup.push(() => clearTimeout(timer));
     });
 
     // ================================================================
@@ -1359,7 +1373,7 @@ class Component extends DCLogic {
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       };
       document.addEventListener('keydown', onKey);
-      this._cleanup.push(() => { document.removeEventListener('keydown', onKey); root.removeAttribute('data-modal-open'); });
+      _cleanup.push(() => { document.removeEventListener('keydown', onKey); root.removeAttribute('data-modal-open'); });
       modali.set(nome, { set, el: m });
     });
     const apri = (nome) => { const m = modali.get(nome); if (m) m.set(true); };
@@ -1399,7 +1413,7 @@ class Component extends DCLogic {
         if (p) mostra(p);
       };
       document.addEventListener('click', onCard);
-      this._cleanup.push(() => document.removeEventListener('click', onCard));
+      _cleanup.push(() => document.removeEventListener('click', onCard));
     }
 
     // ---- modale "Parliamone": apertura dalle tre tariffe
@@ -1514,7 +1528,7 @@ class Component extends DCLogic {
       };
       document.addEventListener('click', onLangDoc);
       document.addEventListener('keydown', onLangKey);
-      this._cleanup.push(() => {
+      _cleanup.push(() => {
         document.removeEventListener('click', onLangDoc);
         document.removeEventListener('keydown', onLangKey);
       });
@@ -1563,7 +1577,7 @@ class Component extends DCLogic {
       const mqNav = window.matchMedia('(min-width:861px)');
       const onMqNav = (e) => { if (e.matches && isOpen()) setDrawer(false, false); };
       if (mqNav.addEventListener) mqNav.addEventListener('change', onMqNav); else mqNav.addListener(onMqNav);
-      this._cleanup.push(() => {
+      _cleanup.push(() => {
         document.removeEventListener('keydown', onDrawerKey);
         if (mqNav.removeEventListener) mqNav.removeEventListener('change', onMqNav); else mqNav.removeListener(onMqNav);
         root.removeAttribute('data-drawer-open');
@@ -1671,13 +1685,7 @@ class Component extends DCLogic {
       const msg = lines.filter(Boolean).join('\n');
       window.open('https://wa.me/393270029126?text=' + encodeURIComponent(msg), '_blank', 'noopener');
     });
-  }
-  componentWillUnmount() {
-    (this._cleanup || []).forEach(off => { try { off(); } catch (e) {} });
-    this._cleanup = [];
-  }
-  renderVals() { return {}; }
-}
+})();
 
 </script>
 </body>
