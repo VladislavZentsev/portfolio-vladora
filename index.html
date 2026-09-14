@@ -39,6 +39,8 @@
   /* Il corallo vero, pieno. Vive SOLO sulle lastre scure: 5.73:1 li',
      ma su fondo chiaro sarebbe illeggibile (2.6:1). */
   --accent-bright:#F95C4B;
+  --nav-h:63px;
+  --sel-bg:var(--accent); --sel-fg:var(--on-accent);
   --on-accent:#ffffff;
   --on-accent-2:rgba(255,255,255,.72);
   --line-on-accent:rgba(255,255,255,.18);
@@ -266,6 +268,9 @@ html[data-modal-open]{overflow:hidden}
   --line:var(--line-on-accent);
   --line-strong:var(--line-on-accent-strong);
   --accent:var(--accent-bright);
+  /* sul corallo pieno il testo selezionato torna scuro: bianco su
+     #F95C4B non arriverebbe alla soglia di lettura. */
+  --sel-bg:var(--accent-bright); --sel-fg:var(--accent-deep);
   --accent-hover:#FF8577;
   --accent-soft:rgba(249,92,75,.16);
   --bg:var(--accent-deep);
@@ -405,6 +410,40 @@ html[data-hero-via] [data-wordmark-wrap]{
 /* La cifra del caricamento cambia a ogni visita: cifre tabulari,
    altrimenti il testo intorno balla mentre il numero si scrive. */
 [data-perf]{font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   Come va a capo il testo. Regola del sistema, non decisione
+   presa titolo per titolo: finora 'balance' stava scritto a mano
+   su sette titoli su sedici, e gli altri nove finivano con una
+   parola sola in fondo. Un titolo che finisce con "nostri." su
+   una riga tutta sua e' la differenza fra composto e capitato.
+   'balance' pareggia le righe di un titolo; 'pretty' tocca solo
+   l'ultima riga di un paragrafo, che e' quello che serve li'.
+   ============================================================ */
+h1,h2,h3{text-wrap:balance}
+p,figcaption,blockquote,dd{text-wrap:pretty}
+
+/* ============================================================
+   Dove si ferma la pagina quando si salta a un'ancora.
+   La barra e' sticky e alta 63px: senza questo, "Prezzi" nel
+   menu portava il bordo della sezione esattamente sotto la
+   barra, e l'onda che segna l'ingresso alla lastra scura
+   restava tagliata fuori dallo schermo. Vale anche per il
+   tasto Tab: un campo raggiunto da tastiera non finisce piu'
+   nascosto dietro la barra.
+   ============================================================ */
+html{scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
+/* le due sezioni con l'onda si portano dietro anche l'onda:
+   e' il segnale che stai cambiando zona, si deve vedere. */
+.sez-deep{scroll-margin-top:clamp(22px,3.2vw,46px)}
+
+/* ============================================================
+   Selezione del testo. Il blu di sistema era l'unico colore
+   della pagina che non avevamo scelto noi. Usa i token, quindi
+   si ribalta da sola dentro le lastre scure senza una seconda
+   regola: li' il corallo e' quello pieno e il testo torna nero.
+   ============================================================ */
+::selection{background:var(--sel-bg);color:var(--sel-fg)}
 
 @media (prefers-reduced-motion:reduce){
   [data-ba-handle][data-suggerisci]{animation:none}
@@ -615,8 +654,8 @@ html[data-hero-via] [data-wordmark-wrap]{
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-6);align-items:end;margin-top:var(--sp-7)">
-          <div style="display:flex;flex-direction:column;gap:var(--sp-4);max-width:20ch">
-            <h1 data-en="Two guys from Savona. Real sites, real prices." data-hero-i="2" style="--hero-i:2;font-family:var(--display);font-size:clamp(34px,5.4vw,64px);font-weight:500;line-height:1.02;letter-spacing:-.035em;text-wrap:balance">Due ragazzi di Savona. Siti veri, prezzi veri.</h1>
+          <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
+            <h1 data-en="Two guys from Savona. Real sites, real prices." data-hero-i="2" style="--hero-i:2;font-family:var(--display);font-size:clamp(34px,5.4vw,60px);font-weight:500;line-height:1.02;letter-spacing:-.035em;text-wrap:balance">Due ragazzi di Savona. Siti veri, prezzi veri.</h1>
           </div>
           <div style="display:flex;flex-direction:column;gap:var(--sp-5);max-width:44ch;justify-self:end;width:100%">
             <p data-hero-i="3" data-en="We build sites for restaurants, bars and barbershops around Savona. Two weeks, you know the price up front, and it opens straight away on a phone." style="--hero-i:3;font-size:18px;line-height:1.55;color:var(--fg-2);text-wrap:pretty">Facciamo siti per ristoranti, bar e barbershop di Savona. Due settimane, il prezzo lo sai prima, e dal telefono si apre subito.</p>
@@ -736,7 +775,7 @@ html[data-hero-via] [data-wordmark-wrap]{
         <div data-reveal="" style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-5);flex-wrap:wrap;margin-bottom:var(--sp-7)">
           <div>
             <p data-en="Selected work" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Lavori in evidenza</p>
-            <h2 data-en="One site online. The rest are studies of ours." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:22ch">Un sito online. Il resto sono studi nostri.</h2>
+            <h2 data-en="One site online. The rest are studies of ours." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:22ch;text-wrap:balance">Un sito online. Il resto sono studi nostri.</h2>
           </div>
           <a class="hv-accent-bordo" href="#lavori" data-en="All work" style="font-size:14.5px;color:var(--fg);border-bottom:1px solid var(--line-strong);text-decoration:none;padding-bottom:3px">Tutti i lavori</a>
         </div>
@@ -790,9 +829,9 @@ html[data-hero-via] [data-wordmark-wrap]{
 
     <section id="servizi" style="background:var(--bg);padding:var(--sp-9) var(--sp-5);padding-bottom:calc(var(--sp-9) + clamp(22px,3.2vw,46px))">
       <div style="max-width:1100px;margin:0 auto">
-        <div data-reveal="" style="max-width:34ch;margin-bottom:var(--sp-7)">
+        <div data-reveal="" style="margin-bottom:var(--sp-7)">
           <p data-en="Services" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Servizi</p>
-          <h2 data-en="Four kinds of site. We tell you which one is enough." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1">Quattro tipi di sito. Quale ti basta te lo diciamo noi.</h2>
+          <h2 data-en="Four kinds of site. We tell you which one is enough." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:22ch;text-wrap:balance">Quattro tipi di sito. Quale ti basta te lo diciamo noi.</h2>
         </div>
         <ul data-reveal-group="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-3);overflow:hidden">
           <li data-reveal="" data-rv="rise" style="background:var(--bg);padding:var(--sp-6) var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-4);min-height:210px">
@@ -889,9 +928,9 @@ html[data-hero-via] [data-wordmark-wrap]{
 
     <section id="note" style="background:var(--bg);padding:var(--sp-9) var(--sp-5);overflow:hidden;padding-bottom:calc(var(--sp-9) + clamp(22px,3.2vw,46px))">
       <div style="max-width:1100px;margin:0 auto">
-        <div data-reveal="" style="max-width:40ch;margin-bottom:var(--sp-8)">
+        <div data-reveal="" style="margin-bottom:var(--sp-8)">
           <p data-en="Instead of testimonials" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-4)">Al posto delle testimonianze</p>
-          <h2 data-en="We have no clients yet. In their place, here is what we put in writing." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;text-wrap:balance">Di clienti non ne abbiamo ancora. Al loro posto, mettiamo per iscritto a cosa ci impegniamo.</h2>
+          <h2 data-en="We have no clients yet. In their place, here is what we put in writing." style="font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.1;max-width:22ch;text-wrap:balance">Di clienti non ne abbiamo ancora. Al loro posto, mettiamo per iscritto a cosa ci impegniamo.</h2>
         </div>
         <div data-reveal-group="" style="display:flex;flex-wrap:wrap;gap:var(--sp-6);justify-content:center;padding:var(--sp-4) 0">
           <div class="hv-nota-1" data-reveal="" data-rv="scale" style="width:min(300px,86vw);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-2);padding:var(--sp-5);box-shadow:var(--sh-2);transform:rotate(-2.4deg);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease)">

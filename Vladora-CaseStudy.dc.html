@@ -28,6 +28,8 @@
   --accent:#AC3F34; --accent-hover:#933627; --accent-soft:rgba(172,63,52,.10);
   --accent-deep:#171616;
   --accent-bright:#F95C4B;
+  --nav-h:63px;
+  --sel-bg:var(--accent); --sel-fg:var(--on-accent);
   --on-accent:#ffffff;
   --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
   --sp-7:48px; --sp-8:64px; --sp-9:96px; --sp-10:128px; --sp-11:192px;
@@ -177,6 +179,40 @@ html[data-drawer-open] .drawer-link{opacity:1;transform:none}
 .hv-nota-2:hover{transform:rotate(.4deg) translateY(12px) !important;box-shadow:var(--sh-3) !important}
 .hv-nota-3:hover{transform:rotate(-.2deg) translateY(-16px) !important;box-shadow:var(--sh-3) !important}
 .hv-solleva:hover{box-shadow:var(--sh-3) !important;transform:translateY(-3px) !important;color:var(--fg) !important}
+
+/* ============================================================
+   Come va a capo il testo. Regola del sistema, non decisione
+   presa titolo per titolo: finora 'balance' stava scritto a mano
+   su sette titoli su sedici, e gli altri nove finivano con una
+   parola sola in fondo. Un titolo che finisce con "nostri." su
+   una riga tutta sua e' la differenza fra composto e capitato.
+   'balance' pareggia le righe di un titolo; 'pretty' tocca solo
+   l'ultima riga di un paragrafo, che e' quello che serve li'.
+   ============================================================ */
+h1,h2,h3{text-wrap:balance}
+p,figcaption,blockquote,dd{text-wrap:pretty}
+
+/* ============================================================
+   Dove si ferma la pagina quando si salta a un'ancora.
+   La barra e' sticky e alta 63px: senza questo, "Prezzi" nel
+   menu portava il bordo della sezione esattamente sotto la
+   barra, e l'onda che segna l'ingresso alla lastra scura
+   restava tagliata fuori dallo schermo. Vale anche per il
+   tasto Tab: un campo raggiunto da tastiera non finisce piu'
+   nascosto dietro la barra.
+   ============================================================ */
+html{scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
+/* le due sezioni con l'onda si portano dietro anche l'onda:
+   e' il segnale che stai cambiando zona, si deve vedere. */
+.sez-deep{scroll-margin-top:clamp(22px,3.2vw,46px)}
+
+/* ============================================================
+   Selezione del testo. Il blu di sistema era l'unico colore
+   della pagina che non avevamo scelto noi. Usa i token, quindi
+   si ribalta da sola dentro le lastre scure senza una seconda
+   regola: li' il corallo e' quello pieno e il testo torna nero.
+   ============================================================ */
+::selection{background:var(--sel-bg);color:var(--sel-fg)}
 
 @media (prefers-reduced-motion:reduce){
   .drawer-link{opacity:1!important;transform:none!important;transition-delay:0ms!important}
