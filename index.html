@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-src https://chinese-restaurant.kesug.com; form-action 'self'; upgrade-insecure-requests" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-src https://chinese-restaurant.kesug.com https://*.ifastnet.com; form-action 'self'; upgrade-insecure-requests" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <link rel="canonical" href="https://portfolio-vladora.kesug.com/">
 <meta property="og:type" content="website" />
@@ -400,14 +400,6 @@ html[data-hero-via] [data-wordmark-wrap]{
 .vetrina-slot:hover .vetrina-float,
 .vetrina-slot:focus-within .vetrina-float{animation-play-state:paused}
 
-/* Il confronto prima/dopo e' trascinabile ma niente lo diceva.
-   Una spinta sola, alla prima volta che entra nello schermo. */
-@keyframes suggerisciTrascina{
-  0%,100%{transform:translateX(-1px)}
-  30%{transform:translateX(-11px)}
-  60%{transform:translateX(9px)}
-}
-[data-ba-handle][data-suggerisci]{animation:suggerisciTrascina 1.5s var(--ease) 1}
 
 /* La cifra del caricamento cambia a ogni visita: cifre tabulari,
    altrimenti il testo intorno balla mentre il numero si scrive. */
@@ -481,7 +473,6 @@ html{scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
 }
 
 @media (prefers-reduced-motion:reduce){
-  [data-ba-handle][data-suggerisci]{animation:none}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -1846,34 +1837,81 @@ html{scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
       window.addEventListener('pointerup', () => { dragging = false; });
       if (input) input.addEventListener('input', () => set(Number(input.value)));
       set(50);
+
+      // ---- La passata di presentazione.
+      // Il confronto si trascina, ma chi non lo intuisce vede un solo
+      // stato e se ne va pensando che sia una figura. Prima c'era una
+      // spinta di due pixel: diceva "sono trascinabile" a chi lo era
+      // gia' sospettato, e nient'altro. Qui invece la maniglia fa il
+      // giro completo una volta sola: scopre il dopo, scopre il prima,
+      // torna al centro. Chi guarda ha visto tutto senza toccare niente.
+      //
+      // Si interrompe al primo tocco: non si contende il cursore con
+      // chi ha gia' deciso di trascinarlo da solo.
+      if (!reduce) {
+        let passataFatta = false;
+        let passataViva = false;
+        const stop = () => { passataViva = false; };
+        ba.addEventListener('pointerdown', stop);
+        if (input) input.addEventListener('input', stop);
+
+        // fuori-dentro-fuori, la stessa curva del resto del sito
+        const dolce = (t) => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+        const tappe = [
+          { a: 50, b: 88, ms: 620 }, { a: 88, b: 88, ms: 260 },
+          { a: 88, b: 14, ms: 820 }, { a: 14, b: 14, ms: 260 },
+          { a: 14, b: 50, ms: 540 }
+        ];
+        const corri = (i) => {
+          if (!passataViva || i >= tappe.length) { passataViva = false; return; }
+          const { a, b, ms } = tappe[i];
+          const t0 = performance.now();
+          const passo = (ora) => {
+            if (!passataViva) return;
+            const k = Math.min(1, (ora - t0) / ms);
+            set(a + (b - a) * dolce(k));
+            if (k < 1) requestAnimationFrame(passo); else corri(i + 1);
+          };
+          requestAnimationFrame(passo);
+        };
+
+        // Quando far partire la passata.
+        // Non basta l'evento scroll e non basta IntersectionObserver:
+        // in certi ambienti l'observer non consegna mai le voci, e lo
+        // scroll puo' avvenire senza che l'evento arrivi su window —
+        // misurato qui, la pagina scorreva di mille pixel con zero
+        // eventi ricevuti. E' lo stesso motivo per cui geoReveal, piu'
+        // sopra, non si fida dello scroll e tiene dei timer di riserva.
+        // Quindi: si ascolta lo scroll perche' e' la via piu' reattiva,
+        // ma la verita' la stabilisce un controllo periodico che parte
+        // comunque. Si spegne da solo appena la passata e' partita.
+        let sonda = null;
+        const provaPassata = () => {
+          if (passataFatta) return;
+          // In una scheda in background requestAnimationFrame non avanza: la
+          // passata partirebbe, brucerebbe il suo unico giro senza disegnare
+          // un fotogramma, e chi apre il link in una scheda di lato non la
+          // vedrebbe mai. Finche' la pagina non e' davvero visibile, la sonda
+          // continua a girare e non consuma niente.
+          if (document.visibilityState === 'hidden') return;
+          const r = ba.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > window.innerHeight * 0.7) return;
+          passataFatta = true;
+          window.removeEventListener('scroll', provaPassata);
+          if (sonda) { clearInterval(sonda); sonda = null; }
+          const t = setTimeout(() => { passataViva = true; corri(0); }, 420);
+          _cleanup.push(() => clearTimeout(t));
+        };
+        window.addEventListener('scroll', provaPassata, { passive: true });
+        sonda = setInterval(provaPassata, 250);
+        _cleanup.push(() => {
+          window.removeEventListener('scroll', provaPassata);
+          if (sonda) clearInterval(sonda);
+        });
+        provaPassata();
+      }
     }
 
-    // ---- il confronto prima/dopo si puo' trascinare, ma nessun segno
-    // lo diceva. Una spinta sola, la prima volta che entra nello
-    // schermo: dopo, il gesto l'ha capito o non lo capira' comunque.
-    const baHandle = document.querySelector('[data-ba-handle]');
-    const baBlocco = document.querySelector('[data-ba-root]');
-    if (baHandle && baBlocco && !reduce) {
-      // Controllo geometrico invece di IntersectionObserver: piu' sopra
-      // c'e' gia' geoReveal per lo stesso motivo, alcuni ambienti non
-      // consegnano mai le voci dell'observer e l'effetto non partirebbe.
-      let suggerito = false;
-      const provaSuggerimento = () => {
-        if (suggerito) return;
-        const r = baBlocco.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > window.innerHeight * 0.75) return;
-        suggerito = true;
-        window.removeEventListener('scroll', provaSuggerimento);
-        const t = setTimeout(() => {
-          baHandle.setAttribute('data-suggerisci', '');
-          setTimeout(() => baHandle.removeAttribute('data-suggerisci'), 1600);
-        }, 420);
-        _cleanup.push(() => clearTimeout(t));
-      };
-      window.addEventListener('scroll', provaSuggerimento, { passive: true });
-      _cleanup.push(() => window.removeEventListener('scroll', provaSuggerimento));
-      provaSuggerimento();
-    }
 
     // ---- form composes a WhatsApp message
     const form = document.querySelector('[data-wa-form]');
