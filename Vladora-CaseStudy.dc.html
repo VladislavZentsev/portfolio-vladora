@@ -216,6 +216,39 @@ html{scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
    ============================================================ */
 ::selection{background:var(--sel-bg);color:var(--sel-fg)}
 
+
+/* ============================================================
+   Transizione fra le due pagine, nativa.
+   Prima la faceva a mano il JS: intercettava il click, sfumava
+   la pagina, aspettava 320ms e poi navigava — con un timeout di
+   sicurezza perche' se la navigazione non partiva la pagina
+   restava a opacita' zero. Il browser sa farlo da solo, meglio:
+   niente attesa artificiale prima di partire, e il nome del
+   progetto vola dalla scheda al titolo del case study invece di
+   sparire e ricomparire.
+
+   Dove non e' supportato (oggi Firefox) non succede niente di
+   male: il link naviga come sempre. Per questo il fade a mano
+   resta nel JS, ma si disattiva da solo quando il browser sa
+   fare di meglio.
+   ============================================================ */
+@view-transition{navigation:auto}
+
+/* il nome del progetto e' lo stesso oggetto nelle due pagine */
+[data-vt="titolo-caso"]{view-transition-name:titolo-caso}
+
+/* La pagina entra ed esce con una scivolata corta, non con un
+   taglio: 220ms, la stessa curva del resto del sito. */
+::view-transition-old(root){animation:vtEsce 180ms var(--ease) both}
+::view-transition-new(root){animation:vtEntra 260ms var(--ease-out) both}
+@keyframes vtEsce{to{opacity:0;transform:translateY(-8px)}}
+@keyframes vtEntra{from{opacity:0;transform:translateY(10px)}}
+
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+  [data-vt="titolo-caso"]{view-transition-name:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   .drawer-link{opacity:1!important;transform:none!important;transition-delay:0ms!important}
 }
@@ -296,7 +329,7 @@ html{scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-7);align-items:end;margin-top:var(--sp-6)">
           <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
             <p data-en="Demonstration project" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:var(--r-pill);padding:5px 11px;align-self:start">Progetto dimostrativo</p>
-            <h1 style="font-family:var(--display);font-size:clamp(40px,7vw,84px);font-weight:500;letter-spacing:-.04em;line-height:.98">chinese-restaurant</h1>
+            <h1 data-vt="titolo-caso" style="font-family:var(--display);font-size:clamp(40px,7vw,84px);font-weight:500;letter-spacing:-.04em;line-height:.98">chinese-restaurant</h1>
           </div>
           <p data-en="A sushi restaurant in Rome. No client brief: we built it to show how we work, and we say so out loud." style="font-size:17.5px;line-height:1.6;color:var(--fg-2);max-width:40ch;justify-self:end;text-wrap:pretty">Un ristorante di sushi a Roma. Nessun brief da cliente: l'abbiamo costruito per mostrare come lavoriamo, e lo diciamo apertamente.</p>
         </div>
@@ -567,7 +600,8 @@ html{scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
     // Il listener sta sul root del componente, non su document, cosi' due
     // artboard montate insieme non si intercettano i click a vicenda.
     const page = document.querySelector('[data-page]');
-    if (page && !reduce) {
+    const vtNativo = CSS.supports('view-transition-name', 'none');
+    if (page && !reduce && !vtNativo) {
       const outMs = parseFloat(getComputedStyle(root).getPropertyValue('--dur-2')) || 320;
       const onNavClick = (e) => {
         if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;

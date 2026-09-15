@@ -447,6 +447,39 @@ html{scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
    ============================================================ */
 ::selection{background:var(--sel-bg);color:var(--sel-fg)}
 
+
+/* ============================================================
+   Transizione fra le due pagine, nativa.
+   Prima la faceva a mano il JS: intercettava il click, sfumava
+   la pagina, aspettava 320ms e poi navigava — con un timeout di
+   sicurezza perche' se la navigazione non partiva la pagina
+   restava a opacita' zero. Il browser sa farlo da solo, meglio:
+   niente attesa artificiale prima di partire, e il nome del
+   progetto vola dalla scheda al titolo del case study invece di
+   sparire e ricomparire.
+
+   Dove non e' supportato (oggi Firefox) non succede niente di
+   male: il link naviga come sempre. Per questo il fade a mano
+   resta nel JS, ma si disattiva da solo quando il browser sa
+   fare di meglio.
+   ============================================================ */
+@view-transition{navigation:auto}
+
+/* il nome del progetto e' lo stesso oggetto nelle due pagine */
+[data-vt="titolo-caso"]{view-transition-name:titolo-caso}
+
+/* La pagina entra ed esce con una scivolata corta, non con un
+   taglio: 220ms, la stessa curva del resto del sito. */
+::view-transition-old(root){animation:vtEsce 180ms var(--ease) both}
+::view-transition-new(root){animation:vtEntra 260ms var(--ease-out) both}
+@keyframes vtEsce{to{opacity:0;transform:translateY(-8px)}}
+@keyframes vtEntra{from{opacity:0;transform:translateY(10px)}}
+
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+  [data-vt="titolo-caso"]{view-transition-name:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   [data-ba-handle][data-suggerisci]{animation:none}
 }
@@ -798,7 +831,7 @@ html{scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
           </div>
           <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
             <p data-en="Demonstration project" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:var(--r-pill);padding:5px 11px;align-self:start">Progetto dimostrativo</p>
-            <h3 style="font-size:26px;font-weight:500;letter-spacing:-.02em">chinese-restaurant</h3>
+            <h3 data-vt="titolo-caso" style="font-size:26px;font-weight:500;letter-spacing:-.02em">chinese-restaurant</h3>
             <p data-en="Sushi restaurant · Rome" style="font-size:14.5px;color:var(--fg-3);font-family:var(--mono);letter-spacing:.04em">Ristorante di sushi · Roma</p>
             <p data-en="Menu, table booking and directions on one page: three taps from Google to a confirmed table." style="font-size:17px;line-height:1.6;color:var(--fg-2);max-width:38ch;text-wrap:pretty">Menu, prenotazione e indicazioni in una pagina: da Google al tavolo confermato in tre tap.</p>
             <p data-en="Read the case study →" style="font-size:15px;color:var(--accent);margin-top:var(--sp-2)">Leggi il case study →</p>
@@ -1272,7 +1305,11 @@ html{scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
     // Il listener sta sul root del componente, non su document, cosi' due
     // artboard montate insieme non si intercettano i click a vicenda.
     const page = document.querySelector('[data-page]');
-    if (page && !reduce) {
+    // se il browser sa fare le transizioni fra documenti, il fade a mano
+    // non serve piu': starebbe solo davanti a quella vera, ritardando
+    // la navigazione di 320ms per niente.
+    const vtNativo = CSS.supports('view-transition-name', 'none');
+    if (page && !reduce && !vtNativo) {
       const outMs = parseFloat(getComputedStyle(root).getPropertyValue('--dur-2')) || 320;
       const onNavClick = (e) => {
         if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
